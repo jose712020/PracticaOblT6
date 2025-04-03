@@ -1,0 +1,1 @@
+# PracticaOblT6
