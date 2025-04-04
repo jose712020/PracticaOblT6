@@ -7,7 +7,6 @@ import utils.Menus;
 import utils.Utils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -518,7 +517,6 @@ public class main {
             }
         }
     }
-
 
     // Funcion que muestra los pedidos que se han realizado
     private static void resumenPedidosAdmin(Controlador controlador) {
@@ -1426,7 +1424,7 @@ public class main {
                     }
                 }
                 if (cliente != null)
-                    Comunicaciones.enviaCorreoPedidoEstado(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
+                    Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
             } else System.out.println("Ha ocurrido un error...");
         }
 
@@ -1471,8 +1469,7 @@ public class main {
                         if (p.getId() == temp.getId()) cliente = c;
                     }
                 }
-                if (cliente != null)
-                    Comunicaciones.enviaCorreoPedidoEstado(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
+                if (cliente != null) Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
             } else System.out.println("Ha ocurrido un error...");
         }
 

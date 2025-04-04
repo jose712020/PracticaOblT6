@@ -151,6 +151,7 @@ public class Controlador {
         int numPedidosMinimo = Integer.MAX_VALUE;
         Trabajador candidato = null;
 
+
         for (Trabajador t : trabajadores) {
             if (t.numPedidosPendientes() < numPedidosMinimo) {
                 numPedidosMinimo = t.numPedidosPendientes();
@@ -289,7 +290,27 @@ public class Controlador {
 
     // Metodo que añade un trabajador a trabajadores
     public boolean nuevoTrabajador(String email, String clave, String nombre, int movil) {
-        return trabajadores.add(new Trabajador(generaIdTrabajador(), nombre, clave, email, movil));
+        boolean bandera = trabajadores.add(new Trabajador(generaIdTrabajador(), nombre, clave, email, movil));
+
+        ArrayList<Pedido> pedidosSinAsignar = pedidosSinTrabajador();
+        Trabajador candidato = buscaTrabajadorCandidatoParaAsignar();
+
+        if (!pedidosSinAsignar.isEmpty() && candidato != null) {
+            for (Pedido p : pedidosSinAsignar) {
+                asignaPedido(p.getId(), candidato.getId());
+            }
+
+
+            for (Pedido pedido : getTodosPedidos()) {
+                for (PedidoClienteDataClass pDataClass : getPedidosAsignadosTrabajador(candidato.getId())) {
+                    if (pedido.getId() == pDataClass.getIdPedido())
+                        Comunicaciones.enviaCorreoPedidoAsignacion(candidato.getEmail(), "ASIGNACIÓN DE PEDIDOS", pDataClass);
+                }
+            }
+
+        }
+
+        return bandera;
     }
 
     // Metodo que añade un cliente a clientes

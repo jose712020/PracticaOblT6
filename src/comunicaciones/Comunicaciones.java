@@ -18,6 +18,7 @@ import java.util.Properties;
 
 
 public class Comunicaciones {
+    // Metodo que le envia un mensaje al telegram del trabajador que se le ha asignado un pedido
     public static boolean enviaMensajeTelegramTrabajador(String mensaje) {
         String direccion; // URL de la API de mi bot en mi conversación
         String fijo = "https://api.telegram.org/bot7933251856:AAGX2oHNIFDQKXDq4PmQbst5v1zBQfddpZY/sendMessage?chat_id=1187949150&text=";
@@ -37,6 +38,7 @@ public class Comunicaciones {
         return dev;  // Devuelvo si ha tenido éxito o no
     }
 
+    // Metodo que envía el token al correo del destinatario
     public static void enviaCorreoToken(String destino, String mensaje, String asunto, String token, String nombreUsuario) {
         //Guardamos la dirección que va a remitir el mensaje
         String emisor = "fernanshopjlmanule@gmail.com";
@@ -198,7 +200,7 @@ public class Comunicaciones {
         }
     }
 
-
+    // Metodo que le asigna un pedido a un trabajador con los datos del cliente tmb
     public static void enviaCorreoPedidoAsignacion(String receptor, String asunto, PedidoClienteDataClass pedido) {
         //Guardamos la dirección que va a remitir el mensaje
         String emisor = "fernanshopjlmanule@gmail.com";
@@ -330,7 +332,8 @@ public class Comunicaciones {
 
     }
 
-    public static void enviaCorreoPedidoEstado(String receptor, String asunto, Pedido pedido) {
+    // Metodo que le envia un correo a un cliente y le indica que el pedido se ha modificado
+    public static void enviaCorreoPedidoEstadoCliente(String receptor, String asunto, Pedido pedido) {
         //Guardamos la dirección que va a remitir el mensaje
         String emisor = "fernanshopjlmanule@gmail.com";
         String usuario = "fernanshopjlmanule@gmail.com";//Usuario para el logueo en el server de correo
@@ -533,6 +536,7 @@ public class Comunicaciones {
 
     }
 
+    // Metodo que le envia un correo a un cliente y le indica que el pedido se ha realizado
     public static void enviaCorreoPedidoCliente(String receptor, String asunto, Pedido pedido) {
         //Guardamos la dirección que va a remitir el mensaje
         String emisor = "fernanshopjlmanule@gmail.com";
