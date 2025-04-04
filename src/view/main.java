@@ -181,18 +181,38 @@ public class main {
     }
 
     // Funcion en el que ves el catálogo
+    private static void verCatalogoAdmin(Controlador controlador) {
+        int cont = 0;
+        for (Producto producto : controlador.getCatalogo()) {
+            System.out.println();
+            System.out.println("╔══════════════════════════════════════════════════════════════════════════════╗");
+            if (producto.getRelevancia() > 9)
+                System.out.println("╠══════════════════════════════ PROMO ESPECIAL ════════════════════════════════╣");
+            System.out.println("║\t- ID: " + producto.getId());
+            System.out.println("║\t- Marca: " + producto.getMarca() + " - Modelo: " + producto.getModelo());
+            System.out.println("║\t- Descripción: " + producto.getDescripcion());
+            System.out.println("║\t- Precio: " + producto.getPrecio());
+            cont++;
+            System.out.println("╚══════════════════════════════════════════════════════════════════════════════╝\n");
+            if (cont == 5) {
+                Utils.pulsaContinuar();
+                cont = 0;
+            }
+        }
+    }
+
+    // Funcion en el que ves el catálogo
     private static void verCatalogo(Controlador controlador) {
         int cont = 0;
         for (Producto producto : controlador.getCatalogo()) {
             System.out.println();
-            System.out.println("============================================================================\n");
-            if (producto.getRelevancia() > 9) System.out.println("************ Promo especial ************");
-            System.out.println("- ID: " + producto.getId());
-            System.out.println("- Marca: " + producto.getMarca() + " - Modelo: " + producto.getModelo());
-            System.out.println("- Descripción: " + producto.getDescripcion());
-            System.out.println("- Precio: " + producto.getPrecio());
+            System.out.println("╔══════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println("║\t- ID: " + producto.getId());
+            System.out.println("║\t- Marca: " + producto.getMarca() + " - Modelo: " + producto.getModelo());
+            System.out.println("║\t- Descripción: " + producto.getDescripcion());
+            System.out.println("║\t- Precio: " + producto.getPrecio());
             cont++;
-            System.out.println("\n============================================================================\n");
+            System.out.println("╚══════════════════════════════════════════════════════════════════════════════╝\n");
             if (cont == 5) {
                 Utils.pulsaContinuar();
                 cont = 0;
@@ -347,7 +367,7 @@ public class main {
                     switch (op) {
                         case "1": //Ver to el catálogo
                             Utils.limpiarpantalla();
-                            verCatalogo(controlador);
+                            verCatalogoAdmin(controlador);
                             Utils.limpiarpantalla();
                             break;
                         case "2": //Editar un producto
