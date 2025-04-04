@@ -63,123 +63,114 @@ public class Comunicaciones {
             // Definir contenido en HTML con CSS
             String contenidoHTML = String.format("""
                     <!DOCTYPE html>
-                                                <html>
+                                                                 <html>
+                                                                 <head>
+                                                                     <meta charset='utf-8'>
+                                                                     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                                                                     <title>CORREOFERNANSHOP</title>
+                                                                     <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                                                     <style>
+                                                                         body {
+                                                                             font-family: 'Arial', sans-serif;
+                                                                             background-color: #f0f2f5;
+                                                                             margin: 0;
+                                                                             padding: 0;
+                                                                             display: flex;
+                                                                             justify-content: center;
+                                                                             align-items: center;
+                                                                             min-height: 100vh;
+                                                                         }
                     
-                                                <head>
-                                                    <meta charset='utf-8'>
-                                                    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-                                                    <title>CORREOFERNANSHOP</title>
-                                                    <meta name='viewport' content='width=device-width, initial-scale=1'>
-                                                    <style>
-                                                        * {
-                                                            background-color: darkslategrey;
-                                                        }
+                                                                         .container {
+                                                                             max-width: 600px;
+                                                                             background-color: #ffffff;
+                                                                             padding: 30px 25px;
+                                                                             border-radius: 12px;
+                                                                             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                                                                             text-align: center;
+                                                                         }
                     
-                                                        #container {
-                                                            width: 600px;
-                                                            margin: auto;
-                                                            height: 497px;
-                                                            background-color: cyan;
-                                                        }
+                                                                         .header {
+                                                                             background: linear-gradient(90deg, #00b4d8, #48cae4);
+                                                                             padding: 15px;
+                                                                             border-radius: 10px 10px 0 0;
+                                                                             color: white;
+                                                                             font-size: 24px;
+                                                                             font-weight: bold;
+                                                                         }
                     
-                                                        #comienzo {
-                                                            height: 50px;
-                                                            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                                                            width: 550px;
-                                                            margin: auto;
-                                                            text-align: center;
-                                                            margin-top: 45px;
-                                                            background-color: cyan;
-                                                        }
+                                                                         .info {
+                                                                             padding: 20px;
+                                                                             background: #f7f9fb;
+                                                                             border-radius: 8px;
+                                                                             margin-top: 20px;
+                                                                         }
                     
-                                                        #comienzo h1 {
-                                                            background-color: black;
-                                                            color: white;
-                                                        }
+                                                                         .info p {
+                                                                             font-size: 18px;
+                                                                             color: #333;
+                                                                             margin: 10px 0;
+                                                                         }
                     
-                                                        #info {
-                                                            height: 150px;
-                                                            width: 300px;
-                                                            margin: auto;
-                                                            background-color: rgb(16, 124, 187);
-                                                        }
+                                                                         .detalles {
+                                                                             font-size: 22px;
+                                                                             font-weight: bold;
+                                                                             color: #ffffff;
+                                                                             background-color: #0077b6;
+                                                                             padding: 12px;
+                                                                             border-radius: 6px;
+                                                                             margin-top: 15px;
+                                                                         }
                     
-                                                        #info p {
-                                                            font-weight: bold;
-                                                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                                                            font-size: 20px;
-                                                            color: black;
-                                                            text-align: center;
-                                                            margin: auto;
-                                                            width: 300px;
-                                                            background-color: white;
-                                                        }
+                                                                         .imagen {
+                                                                             margin-top: 30px;
+                                                                         }
                     
-                                                        img {
-                                                            width: 100px;
-                                                            background-color: cyan;
-                                                        }
+                                                                         .imagen img {
+                                                                             width: 100px;
+                                                                             border-radius: 10px;
+                                                                         }
                     
-                                                        #imagen {
-                                                            width: 100px;
-                                                            margin: auto;
-                                                            margin-top: 60px;
-                                                            background-color: cyan;
-                                                        }
+                                                                         footer {
+                                                                             background-color: #e9ecef;
+                                                                             padding: 20px 10px;
+                                                                             margin-top: 30px;
+                                                                             border-radius: 0 0 12px 12px;
+                                                                         }
                     
-                                                        #detalles {
-                                                            font-weight: bold;
-                                                            font-family: 'Times New Roman', Times, serif;
-                                                            font-size: 45px;
-                                                            color: white;
-                                                            background-color: rgb(16, 124, 187);
-                                                            text-align: center;
-                                                            margin: auto;
-                                                            width: 300px;
-                                                            margin-top: 30px;
-                                                        }
+                                                                         footer h2 {
+                                                                             color: #0077b6;
+                                                                             font-size: 18px;
+                                                                             margin: 5px 0;
+                                                                         }
                     
-                                                        footer{
-                                                            background-color: rgb(223, 216, 216);
-                                                        }
+                                                                         footer h3 {
+                                                                             font-size: 16px;
+                                                                             color: #495057;
+                                                                             margin: 0;
+                                                                         }
+                                                                     </style>
+                                                                 </head>
+                                                                 <body>
+                                                                     <div class="container">
+                                                                         <div class="header">
+                                                                             ¡HOLA, BIENVENIDO %s!
+                                                                         </div>
+                                                                         <div class="info">
+                                                                             <p>%s</p>
+                                                                             <div class="detalles">%s</div>
+                                                                         </div>
+                                                                         <div class="imagen">
+                                                                             <img src="https://static.vecteezy.com/system/resources/previews/014/967/264/non_2x/welcome-sign-illustration-in-minimal-style-png.png" alt="Bienvenida">
+                                                                         </div>
+                                                                         <footer>
+                                                                             <h2>GRACIAS POR USAR NUESTROS SERVICIOS</h2>
+                                                                             <h3>&copy; FERNANSHOP2025</h3>
+                                                                         </footer>
+                                                                     </div>
+                                                                 </body>
+                                                                 </html>
                     
-                                                        footer h2 {
-                                                            background-color: aliceblue;
-                                                            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-                                                            color: blue;
-                                                            font-size: 20px;
-                                                            text-align: center;
-                                                        }
-                    
-                                                        footer h3 {
-                                                            background-color: aliceblue;
-                                                            font-size: 50px;
-                                                            text-align: center;
-                                                            font-family: sans-serif;
-                                                        }
-                                                    </style>
-                                                </head>
-                    
-                                                <body>
-                                                    <div id="container">
-                                                        <div id="comienzo">
-                                                            <h1>¡HOLA, BIENVENIDO %s!</h1>
-                                                        </div>
-                                                        <div id="info">
-                                                            <p>%s</p>
-                                                            <h2 id="detalles">%s</h2>
-                                                        </div>
-                                                        <div id="imagen">
-                                                            <img src=https://static.vecteezy.com/system/resources/previews/014/967/264/non_2x/welcome-sign-illustration-in-minimal-style-png.png>
-                                                        </div>
-                                                        <footer>
-                                                            <h2>GRACIAS POR USAR NUESTROS SERVICIOS</h2>
-                                                            <h3>&copy;FERNANSHOP2025</h3>
-                                                        </footer>
-                                                    </div>
-                                                </body>
-                    
-                                                </html>
                     """, nombreUsuario, mensaje, token);
 
             //Creamos un mensaje de correo por defecto
@@ -356,165 +347,105 @@ public class Comunicaciones {
         try {
             // Definir contenido en HTML con CSS
             String contenidoHTML = String.format("""
-                        <!DOCTYPE html>
-                                                       <html>
-                                                       <head>
-                                                           <meta charset='utf-8'>
-                                                           <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-                                                           <title>CORREOFERNANSHOP</title>
-                                                           <meta name='viewport' content='width=device-width, initial-scale=1'>
-                                                           <style>
-                                                               #container {
-                                                                   background-color: cyan;
-                                                               }
-                                                             \s
-                                                               * {
-                                                                   background-color: darkslategrey;
-                                                               }
-                                           \s
-                                                               #comienzo {
-                                                                   height: 50px;
-                                                                   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                                                                   width: 550px;
-                                                                   margin: auto;
-                                                                   text-align: center;
-                                                                   margin-top: 45px;
-                                                                   background-color: cyan;
-                                                               }
-                                           \s
-                                                               #comienzo h1 {
-                                                                   background-color: black;
-                                                                   color: white;
-                                                               }
-                                           \s
-                                                               #info {
-                                                                    height: fit-content;
-                                                                   width: 500px;
-                                                                   margin: auto;
-                                                                   background-color: rgb(16, 124, 187);
-                                                               }
-                                           \s
-                                                               #info p {
-                                                                   font-weight: bold;
-                                                                   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                                                                   font-size: 20px;
-                                                                   color: black;
-                                                                   text-align: center;
-                                                                   margin: auto;
-                                                                   width: 500px;
-                                                                   background-color: white;
-                                                               }
-                                           \s
-                                                               img {
-                                                                   width: 100px;
-                                                                   background-color: cyan;
-                                                               }
-                                           \s
-                                                               #imagen {
-                                                                   width: 100px;
-                                                                   margin: auto;
-                                                                   margin-top: 60px;
-                                                                   background-color: cyan;
-                                                               }
-                                           \s
-                                                               #detalles {
-                                                                   font-weight: bold;
-                                                                   font-family: 'Times New Roman', Times, serif;
-                                                                   color: white;
-                                                                   background-color: rgb(16, 124, 187);
-                                                                   text-align: center;
-                                                                   margin: auto;
-                                                                   width: 500px;
-                                                                   margin-top: 30px;
-                                                               }
-                                           \s
-                                                               footer {
-                                                                   background-color: rgb(223, 216, 216);
-                                                               }
-                                           \s
-                                                               footer h2 {
-                                                                   background-color: aliceblue;
-                                                                   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-                                                                   color: blue;
-                                                                   font-size: 20px;
-                                                                   text-align: center;
-                                                               }
-                                           \s
-                                                               footer h3 {
-                                                                   background-color: aliceblue;
-                                                                   font-size: 50px;
-                                                                   text-align: center;
-                                                                   font-family: sans-serif;
-                                                               }
-                                           \s
-                                                               /*#container{
-                                                                    background-color: black;
-                                                                }
-                                           \s
-                                                                #comienzo{
-                                                                    height: 70px;
-                                                                    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                                                                    width: 550px;
-                                                                    margin: auto;
-                                                                    background-color: darkcyan;
-                                                                    text-align: center;
-                                                                }
-                                           \s
-                                                                #info h1{
-                                                                    width: 115px;
-                                                                    background-color: skyblue;
-                                                                }
-                                           \s
-                                                                #info p{
-                                                                    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-                                                                    font-size: 30px;
-                                                                    color: white;
-                                                                    background-color: black;
-                                                                    text-align: center;
-                                                                    margin: auto;
-                                                                    width: 550px;
-                                                                }
-                                           \s
-                                                                #detalles{
-                                                                    font-weight: bold;
-                                                                    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-                                                                    color: black;
-                                                                    background-color: white;
-                                                                    text-align: center;
-                                                                    margin: auto;
-                                                                    width: 550px;
-                                                                }
-                                           \s
-                                                                footer{
-                                                                    background-color: darkcyan;
-                                                                    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-                                                                    border: 2px black dashed;
-                                                                    text-align: center;
-                                                                    width: 550px;
-                                                                    margin: auto;
-                                                                }*/
-                                                           </style>
-                                                       </head>
-                                                       <body>
-                                                           <div id="container">
-                                                                   <div id="comienzo">
-                                                                       <h1>¡HOLA!</h1>
-                                                                   </div>
-                                                                   <div id="info">
-                                                                       <p>¡Su pedido ha sido modificado!</p>
-                                                                       <p>Detalles del pedido:</p>
-                                                                       <h2 id="detalles">%s</h2>
-                                                                   </div>
-                                                                   <div id="imagen">
-                                                                       <img src= "https://static.vecteezy.com/system/resources/previews/014/769/501/non_2x/online-order-system-line-icon-vector.jpg">
-                                                                   </div>
-                                                                   <footer>
-                                                                       <h2>GRACIAS POR USAR NUESTROS SERVICIOS</h2>
-                                                                       <h3>&copy;FERNANSHOP2025</h3>
-                                                                   </footer>
-                                                               </div>
-                                                       </body>
-                                                       </html>
+                    <!DOCTYPE html>
+                                                                               <html>
+                                                                               <head>
+                                                                                   <meta charset='utf-8'>
+                                                                                   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                                                                                   <title>CORREOFERNANSHOP</title>
+                                                                                   <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                                                                   <style>
+                                                                                       body {
+                                                                                           font-family: 'Arial', sans-serif;
+                                                                                           background-color: #f4f4f4;
+                                                                                           margin: 0;
+                                                                                           padding: 0;
+                                                                                           display: flex;
+                                                                                           justify-content: center;
+                                                                                           align-items: center;
+                                                                                           min-height: 100vh;
+                                                                                       }
+                                                                                       .container {
+                                                                                           max-width: 600px;
+                                                                                           background: #ffffff;
+                                                                                           padding: 20px;
+                                                                                           border-radius: 12px;
+                                                                                           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+                                                                                           text-align: center;
+                                                                                       }
+                                                                                       .header {
+                                                                                           background: linear-gradient(90deg, #007BFF, #00C6FF);
+                                                                                           padding: 15px;
+                                                                                           border-radius: 12px 12px 0 0;
+                                                                                           color: white;
+                                                                                           font-size: 24px;
+                                                                                           font-weight: bold;
+                                                                                       }
+                                                                                       .info {
+                                                                                           padding: 20px;
+                                                                                           background: #f9f9f9;
+                                                                                           border-radius: 8px;
+                                                                                           margin-top: 15px;
+                                                                                       }
+                                                                                       .info p {
+                                                                                           font-size: 18px;
+                                                                                           color: #333;
+                                                                                           margin: 10px 0;
+                                                                                       }
+                                                                                       .detalles {
+                                                                                           font-weight: bold;
+                                                                                           color: white;
+                                                                                           background: #007BFF;
+                                                                                           padding: 12px;
+                                                                                           border-radius: 5px;
+                                                                                           margin-top: 15px;
+                                                                                           font-size: 18px;
+                                                                                       }
+                                                                                       .imagen {
+                                                                                           margin-top: 30px;
+                                                                                       }
+                                                                                       .imagen img {
+                                                                                           width: 100px;
+                                                                                           border-radius: 8px;
+                                                                                       }
+                                                                                       footer {
+                                                                                           background: #e0e0e0;
+                                                                                           padding: 15px;
+                                                                                           margin-top: 25px;
+                                                                                           border-radius: 0 0 12px 12px;
+                                                                                       }
+                                                                                       footer h2 {
+                                                                                           color: #007BFF;
+                                                                                           font-size: 20px;
+                                                                                           margin: 5px 0;
+                                                                                       }
+                                                                                       footer h3 {
+                                                                                           font-size: 16px;
+                                                                                           color: #555;
+                                                                                       }
+                                                                                   </style>
+                                                                               </head>
+                                                                               <body>
+                                                                                   <div class="container">
+                                                                                       <div class="header">
+                                                                                           ¡HOLA!
+                                                                                       </div>
+                                                                                       <div class="info">
+                                                                                           <p>¡Su pedido ha sido modificado!</p>
+                                                                                           <p><strong>Detalles del pedido:</strong></p>
+                                                                                           <div class="detalles">%s</div>
+                                                                                       </div>
+                                                                                       <div class="imagen">
+                                                                                           <img src="https://static.vecteezy.com/system/resources/previews/014/769/501/non_2x/online-order-system-line-icon-vector.jpg" alt="Icono de pedido online">
+                                                                                       </div>
+                                                                                       <footer>
+                                                                                           <h2>GRACIAS POR USAR NUESTROS SERVICIOS</h2>
+                                                                                           <h3>&copy; FERNANSHOP 2025</h3>
+                                                                                       </footer>
+                                                                                   </div>
+                                                                               </body>
+                                                                               </html>
+                    
                     """, pedido.pintaPedidoCorreo());
 
             //Creamos un mensaje de correo por defecto
@@ -560,120 +491,237 @@ public class Comunicaciones {
         try {
             // Definir contenido en HTML con CSS
             String contenidoHTML = String.format("""
-                        <!DOCTYPE html>
-                                                       <html>
-                                                       <head>
-                                                           <meta charset='utf-8'>
-                                                           <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-                                                           <title>CORREOFERNANSHOP</title>
-                                                           <meta name='viewport' content='width=device-width, initial-scale=1'>
-                                                           <style>
-                                                               #container {
-                                                                   background-color: cyan;
-                                                               }
-                                                             \s
-                                                               * {
-                                                                   background-color: darkslategrey;
-                                                               }
-                                           \s
-                                                               #comienzo {
-                                                                   height: 50px;
-                                                                   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                                                                   width: 550px;
-                                                                   margin: auto;
-                                                                   text-align: center;
-                                                                   margin-top: 45px;
-                                                                   background-color: cyan;
-                                                               }
-                                           \s
-                                                               #comienzo h1 {
-                                                                   background-color: black;
-                                                                   color: white;
-                                                               }
-                                           \s
-                                                               #info {
-                                                                   height: fit-content;
-                                                                   width: 700px;
-                                                                   margin: auto;
-                                                                   background-color: rgb(16, 124, 187);
-                                                               }
-                                           \s
-                                                               #info p {
-                                                                   font-weight: bold;
-                                                                   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                                                                   font-size: 20px;
-                                                                   color: black;
-                                                                   text-align: center;
-                                                                   margin: auto;
-                                                                   width: 500px;
-                                                                   background-color: white;
-                                                               }
-                                           \s
-                                                               img {
-                                                                   width: 100px;
-                                                                   background-color: cyan;
-                                                               }
-                                           \s
-                                                               #imagen {
-                                                                   width: 100px;
-                                                                   margin: auto;
-                                                                   margin-top: 25px;
+                     <!DOCTYPE html>
+                                                          <html>
+                                                          <head>
+                                                              <meta charset='utf-8'>
+                                                              <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                                                              <title>CORREOFERNANSHOP</title>
+                                                              <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                                              <style>
+                                                                  body {
+                                                                      font-family: 'Arial', sans-serif;
+                                                                      background-color: #f4f4f4;
+                                                                      margin: 0;
+                                                                      padding: 0;
+                                                                      display: flex;
+                                                                      justify-content: center;
+                                                                      align-items: center;
+                                                                      min-height: 100vh;
+                                                                  }
+                                                                  .container {
+                                                                      max-width: 600px;
+                                                                      background: #ffffff;
+                                                                      padding: 20px;
+                                                                      border-radius: 12px;
+                                                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+                                                                      text-align: center;
+                                                                  }
+                                                                  .header {
+                                                                      background: linear-gradient(90deg, #007BFF, #00C6FF);
+                                                                      padding: 15px;
+                                                                      border-radius: 12px 12px 0 0;
+                                                                      color: white;
+                                                                      font-size: 24px;
+                                                                      font-weight: bold;
+                                                                  }
+                                                                  .info {
+                                                                      padding: 20px;
+                                                                      background: #f9f9f9;
+                                                                      border-radius: 8px;
+                                                                      margin-top: 15px;
+                                                                  }
+                                                                  .info p {
+                                                                      font-size: 18px;
+                                                                      color: #333;
+                                                                      margin: 10px 0;
+                                                                  }
+                                                                  .detalles {
+                                                                      font-weight: bold;
+                                                                      color: white;
+                                                                      background: #007BFF;
+                                                                      padding: 12px;
+                                                                      border-radius: 5px;
+                                                                      margin-top: 15px;
+                                                                      font-size: 18px;
+                                                                  }
+                                                                  .imagen {
+                                                                      margin-top: 30px;
+                                                                  }
+                                                                  .imagen img {
+                                                                      width: 100px;
+                                                                      border-radius: 8px;
+                                                                  }
+                                                                  footer {
+                                                                      background: #e0e0e0;
+                                                                      padding: 15px;
+                                                                      margin-top: 25px;
+                                                                      border-radius: 0 0 12px 12px;
+                                                                  }
+                                                                  footer h2 {
+                                                                      color: #007BFF;
+                                                                      font-size: 20px;
+                                                                      margin: 5px 0;
+                                                                  }
+                                                                  footer h3 {
+                                                                      font-size: 16px;
+                                                                      color: #555;
+                                                                  }
+                                                              </style>
+                                                          </head>
+                                                          <body>
+                                                              <div class="container">
+                                                                  <div class="header">
+                                                                      ¡HOLA!
+                                                                  </div>
+                                                                  <div class="info">
+                                                                      <p>¡Ha realizado un pedido nuevo!</p>
+                                                                      <p><strong>Detalles del pedido:</strong></p>
+                                                                      <div class="detalles">%s</div>
+                                                                  </div>
+                                                                  <div class="imagen">
+                                                                      <img src="https://cdn-icons-png.flaticon.com/512/6463/6463788.png" alt="Nuevo pedido">
+                                                                  </div>
+                                                                  <footer>
+                                                                      <h2>GRACIAS POR USAR NUESTROS SERVICIOS</h2>
+                                                                      <h3>&copy; FERNANSHOP 2025</h3>
+                                                                  </footer>
+                                                              </div>
+                                                          </body>
+                                                          </html>
                     
-                                                                   background-color: cyan;
-                                                               }
-                                           \s
-                                                               #detalles {
-                                                                   font-weight: bold;
-                                                                   font-family: 'Times New Roman', Times, serif;
-                                                                   color: white;
-                                                                   background-color: rgb(16, 124, 187);
-                                                                   text-align: center;
-                                                                   margin: auto;
-                                                                   width: 700px;
-                                                                   height: fit-content;
-                                                                   margin-top: 30px;
-                                                               }
-                                           \s
-                                                               footer {
-                                                                   background-color: rgb(223, 216, 216);
-                                                               }
-                                           \s
-                                                               footer h2 {
-                                                                   background-color: aliceblue;
-                                                                   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-                                                                   color: blue;
-                                                                   font-size: 20px;
-                                                                   text-align: center;
-                                                               }
-                                           \s
-                                                               footer h3 {
-                                                                   background-color: aliceblue;
-                                                                   font-size: 50px;
-                                                                   text-align: center;
-                                                                   font-family: sans-serif;
-                                                               }
-                                                           </style>
-                                                       </head>
-                                                       <body>
-                                                           <div id="container">
-                                                                   <div id="comienzo">
-                                                                       <h1>¡HOLA!</h1>
-                                                                   </div>
-                                                                   <div id="info">
-                                                                       <p>¡Ha realizado un pedido nuevo!</p>
-                                                                       <p>Detalles del pedido:</p>
-                                                                       <h2 id="detalles">%s</h2>
-                                                                   </div>
-                                                                   <div id="imagen">
-                                                                        <img src="https://cdn-icons-png.flaticon.com/512/6463/6463788.png">
-                                                                   </div>
-                                                                   <footer>
-                                                                       <h2>GRACIAS POR USAR NUESTROS SERVICIOS</h2>
-                                                                       <h3>&copy;FERNANSHOP2025</h3>
-                                                                   </footer>
-                                                               </div>
-                                                       </body>
-                                                       </html>
+                    """, pedido.pintaPedidoCorreo());
+
+            //Creamos un mensaje de correo por defecto
+            Message message = new MimeMessage(session);
+            //En el mensaje, establecemos el emisor con los datos pasado sa la función
+            message.setFrom(new InternetAddress(emisor));
+            //En el mensaje, establecemos el receptor
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receptor));
+            //Establecemos el Asunto
+            message.setSubject(asunto);
+            //Añadimos el contenido del mensaje
+            //message.setText(mensaje); Si solo mandamos texto
+            message.setContent(contenidoHTML, "text/html; charset=utf-8");
+            //Intentamos mandar el mensaje
+            Transport.send(message);
+        } catch (Exception e) {
+            System.out.println("El correo introducido no es válido");
+        }
+
+    }
+
+    // Metodo que le asigna un pedido a un trabajador con los datos del cliente tmb
+    public static void enviaCorreoCambiaEstadoPedidoTrabajador(String receptor, String asunto, PedidoClienteDataClass pedido) {
+        //Guardamos la dirección que va a remitir el mensaje
+        String emisor = "fernanshopjlmanule@gmail.com";
+        String usuario = "fernanshopjlmanule@gmail.com";//Usuario para el logueo en el server de correo
+        String clave = "sfkmqvpupcjjahcg";//Clave del usuario de correo
+        //Host del servidor de correo
+        String host = "smtp.gmail.com";
+        //Creamos nuestra variable de propiedades con los datos de nuestro servidor de correo
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+        //Obtenemos la sesión en nuestro servidor de correo
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            @Override
+            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(usuario, clave);
+            }
+        });
+        try {
+            // Definir contenido en HTML con CSS
+            String contenidoHTML = String.format("""
+                    <!DOCTYPE html>
+                      <html>
+                      <head>
+                          <meta charset='utf-8'>
+                          <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                          <title>CORREOFERNANSHOP</title>
+                          <meta name='viewport' content='width=device-width, initial-scale=1'>
+                          <style>
+                              body {
+                                  font-family: 'Arial', sans-serif;
+                                  background-color: #f4f4f4;
+                                  margin: 0;
+                                  padding: 0;
+                                  display: flex;
+                                  justify-content: center;
+                                  align-items: center;
+                                  height: 100vh;
+                              }
+                              .container {
+                                  max-width: 600px;
+                                  background: #ffffff;
+                                  padding: 20px;
+                                  border-radius: 10px;
+                                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                                  text-align: center;
+                              }
+                              .header {
+                                  background: linear-gradient(90deg, #007BFF, #00C6FF);
+                                  padding: 15px;
+                                  border-radius: 10px 10px 0 0;
+                                  color: white;
+                                  font-size: 24px;
+                                  font-weight: bold;
+                              }
+                              .info {
+                                  padding: 20px;
+                                  background: #f9f9f9;
+                                  border-radius: 5px;
+                                  margin-top: 15px;
+                              }
+                              .info p {
+                                  font-size: 18px;
+                                  color: #333;
+                              }
+                              .detalles {
+                                  font-weight: bold;
+                                  color: white;
+                                  background: #007BFF;
+                                  padding: 12px;
+                                  border-radius: 5px;
+                                  margin-top: 15px;
+                                  font-size: 18px;
+                              }
+                              footer {
+                                  background: #e0e0e0;
+                                  padding: 15px;
+                                  margin-top: 20px;
+                                  border-radius: 0 0 10px 10px;
+                              }
+                              footer h2 {
+                                  color: #007BFF;
+                                  font-size: 20px;
+                                  margin: 5px 0;
+                              }
+                              footer h3 {
+                                  font-size: 16px;
+                                  color: #555;
+                              }
+                          </style>
+                      </head>
+                      <body>
+                          <div class="container">
+                              <div class="header">
+                                  ¡Hola!
+                              </div>
+                              <div class="info">
+                                  <p>Se ha modificado un pedido asignado.</p>
+                                  <p><strong>Detalles del pedido:</strong></p>
+                                  <div class="detalles">%s</div>
+                              </div>
+                              <footer>
+                                  <h2>Gracias por usar nuestros servicios</h2>
+                                  <h3>&copy; FERNANSHOP 2025</h3>
+                              </footer>
+                          </div>
+                      </body>
+                      </html>
                     """, pedido.pintaPedidoCorreo());
 
             //Creamos un mensaje de correo por defecto

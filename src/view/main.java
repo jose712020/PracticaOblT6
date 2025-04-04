@@ -759,8 +759,14 @@ public class main {
                     ╔════════════════════════════════════════════════════╗
                     ║                      CARRITO                       ║
                     ╚════════════════════════════════════════════════════╝""");
+
+            // TODO arreglar que no se repita un pedido
             for (Producto p : cliente.getCarro()) {
-                System.out.println("\t- " + p.getMarca() + " - " + p.getModelo() + " (" + p.getPrecio() + ")");
+                int contProducto = 0;
+                for (Producto productoRepetido : cliente.getCarro()) {
+                    if (p.getId() == productoRepetido.getId()) contProducto++;
+                }
+                System.out.println("\t- " + p.getMarca() + " - " + p.getModelo() + " (" + p.getPrecio() + ") (" + (contProducto) + ")");
             }
 
             System.out.printf("Total con IVA: %.2f\n", cliente.precioCarroSinIva(Utils.IVA));
@@ -1022,25 +1028,22 @@ public class main {
             }
         } while (telefonoTeclado == -2);
 
-        cliente.setNombre(nombreTeclado);
-        cliente.setClave(contraTeclado);
-        cliente.setEmail(correoTeclado);
-        if (!localidadTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(localidadTeclado);
-        if (!provinciaTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(provinciaTeclado);
-        if (!direccionTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(direccionTeclado);
-        if (telefonoTeclado != -1) cliente.setMovil(telefonoTeclado);
+        if (!Controlador.modificaDatosPersonalesCliente(nombreTeclado, contraTeclado, correoTeclado, localidadTeclado,
+                provinciaTeclado, direccionTeclado, telefonoTeclado, cliente))
+            System.out.println("Ha ocurrido un error...");
+        else {
+            //Generamos el token después de la modificación de datos
+            String token = controlador.generaToken(cliente);
+            // Le mandamos el correo con el token
+            Comunicaciones.enviaCorreoToken(cliente.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + cliente.getNombre() + ", " +
+                    "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, cliente.getNombre());
 
-        //Generamos el token después de la modificación de datos
-        String token = controlador.generaToken(cliente);
-        // Le mandamos el correo con el token
-        Comunicaciones.enviaCorreoToken(cliente.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + cliente.getNombre() + ", " +
-                "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, cliente.getNombre());
-
-        System.out.println("Tus datos han sido modificados...");
-        Utils.pulsaContinuar();
-        Utils.limpiarpantalla();
-        // Hacemos que introduzca el token nuevo, ya que ha cambiado sus datos personales
-        compruebaToken(controlador, cliente);
+            System.out.println("Tus datos han sido modificados...");
+            Utils.pulsaContinuar();
+            Utils.limpiarpantalla();
+            // Hacemos que introduzca el token nuevo, ya que ha cambiado sus datos personales
+            compruebaToken(controlador, cliente);
+        }
     }
 
     private static void pintaPerfilCliente(Cliente c) {
@@ -1102,7 +1105,7 @@ public class main {
 
                 if (respuesta.equalsIgnoreCase("N")) System.out.println("Cancelando baja...");
                 else if (respuesta.equalsIgnoreCase("S")) {
-                    if (temp.numPedidosPendientes() == 0 && controlador.getTrabajadores().remove(temp)) {
+                    if (temp.numPedidosPendientes() == 0 && controlador.borraTrabajador(temp)) {
                         System.out.println("Dado de baja correctamente...");
 
                         ArrayList<Pedido> pedidosSinAsignar = controlador.pedidosSinTrabajador();
@@ -1119,6 +1122,7 @@ public class main {
                                         Comunicaciones.enviaCorreoPedidoAsignacion(candidato.getEmail(), "ASIGNACIÓN DE PEDIDOS", pDataClass);
                                 }
                             }
+
                         }
                     } else System.out.println("No se ha podido borrar el trabajador...");
                 } else System.out.println("Respuesta incorrecta...");
@@ -1223,13 +1227,26 @@ public class main {
 
     // Funcion que pide los datos para crear un nuevo trabajador
     private static void altaTrabajador(Controlador controlador) {
+        boolean bandera = false;
+
         System.out.print("Introduce el nombre del nuevo trabajador: ");
         String nombreTeclado = S.nextLine();
         System.out.print("Introduce la clave del nuevo trabajador: ");
         String pass = S.nextLine();
         String email = compruebaCorreo(controlador);
-        System.out.print("Introduce el móvil del trabajador: ");
-        int movil = Integer.parseInt(S.nextLine());
+
+        int movil = 0;
+        do {
+            System.out.print("Introduce el móvil del trabajador: ");
+            try {
+                movil = Integer.parseInt(S.nextLine());
+                bandera = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Debes introducer números...");
+                Utils.pulsaContinuar();
+                Utils.limpiarpantalla();
+            }
+        } while (!bandera);
 
         if (controlador.nuevoTrabajador(email, pass, nombreTeclado, movil)) {
             System.out.println("Trabajador dado de alta correctamente...");
@@ -1267,22 +1284,21 @@ public class main {
             }
         } while (telefonoTeclado == -2);
 
-        trabajador.setNombre(nombreTeclado);
-        trabajador.setPass(contraTeclado);
-        trabajador.setEmail(correoTeclado);
-        if (telefonoTeclado != -1) trabajador.setMovil(telefonoTeclado);
+        if (!Controlador.modificaDatosPersonalesTrabajador(nombreTeclado, contraTeclado, correoTeclado, telefonoTeclado, trabajador))
+            System.out.println("Ha ocurrido un error...");
+        else {
+            //Generamos el token después de la modificación de datos
+            String token = controlador.generaToken(trabajador);
+            // Le mandamos el correo con el token
+            Comunicaciones.enviaCorreoToken(trabajador.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + trabajador.getNombre() + ", " +
+                    "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, trabajador.getNombre());
 
-        //Generamos el token después de la modificación de datos
-        String token = controlador.generaToken(trabajador);
-        // Le mandamos el correo con el token
-        Comunicaciones.enviaCorreoToken(trabajador.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + trabajador.getNombre() + ", " +
-                "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, trabajador.getNombre());
-
-        System.out.println("Tus datos han sido modificados...");
-        Utils.pulsaContinuar();
-        Utils.limpiarpantalla();
-        // Hacemos que introduzca el token nuevo, ya que ha cambiado sus datos personales
-        compruebaToken(controlador, trabajador);
+            System.out.println("Tus datos han sido modificados...");
+            Utils.pulsaContinuar();
+            Utils.limpiarpantalla();
+            // Hacemos que introduzca el token nuevo, ya que ha cambiado sus datos personales
+            compruebaToken(controlador, trabajador);
+        }
     }
 
     // Funcion que crea un correo con sus validaciones
@@ -1360,43 +1376,70 @@ public class main {
 
         if (temp == null) System.out.println("No se ha encontrado ningún pedido...");
         else {
-            int dia = -1, mes = -1, anio = -1;
-
-            do {
-                System.out.print("Introduce el día de la nueva fecha: ");
-                try {
-                    dia = Integer.parseInt(S.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("Introduzca un valor numérico...");
-                    Utils.pulsaContinuar();
-                    Utils.limpiarpantalla();
+            LocalDate nuevaFecha = nuevaFecha();
+            if (!temp.cambiaFechaEntrega(nuevaFecha)) System.out.println("Ha ocurrido un error...");
+            else {
+                System.out.println("Fecha actualizada correctamente");
+                for (Cliente c : controlador.getClientes()) {
+                    for (Pedido p : c.getPedidos()) {
+                        if (p.getId() == temp.getId())
+                            Comunicaciones.enviaCorreoPedidoEstadoCliente(c.getEmail(), "PEDIDO MODIFICADO", temp);
+                    }
                 }
-            } while (dia == -1);
+                enviaCorreoPedidoModificidoTrabajador(controlador, temp);
+            }
+        }
+    }
 
-            do {
-                System.out.print("Introduce el mes de la nueva fecha: ");
-                try {
-                    mes = Integer.parseInt(S.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("Introduzca un valor numérico...");
-                    Utils.pulsaContinuar();
-                    Utils.limpiarpantalla();
+    // Funcion que devuelve una fecha
+    private static LocalDate nuevaFecha() {
+        int dia = -1, mes = -1, anio = -1;
+
+        do {
+            System.out.print("Introduce el día de la nueva fecha: ");
+            try {
+                dia = Integer.parseInt(S.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Introduzca un valor numérico...");
+                Utils.pulsaContinuar();
+                Utils.limpiarpantalla();
+            }
+        } while (dia == -1);
+
+        do {
+            System.out.print("Introduce el mes de la nueva fecha: ");
+            try {
+                mes = Integer.parseInt(S.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Introduzca un valor numérico...");
+                Utils.pulsaContinuar();
+                Utils.limpiarpantalla();
+            }
+        } while (mes == -1);
+
+        do {
+            System.out.print("Introduce el año de la nueva fecha: ");
+            try {
+                anio = Integer.parseInt(S.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Introduzca un valor numérico...");
+                Utils.pulsaContinuar();
+                Utils.limpiarpantalla();
+            }
+        } while (anio == -1);
+
+        return LocalDate.of(anio, mes, dia);
+    }
+
+    // Funcion que le envia al correo del trabajador la modificacion de un pedido
+    private static void enviaCorreoPedidoModificidoTrabajador(Controlador controlador, Pedido temp) {
+        if (!controlador.getTrabajadores().isEmpty()) {
+            for (Trabajador t : controlador.getTrabajadores()) {
+                for (PedidoClienteDataClass p : controlador.getPedidosAsignadosTrabajador(t.getId())) {
+                    if (temp.getId() == p.getIdPedido())
+                        Comunicaciones.enviaCorreoCambiaEstadoPedidoTrabajador(t.getEmail(), "PEDIDO MODIFICADO", p);
                 }
-            } while (mes == -1);
-
-            do {
-                System.out.print("Introduce el año de la nueva fecha: ");
-                try {
-                    anio = Integer.parseInt(S.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("Introduzca un valor numérico...");
-                    Utils.pulsaContinuar();
-                    Utils.limpiarpantalla();
-                }
-            } while (anio == -1);
-
-            LocalDate nuevaFecha = LocalDate.of(anio, mes, dia);
-            System.out.println(temp.cambiaFechaEntrega(nuevaFecha) ? "Fecha actualizada correctamente" : "Ha ocurrido un error...");
+            }
         }
     }
 
@@ -1426,6 +1469,7 @@ public class main {
         else {
             System.out.print("Introduce el comentario para el pedido: ");
             String comentarioTeclado = S.nextLine();
+
             // Le enviamos al cliente que su correo ha sido modificado
             if (controlador.cambiaComentarioPedido(temp.getId(), comentarioTeclado)) {
                 System.out.println("Se ha añido un comentario al pedido correctamente...");
@@ -1437,6 +1481,8 @@ public class main {
                 }
                 if (cliente != null)
                     Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
+
+                enviaCorreoPedidoModificidoTrabajador(controlador, temp);
             } else System.out.println("Ha ocurrido un error...");
         }
 
@@ -1445,6 +1491,7 @@ public class main {
     // Funcion que modifica el estado de un pedido
     private static void modificaEstadoPedido(Controlador controlador, Trabajador trabajador, Admin admin) {
         Pedido temp = null;
+
         if (trabajador != null) temp = seleccionaPedidoTrabajador(controlador, trabajador);
         if (admin != null) temp = seleccionaPedidoAdmin(controlador, admin);
 
@@ -1454,7 +1501,7 @@ public class main {
             boolean continuar = false;
             pintaPedidoUnico(temp);
             do {
-                System.out.println("""
+                System.out.print("""
                         Selecciona el nuevo estado:
                         1. En preparación
                         2. Enviado
@@ -1483,6 +1530,8 @@ public class main {
                 }
                 if (cliente != null)
                     Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
+
+                enviaCorreoPedidoModificidoTrabajador(controlador, temp);
             } else System.out.println("Ha ocurrido un error...");
         }
 
@@ -1509,10 +1558,7 @@ public class main {
 
         if (pedidoElegido == null) return null;
 
-        Pedido pedidoTemp = controlador.buscaPedidoById(pedidoElegido.getId());
-
-        if (pedidoTemp == null) return null;
-        return pedidoTemp;
+        return controlador.buscaPedidoById(pedidoElegido.getId());
     }
 
     // Funcion que pinta un pedido sin data
@@ -1570,6 +1616,7 @@ public class main {
         float precioTeclado = -2;
         boolean bandera = false;
 
+
         System.out.print("Selecciona la ID del producto: ");
         try {
             id = Integer.parseInt(S.nextLine());
@@ -1601,17 +1648,11 @@ public class main {
                 }
             } while (!bandera);
 
-            if (!marcaTeclado.equalsIgnoreCase("no")) producto.setMarca(marcaTeclado);
-            else marcaTeclado = producto.getMarca();
-            if (!modeloTeclado.equalsIgnoreCase("no")) producto.setModelo(modeloTeclado);
-            else modeloTeclado = producto.getModelo();
-            if (!descripcionTeclado.equalsIgnoreCase("no")) producto.setDescripcion(descripcionTeclado);
-            else descripcionTeclado = producto.getDescripcion();
-            if (precioTeclado != -1) producto.setPrecio(precioTeclado);
-            else precioTeclado = producto.getPrecio();
-
-            Producto modificado = new Producto(producto.getId(), marcaTeclado, modeloTeclado, descripcionTeclado,
-                    precioTeclado, producto.getRelevancia());
+            Producto modificado = new Producto(producto.getId(),
+                    ((!marcaTeclado.equalsIgnoreCase("no")) ? marcaTeclado : producto.getMarca()),
+                    ((!modeloTeclado.equalsIgnoreCase("no")) ? modeloTeclado : producto.getModelo()),
+                    ((!descripcionTeclado.equalsIgnoreCase("no")) ? descripcionTeclado : producto.getDescripcion()),
+                    ((precioTeclado < 0) ? producto.getPrecio() : precioTeclado), producto.getRelevancia());
 
             if (controlador.editarProducto(modificado)) System.out.println("Producto modificado con éxito...");
             else System.out.println("Ha ocurrido un error...");

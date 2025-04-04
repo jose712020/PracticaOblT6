@@ -643,4 +643,30 @@ public class Controlador {
 
         return cont;
     }
+
+    // Metodo que cambia los datos personales del cliente
+    public static boolean modificaDatosPersonalesCliente(String nombreTeclado, String contraTeclado, String correoTeclado, String localidadTeclado, String provinciaTeclado, String direccionTeclado, int telefonoTeclado, Cliente cliente) {
+        cliente.setNombre(nombreTeclado);
+        cliente.setClave(contraTeclado);
+        cliente.setEmail(correoTeclado);
+        if (!localidadTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(localidadTeclado);
+        if (!provinciaTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(provinciaTeclado);
+        if (!direccionTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(direccionTeclado);
+        if (telefonoTeclado != -1) cliente.setMovil(telefonoTeclado);
+        return true;
+    }
+
+    // Metodo que cambia los datos personales del trabajador
+    public static boolean modificaDatosPersonalesTrabajador(String nombreTeclado, String contraTeclado, String correoTeclado, int telefonoTeclado, Trabajador trabajador) {
+        trabajador.setNombre(nombreTeclado);
+        trabajador.setPass(contraTeclado);
+        trabajador.setEmail(correoTeclado);
+        if (telefonoTeclado != -1) trabajador.setMovil(telefonoTeclado);
+        return true;
+    }
+
+    // Metodo que borra un trabajador
+    public boolean borraTrabajador(Trabajador temp) {
+        return trabajadores.remove(temp);
+    }
 }
