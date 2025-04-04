@@ -300,14 +300,12 @@ public class Controlador {
                 asignaPedido(p.getId(), candidato.getId());
             }
 
-
             for (Pedido pedido : getTodosPedidos()) {
                 for (PedidoClienteDataClass pDataClass : getPedidosAsignadosTrabajador(candidato.getId())) {
                     if (pedido.getId() == pDataClass.getIdPedido())
                         Comunicaciones.enviaCorreoPedidoAsignacion(candidato.getEmail(), "ASIGNACIÓN DE PEDIDOS", pDataClass);
                 }
             }
-
         }
 
         return bandera;
@@ -645,6 +643,4 @@ public class Controlador {
 
         return cont;
     }
-
-
 }

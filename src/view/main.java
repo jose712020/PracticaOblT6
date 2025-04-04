@@ -1102,9 +1102,25 @@ public class main {
 
                 if (respuesta.equalsIgnoreCase("N")) System.out.println("Cancelando baja...");
                 else if (respuesta.equalsIgnoreCase("S")) {
-                    if (temp.numPedidosPendientes() == 0 && controlador.getTrabajadores().remove(temp))
+                    if (temp.numPedidosPendientes() == 0 && controlador.getTrabajadores().remove(temp)) {
                         System.out.println("Dado de baja correctamente...");
-                    else System.out.println("No se ha podido borrar el trabajador...");
+
+                        ArrayList<Pedido> pedidosSinAsignar = controlador.pedidosSinTrabajador();
+                        Trabajador candidato = controlador.buscaTrabajadorCandidatoParaAsignar();
+
+                        if (!pedidosSinAsignar.isEmpty() && candidato != null) {
+                            for (Pedido p : pedidosSinAsignar) {
+                                controlador.asignaPedido(p.getId(), candidato.getId());
+                            }
+
+                            for (Pedido pedido : controlador.getTodosPedidos()) {
+                                for (PedidoClienteDataClass pDataClass : controlador.getPedidosAsignadosTrabajador(candidato.getId())) {
+                                    if (pedido.getId() == pDataClass.getIdPedido())
+                                        Comunicaciones.enviaCorreoPedidoAsignacion(candidato.getEmail(), "ASIGNACIÓN DE PEDIDOS", pDataClass);
+                                }
+                            }
+                        }
+                    } else System.out.println("No se ha podido borrar el trabajador...");
                 } else System.out.println("Respuesta incorrecta...");
             }
 
@@ -1117,6 +1133,7 @@ public class main {
 
         for (Trabajador t : controlador.getTrabajadores()) {
             System.out.println(cont + ".- ID: " + t.getId() + " ; Nombre: " + t.getNombre() + " ; Correo: " + t.getEmail() + " ; Móvil: " + t.getMovil());
+            cont++;
         }
 
         System.out.print("Selecciona al trabajador: ");
@@ -1125,13 +1142,8 @@ public class main {
         } catch (NumberFormatException e) {
             System.out.println("Debes introducir un número...");
         }
-        if (eligeTrabajador > 0 && eligeTrabajador <= controlador.getTrabajadores().size()) {
-            Trabajador trabajador = controlador.getTrabajadores().get(eligeTrabajador - 1);
-            // Si el trabajador tiene pedidos pendientes no se puede eliminar
-            if (trabajador.numPedidosPendientes() == 0) return null;
-            return trabajador;
-        }
-
+        if (eligeTrabajador > 0 && eligeTrabajador <= controlador.getTrabajadores().size())
+            return controlador.getTrabajadores().get(eligeTrabajador - 1);
 
         return null;
     }
@@ -1173,7 +1185,7 @@ public class main {
             for (Cliente c : controlador.getClientes()) {
                 System.out.println("║ ID: " + c.getId());
                 System.out.println("║ Nombre: " + c.getNombre());
-                System.out.println("║ Localidad: " + c.getLocalidad()  + "(" + c.getProvincia() + ")");
+                System.out.println("║ Localidad: " + c.getLocalidad() + "(" + c.getProvincia() + ")");
                 System.out.println("║ Correo: " + c.getEmail());
                 System.out.println("║ Móvil: " + c.getMovil());
                 System.out.println("╠═════════════════════════════════════════════════════════════════════════════════════════════╣");
@@ -1469,7 +1481,8 @@ public class main {
                         if (p.getId() == temp.getId()) cliente = c;
                     }
                 }
-                if (cliente != null) Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
+                if (cliente != null)
+                    Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
             } else System.out.println("Ha ocurrido un error...");
         }
 
