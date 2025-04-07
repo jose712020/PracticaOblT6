@@ -17,7 +17,7 @@ public class main {
     public static void main(String[] args) {
         Controlador controlador = new Controlador();
 
-        iniciaDatosPrueba(controlador);
+        if (!controlador.buscaDatosPrueba()) iniciaDatosPrueba(controlador);
 
         do {
             Menus.portada();

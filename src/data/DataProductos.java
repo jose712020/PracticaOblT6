@@ -2,9 +2,10 @@ package data;
 
 import models.Producto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DataProductos {
+public class DataProductos implements Serializable {
 
     public static ArrayList<Producto> getProductosMock(){
         ArrayList<Producto> productos = new ArrayList<>();

@@ -3,6 +3,7 @@ package controlador;
 import comunicaciones.Comunicaciones;
 import data.DataProductos;
 import models.*;
+import persistencia.Persistencia;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,33 +17,47 @@ public class Controlador {
 
     //Constructor
     public Controlador() {
-        clientes = new ArrayList<>();
-        trabajadores = new ArrayList<>();
-        admins = new ArrayList<>();
-        catalogo = new ArrayList<>();
-        mock();
-        mock();
+        clientes = Persistencia.leeClientes();
+        trabajadores = Persistencia.leeTrabajadores();
+
+        admins = Persistencia.leeAdmins();
+        if (admins.isEmpty()) {
+            mockAdmin();
+            Persistencia.guardaAdminsEnDisco(admins);
+        }
+
+        catalogo = Persistencia.leeCatalogo();
+        if (catalogo.isEmpty()) {
+            mockCatalogo();
+            Persistencia.guardaCatalogoEnDisco(catalogo);
+        }
     }
 
-    // Mock que va a tener un admin y el catalogo
-    private void mock() {
-        admins.add(new Admin(generaIdAdmin(), "root", "root", "root@root"));
+    // Mock que rellena los catalogos
+    private void mockCatalogo() {
         catalogo = DataProductos.getProductosMock();
+    }
+
+    // Mock que va a crear un admin
+    private void mockAdmin() {
+        admins.add(new Admin(generaIdAdmin(), "root", "root", "root@root"));
     }
 
     // Mock que va a decidir el usuario si iniciarlo o no
     public void mock(boolean iniciaMockTeclado) {
         if (iniciaMockTeclado) {
-            Cliente c1 = new Cliente(generaIdCliente(), "garfieldkeka@gmail.com", "cliente", "cliente",
+            Cliente c1 = new Cliente(99999, "garfieldkeka@gmail.com", "cliente", "cliente",
                     "Pueblo Paleta", "Madrid", "Avd Perdido", 11223344);
             c1.setToken(generaToken(c1));
             c1.setValid(true);
             clientes.add(c1);
+            Persistencia.guardaClientesEnDisco(c1);
 
-            Trabajador t1 = new Trabajador(generaIdTrabajador(), "trabajador", "trabajador", "joseluissanchez0406@gmail.com", 55443322);
+            Trabajador t1 = new Trabajador(100000, "trabajador", "trabajador", "joseluissanchez0406@gmail.com", 55443322);
             t1.setToken(generaToken(t1));
             t1.setValid(true);
             trabajadores.add(t1);
+            Persistencia.guardaTrabajadorEnDisco(t1);
         }
     }
 
@@ -448,13 +463,14 @@ public class Controlador {
         return pedidos;
     }
 
-    // Metodo que genera una id aleatoria para el cliente entre el 0 y 99999
+    // Metodo que genera una id aleatoria para el cliente entre el 1 y 99999
+    // El ID del cliente de prueba sera 99999
     private int generaIdCliente() {
         boolean repetido = false;
         int id;
         do {
             // Generamos la id
-            id = (int) (Math.random() * 100000);
+            id = (int) (Math.random() * 99999);
             // Hacemos un bucle de clientes para comprobar sus id
             for (Cliente c : clientes) {
                 if (c.getId() == id) {
@@ -473,13 +489,13 @@ public class Controlador {
         return (int) (Math.random() * 100000) + 500000;
     }
 
-    // Metodo que genera una id aleatoria para el pedido entre el 600000 y 699999
+    // Metodo que genera una id aleatoria para el pedido entre el 600001 y 699999
     private int generaIdPedido() {
         boolean repetido = false;
         int id;
         do {
             // Generamos la id
-            id = (int) (Math.random() * 100000) + 600000;
+            id = (int) (Math.random() * 99999) + 600001;
             // Hacemos un bucle de clientes para comprobar sus pedidos
             for (Cliente c : clientes) {
                 // Bucle que comprueba los pedidos de cada cliente y si la id coincide
@@ -494,13 +510,13 @@ public class Controlador {
         return id;
     }
 
-    // Metodo que genera una id aleatoria para el admin entre el 200000 y 299999
+    // Metodo que genera una id aleatoria para el admin entre el 200001 y 299999
     private int generaIdAdmin() {
         boolean repetido = false;
         int id;
         do {
             // Generamos la id
-            id = (int) (Math.random() * 100000) + 200000;
+            id = (int) (Math.random() * 99999) + 200001;
             for (Admin a : admins) {
                 if (a.getId() == id) {
                     repetido = true;
@@ -511,13 +527,14 @@ public class Controlador {
         return id;
     }
 
-    // Metodo que genera una id aleatoria para el admin entre el 100000 y 199999
+    // Metodo que genera una id aleatoria para el admin entre el 100001 y 199999
+    // El ID del trabajador de prueba sera 100000
     private int generaIdTrabajador() {
         boolean repetido = false;
         int id;
         do {
             // Generamos la id
-            id = (int) (Math.random() * 100000) + 100000;
+            id = (int) (Math.random() * 99999) + 100001;
             // Hacemos un bucle de clientes para comprobar sus id
             for (Trabajador t : trabajadores) {
                 if (t.getId() == id) {
@@ -668,5 +685,10 @@ public class Controlador {
     // Metodo que borra un trabajador
     public boolean borraTrabajador(Trabajador temp) {
         return trabajadores.remove(temp);
+    }
+
+    // Metodo que busca si se ha iniciado los datos de prueba
+    public boolean buscaDatosPrueba() {
+        return Persistencia.datosPrueba();
     }
 }
