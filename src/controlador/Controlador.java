@@ -156,6 +156,7 @@ public class Controlador {
                     if (p.getIdPedido() == pedidoTemp.getId()) dataTemp = p;
                 }
 
+                Persistencia.guardaTrabajadorEnDisco(trabajadorTemp);
                 Comunicaciones.enviaCorreoPedidoAsignacion(trabajadorTemp.getEmail(), "ASIGNACIÓN DE PEDIDOS", dataTemp);
                 Comunicaciones.enviaMensajeTelegramTrabajador(trabajadorTemp.getNombre() + " se te ha asignado el pedido: " + pedidoTemp.getId());
             }
@@ -300,10 +301,14 @@ public class Controlador {
 
     // Metodo que cambia el estado de un pedido
     public boolean cambiaEstadoPedido(int idPedido, int nuevoEstado) {
+        boolean bandera = false;
         for (Pedido p : getTodosPedidos()) {
-            if (p.getId() == idPedido) return p.cambiaEstado(nuevoEstado);
+            if (p.getId() == idPedido) {
+                bandera = p.cambiaEstado(nuevoEstado);
+                // TODO meterle persistencia de cliente y trabajador
+            }
         }
-        return false;
+        return bandera;
     }
 
     // Metodo que añade un trabajador a trabajadores
@@ -599,6 +604,7 @@ public class Controlador {
             if (user == t) {
                 if (t.getToken().equals(tokenTeclado)) {
                     t.setValid(true);
+                    Persistencia.guardaTrabajadorEnDisco(t);
                     return true;
                 } else t.setValid(false);
             }
@@ -689,6 +695,7 @@ public class Controlador {
         trabajador.setPass(contraTeclado);
         trabajador.setEmail(correoTeclado);
         if (telefonoTeclado != -1) trabajador.setMovil(telefonoTeclado);
+        Persistencia.guardaTrabajadorEnDisco(trabajador);
         return true;
     }
 
@@ -708,5 +715,10 @@ public class Controlador {
         if (borrado) Persistencia.guardaClientesEnDisco(cliente);
 
         return borrado;
+    }
+
+    public void asignaTokenTrabajador(Trabajador t, String token) {
+        t.setToken(token);
+        Persistencia.guardaTrabajadorEnDisco(t);
     }
 }

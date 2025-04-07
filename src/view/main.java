@@ -207,7 +207,6 @@ public class main {
         for (Producto producto : controlador.getCatalogo()) {
             System.out.println();
             System.out.println("╔══════════════════════════════════════════════════════════════════════════════╗");
-            System.out.println("║\t- ID: " + producto.getId());
             System.out.println("║\t- Marca: " + producto.getMarca() + " - Modelo: " + producto.getModelo());
             System.out.println("║\t- Descripción: " + producto.getDescripcion());
             System.out.println("║\t- Precio: " + producto.getPrecio());
@@ -1277,6 +1276,7 @@ public class main {
                 if (t.getEmail().equals(email)) {
                     //Generamos el token después de la modificación de datos
                     String token = controlador.generaToken(t);
+                    controlador.asignaTokenTrabajador(t, token);
                     // Le mandamos el correo con el token
                     Comunicaciones.enviaCorreoToken(t.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + t.getNombre()
                             + ", " + "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, t.getNombre());
