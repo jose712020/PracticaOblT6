@@ -118,6 +118,7 @@ public class Controlador {
         if (temp == null) return false;
         Producto copia = new Producto(temp.getId(), temp.getMarca(), temp.getModelo(), temp.getDescripcion(), temp.getPrecio(), temp.getRelevancia());
         cliente.addProductoCarro(copia);
+        Persistencia.guardaClientesEnDisco(cliente);
         return true;
     }
 
@@ -143,6 +144,7 @@ public class Controlador {
 
         temp.addPedido(pedidoTemp);
         temp.vaciaCarro();
+        Persistencia.guardaClientesEnDisco(temp);
 
         Trabajador trabajadorTemp = buscaTrabajadorCandidatoParaAsignar();
 
@@ -260,6 +262,7 @@ public class Controlador {
                 producto.setModelo(p.getModelo());
                 producto.setDescripcion(p.getDescripcion());
                 producto.setPrecio(p.getPrecio());
+                Persistencia.guardaProductoEnDisco(producto);
                 return true;
             }
         }
@@ -305,7 +308,10 @@ public class Controlador {
 
     // Metodo que añade un trabajador a trabajadores
     public boolean nuevoTrabajador(String email, String clave, String nombre, int movil) {
-        boolean bandera = trabajadores.add(new Trabajador(generaIdTrabajador(), nombre, clave, email, movil));
+        Trabajador trabajador = new Trabajador(generaIdTrabajador(), nombre, clave, email, movil);
+        boolean bandera = trabajadores.add(trabajador);
+
+        if (bandera) Persistencia.guardaTrabajadorEnDisco(trabajador);
 
         ArrayList<Pedido> pedidosSinAsignar = pedidosSinTrabajador();
         Trabajador candidato = buscaTrabajadorCandidatoParaAsignar();
@@ -328,7 +334,9 @@ public class Controlador {
 
     // Metodo que añade un cliente a clientes
     public boolean nuevoCliente(String email, String clave, String nombre, String localidad, String provincia, String direccion, int movil) {
-        return clientes.add(new Cliente(generaIdCliente(), email, clave, nombre, localidad, provincia, direccion, movil));
+        Cliente c = new Cliente(generaIdCliente(), email, clave, nombre, localidad, provincia, direccion, movil);
+        Persistencia.guardaClientesEnDisco(c);
+        return clientes.add(c);
     }
 
     // Metodo que busca un trabajador en un pedido asignado
@@ -616,6 +624,7 @@ public class Controlador {
         if (clienteTemp == null) return false;
         if (pedidoTemp == null) return false;
 
+        Persistencia.guardaClientesEnDisco(clienteTemp);
         return pedidoTemp.cambiaEstado(4);
     }
 
@@ -670,6 +679,7 @@ public class Controlador {
         if (!provinciaTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(provinciaTeclado);
         if (!direccionTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(direccionTeclado);
         if (telefonoTeclado != -1) cliente.setMovil(telefonoTeclado);
+        Persistencia.guardaClientesEnDisco(cliente);
         return true;
     }
 
@@ -690,5 +700,13 @@ public class Controlador {
     // Metodo que busca si se ha iniciado los datos de prueba
     public boolean buscaDatosPrueba() {
         return Persistencia.datosPrueba();
+    }
+
+    public boolean quitaProductoCarroCliente(Cliente cliente, int idProducto) {
+        boolean borrado = cliente.quitaProducto(idProducto);
+
+        if (borrado) Persistencia.guardaClientesEnDisco(cliente);
+
+        return borrado;
     }
 }

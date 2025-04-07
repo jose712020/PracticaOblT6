@@ -39,15 +39,7 @@ public class Persistencia {
         if (!carpetaProductos.exists()) carpetaProductos.mkdirs();
 
         for (Producto producto : catalogo) {
-            try {
-                FileOutputStream fos = new FileOutputStream(carpetaProductos + "\\" + producto.getId() + ".producto");
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(producto);
-                oos.close();
-                fos.close();
-            } catch (IOException e) {
-                return;
-            }
+            guardaProductoEnDisco(producto);
         }
     }
 
@@ -217,6 +209,21 @@ public class Persistencia {
             fos = new FileOutputStream(carpetaTrabajador + "\\" + trabajador.getId() + ".trabajador");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(trabajador);
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void guardaProductoEnDisco(Producto producto) {
+        File carpetaProductos = new File("data/productos");
+
+        if (!carpetaProductos.exists()) carpetaProductos.mkdirs();
+        try {
+            FileOutputStream fos = new FileOutputStream(carpetaProductos + "\\" + producto.getId() + ".producto");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(producto);
             oos.close();
             fos.close();
         } catch (IOException e) {

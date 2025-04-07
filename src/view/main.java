@@ -243,6 +243,7 @@ public class main {
                             case "1"://Consultar el catálogo de productos
                                 Utils.limpiarpantalla();
                                 consultaCatalogo(controlador);
+                                Utils.pulsaContinuar();
                                 Utils.limpiarpantalla();
                                 break;
                             case "2"://Realizar un pedido
@@ -368,6 +369,7 @@ public class main {
                         case "1": //Ver to el catálogo
                             Utils.limpiarpantalla();
                             verCatalogoAdmin(controlador);
+                            Utils.pulsaContinuar();
                             Utils.limpiarpantalla();
                             break;
                         case "2": //Editar un producto
@@ -764,7 +766,7 @@ public class main {
 
             if (temp == null) System.out.println("No se ha encontrado ningún producto...");
             else {
-                if (cliente.quitaProducto(temp.getId()))
+                if (controlador.quitaProductoCarroCliente(cliente, temp.getId()))
                     System.out.println("El producto se ha eliminado del carrito...");
                 else System.out.println("Ha ocurrido un error al añadir el producto al carrito...");
             }
@@ -838,6 +840,7 @@ public class main {
                 case "1": //Ver to el catálogo
                     Utils.limpiarpantalla();
                     verCatalogo(controlador);
+                    Utils.pulsaContinuar();
                     Utils.limpiarpantalla();
                     break;
                 case "2": //Búsqueda por marca
