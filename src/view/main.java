@@ -104,30 +104,15 @@ public class main {
 
     private static Object iniciaSesion(Controlador controlador) {
         Object usuario = null;
-        String op, email, pass;
-        System.out.print("""
-                ¿Cómo quieres loguearte?
-                1. Cliente
-                2. Trabajador
-                3. Administrador
-                Marque una opción:""");
-        op = S.nextLine();
+        String email, pass;
 
-        switch (op) {
-            case "1", "2", "3": //Cliente, Trabajador, Administrador
-                System.out.print("Introduce tu email: ");
-                email = S.nextLine();
-                System.out.print("Introduce tu clave: ");
-                pass = S.nextLine();
+        System.out.print("Introduce tu email: ");
+        email = S.nextLine();
+        System.out.print("Introduce tu clave: ");
+        pass = S.nextLine();
 
-                usuario = controlador.login(email, pass);
-                break;
-            default:
-                System.out.println("Opción incorrecta...");
-                Utils.pulsaContinuar();
-                Utils.limpiarpantalla();
-                break;
-        }
+        usuario = controlador.login(email, pass);
+
         return usuario;
     }
 
