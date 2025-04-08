@@ -87,6 +87,11 @@ public class Pedido implements Comparable<Pedido>, Serializable {
         }
     }
 
+    // Funcion que añade un comentario
+    public void addComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
     // Funcion que comprueba si se puede realizar el cambio de una fecha
     public boolean cambiaFechaEntrega(LocalDate nuevaFecha) {
         if (nuevaFecha.isBefore(fechaEntregaEstimada)) return false;

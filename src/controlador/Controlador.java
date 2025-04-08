@@ -300,22 +300,41 @@ public class Controlador {
 
     // Metodo que cambia el estado de un pedido
     public boolean cambiaEstadoPedido(int idPedido, int nuevoEstado) {
-        boolean bandera = false;
-        for (Pedido p : getTodosPedidos()) {
-            if (p.getId() == idPedido) bandera = p.cambiaEstado(nuevoEstado);
-        }
+        Pedido pedido = buscaPedidoById(idPedido);
+        if (pedido == null) return false;
+        boolean bandera = pedido.cambiaEstado(nuevoEstado);
 
-        // TODO meterle persistencia de cliente y trabajador
         if (bandera) {
-            for (Cliente c : clientes) {
-                if (c != null && !c.getPedidos().isEmpty()) {
-                    for (Pedido p : c.getPedidos()) {
-                        if (p.getId() == idPedido) Persistencia.guardaClienteEnDisco(c);
-                    }
+            Cliente c = sacaClienteDeUnPedido(idPedido);
+            if (c != null) Comunicaciones.enviaCorreoPedidoEstadoCliente(c.getEmail(), "PEDIDO MODIFICADO", pedido);
+            enviaCorreoPedidoModificadoTrabajador(pedido);
+            Persistencia.guardaClienteEnDisco(c);
+        }
+        return bandera;
+    }
+
+    // Funcion que saca un cliente de un pedido
+    private Cliente sacaClienteDeUnPedido(int idPedido) {
+        for (Cliente c : clientes) {
+            if (c != null && !c.getPedidos().isEmpty()) {
+                for (Pedido p : c.getPedidos()) {
+                    if (p.getId() == idPedido) return c;
                 }
             }
         }
-        return bandera;
+        return null;
+    }
+
+    // Funcion que le manda un correo a un trabajador
+    private void enviaCorreoPedidoModificadoTrabajador(Pedido pedido) {
+        if (!trabajadores.isEmpty()) {
+            for (Trabajador t : trabajadores) {
+                for (PedidoClienteDataClass p : getPedidosAsignadosTrabajador(t.getId())) {
+                    if (pedido.getId() == p.getIdPedido())
+                        Comunicaciones.enviaCorreoCambiaEstadoPedidoTrabajador(t.getEmail(), "PEDIDO MODIFICADO", p);
+                }
+            }
+        }
     }
 
     // Metodo que añade un trabajador a trabajadores
@@ -649,8 +668,16 @@ public class Controlador {
 
         if (pedido == null) return false;
 
+        pedido.addComentario(comentarioTeclado);
         pedido.setComentario(comentarioTeclado);
-        // TODO guardar cliente
+
+        Cliente cliente = sacaClienteDeUnPedido(pedido.getId());
+
+        if (cliente != null) {
+            Persistencia.guardaClienteEnDisco(cliente);
+            Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", pedido);
+            enviaCorreoPedidoModificadoTrabajador(pedido);
+        }
         return true;
     }
 
@@ -701,6 +728,7 @@ public class Controlador {
         return Persistencia.datosPrueba();
     }
 
+    // Metodo que quita un producto del carro del cliente
     public boolean quitaProductoCarroCliente(Cliente cliente, int idProducto) {
         boolean borrado = cliente.quitaProducto(idProducto);
 
@@ -803,5 +831,21 @@ public class Controlador {
 
         Collections.sort(pedidosPendientes);
         return pedidosPendientes;
+    }
+
+    // Metodo que cambia la fehca de entrega de un pedido
+    public boolean cambiaFechaEntregaPedido(int idPedido, LocalDate nuevaFecha) {
+        Pedido pedido = buscaPedidoById(idPedido);
+        if (pedido == null) return false;
+        boolean bandera = pedido.cambiaFechaEntrega(nuevaFecha);
+
+        if (bandera) {
+            Cliente c = sacaClienteDeUnPedido(pedido.getId());
+            if (c != null) {
+                Comunicaciones.enviaCorreoPedidoEstadoCliente(c.getEmail(), "PEDIDO MODIFICADO", pedido);
+                Persistencia.guardaClienteEnDisco(c);
+            }
+        }
+        return bandera;
     }
 }

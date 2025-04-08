@@ -8,7 +8,6 @@ import utils.Utils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class main {
@@ -1301,17 +1300,8 @@ public class main {
         if (temp == null) System.out.println("No se ha encontrado ningún pedido...");
         else {
             LocalDate nuevaFecha = nuevaFecha();
-            if (!temp.cambiaFechaEntrega(nuevaFecha)) System.out.println("Ha ocurrido un error...");
-            else {
-                System.out.println("Fecha actualizada correctamente");
-                for (Cliente c : controlador.getClientes()) {
-                    for (Pedido p : c.getPedidos()) {
-                        if (p.getId() == temp.getId())
-                            Comunicaciones.enviaCorreoPedidoEstadoCliente(c.getEmail(), "PEDIDO MODIFICADO", temp);
-                    }
-                }
-                enviaCorreoPedidoModificidoTrabajador(controlador, temp);
-            }
+            if (controlador.cambiaFechaEntregaPedido(temp.getId(), nuevaFecha)) System.out.println("Fecha actualizada correctamente...");
+            else System.out.println("Ha ocurrido un error...");
         }
     }
 
@@ -1355,18 +1345,6 @@ public class main {
         return LocalDate.of(anio, mes, dia);
     }
 
-    // Funcion que le envia al correo del trabajador la modificacion de un pedido
-    private static void enviaCorreoPedidoModificidoTrabajador(Controlador controlador, Pedido temp) {
-        if (!controlador.getTrabajadores().isEmpty()) {
-            for (Trabajador t : controlador.getTrabajadores()) {
-                for (PedidoClienteDataClass p : controlador.getPedidosAsignadosTrabajador(t.getId())) {
-                    if (temp.getId() == p.getIdPedido())
-                        Comunicaciones.enviaCorreoCambiaEstadoPedidoTrabajador(t.getEmail(), "PEDIDO MODIFICADO", p);
-                }
-            }
-        }
-    }
-
     // Funcion que busca al admin
     private static Admin buscaAdmin(Controlador controlador, Object usuario) {
         for (Admin a : controlador.getAdmins()) {
@@ -1395,19 +1373,9 @@ public class main {
             String comentarioTeclado = S.nextLine();
 
             // Le enviamos al cliente que su correo ha sido modificado
-            if (controlador.cambiaComentarioPedido(temp.getId(), comentarioTeclado)) {
+            if (controlador.cambiaComentarioPedido(temp.getId(), comentarioTeclado))
                 System.out.println("Se ha añido un comentario al pedido correctamente...");
-                Cliente cliente = null;
-                for (Cliente c : controlador.getClientes()) {
-                    for (Pedido p : c.getPedidos()) {
-                        if (p.getId() == temp.getId()) cliente = c;
-                    }
-                }
-                if (cliente != null)
-                    Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
-
-                enviaCorreoPedidoModificidoTrabajador(controlador, temp);
-            } else System.out.println("Ha ocurrido un error...");
+            else System.out.println("Ha ocurrido un error...");
         }
 
     }
@@ -1443,20 +1411,8 @@ public class main {
             } while (!continuar);
 
 
-            if (controlador.cambiaEstadoPedido(temp.getId(), estadoTeclado)) {
-                System.out.println("El pedido se ha modificado con éxito...");
-                // Le enviamos al cliente que su correo ha sido modificado
-                Cliente cliente = null;
-                for (Cliente c : controlador.getClientes()) {
-                    for (Pedido p : c.getPedidos()) {
-                        if (p.getId() == temp.getId()) cliente = c;
-                    }
-                }
-                if (cliente != null)
-                    Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", temp);
-
-                enviaCorreoPedidoModificidoTrabajador(controlador, temp);
-            } else System.out.println("Ha ocurrido un error...");
+            if (controlador.cambiaEstadoPedido(temp.getId(), estadoTeclado)) System.out.println("El pedido se ha modificado con éxito...");
+            else System.out.println("Ha ocurrido un error...");
         }
 
     }
