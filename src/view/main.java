@@ -238,7 +238,7 @@ public class main {
                                 break;
                             case "3"://Ver mis pedidos
                                 Utils.limpiarpantalla();
-                                verMisPedidosCliente(cliente);
+                                verMisPedidosCliente(controlador, cliente);
                                 Utils.pulsaContinuar();
                                 Utils.limpiarpantalla();
                                 break;
@@ -433,7 +433,6 @@ public class main {
             ArrayList<PedidoClienteDataClass> pedidosTerminados = controlador.getPedidosCompletadosTrabajador(trabajador.getId());
             int cont = 1;
 
-            Collections.sort(pedidosTerminados);
             System.out.println("""
                     ╔════════════════════════════════════════════════════╗
                     ║                 PEDIDOS TERMINADOS                 ║
@@ -512,7 +511,6 @@ public class main {
             ArrayList<PedidoClienteDataClass> pedidosAsignados = controlador.getPedidosAsignadosTrabajador(trabajador.getId());
             int cont = 1;
 
-            Collections.sort(pedidosAsignados);
             System.out.println("""
                     ╔════════════════════════════════════════════════════╗
                     ║                 PEDIDOS ASIGNADOS                  ║
@@ -528,30 +526,11 @@ public class main {
     private static void resumenPedidosAdmin(Controlador controlador) {
         if (controlador.getTodosPedidos().isEmpty()) System.out.println("No se han realizado pedidos...");
         else {
-            ArrayList<Pedido> pedidosEntregados = new ArrayList<>();
-            ArrayList<Pedido> pedidosCancelados = new ArrayList<>();
-            ArrayList<Pedido> pedidosPendientes = new ArrayList<>();
-
-            for (Cliente c : controlador.getClientes()) {
-                for (Pedido p : c.getPedidos()) {
-                    if (p.getEstado() == 3) pedidosEntregados.add(p);
-                }
-            }
-
-            for (Cliente c : controlador.getClientes()) {
-                for (Pedido p : c.getPedidos()) {
-                    if (p.getEstado() == 4) pedidosCancelados.add(p);
-                }
-            }
-
-            for (Cliente c : controlador.getClientes()) {
-                for (Pedido p : c.getPedidos()) {
-                    if (p.getEstado() == 0 || p.getEstado() == 1 || p.getEstado() == 2) pedidosPendientes.add(p);
-                }
-            }
+            ArrayList<Pedido> pedidosEntregados = controlador.devuelvePedidosEntregados();
+            ArrayList<Pedido> pedidosCancelados = controlador.devuelvePedidosCancelados();
+            ArrayList<Pedido> pedidosPendientes = controlador.devuelvePedidosPendientes();
 
             if (!pedidosEntregados.isEmpty()) {
-                Collections.sort(pedidosEntregados);
                 System.out.println("""
                         ╔════════════════════════════════════════════════════╗
                         ║                PEDIDOS ENTREGADOS                  ║
@@ -561,7 +540,6 @@ public class main {
                 }
             }
             if (!pedidosCancelados.isEmpty()) {
-                Collections.sort(pedidosCancelados);
                 System.out.println("""
                         ╔════════════════════════════════════════════════════╗ 
                         ║                PEDIDOS CANCELADOS                  ║
@@ -571,7 +549,6 @@ public class main {
                 }
             }
             if (!pedidosPendientes.isEmpty()) {
-                Collections.sort(pedidosPendientes);
                 System.out.println("""
                         ╔════════════════════════════════════════════════════╗ 
                         ║                PEDIDOS PENDIENTES                  ║
@@ -956,26 +933,14 @@ public class main {
     }
 
     //Función que pinta todos los pedidos realizados por un cliente concreto
-    private static void verMisPedidosCliente(Cliente cliente) {
+    private static void verMisPedidosCliente(Controlador controlador, Cliente cliente) {
         if (cliente.getPedidos().isEmpty()) System.out.println("No has realizado ningún pedido...");
         else {
-            ArrayList<Pedido> pedidosEntregados = new ArrayList<>();
-            ArrayList<Pedido> pedidosCancelados = new ArrayList<>();
-            ArrayList<Pedido> pedidosPendientes = new ArrayList<>();
+            ArrayList<Pedido> pedidosEntregados = controlador.verPedidosEntregados(cliente.getId());
+            ArrayList<Pedido> pedidosCancelados = controlador.verPedidosCancelados(cliente.getId());
+            ArrayList<Pedido> pedidosPendientes = controlador.verPedidosPendientes(cliente.getId());
 
-            for (Pedido p : cliente.getPedidos()) {
-                if (p.getEstado() == 3) pedidosEntregados.add(p);
-            }
-
-            for (Pedido p : cliente.getPedidos()) {
-                if (p.getEstado() == 4) pedidosCancelados.add(p);
-            }
-
-            for (Pedido p : cliente.getPedidos()) {
-                if (p.getEstado() == 0 || p.getEstado() == 1 || p.getEstado() == 2) pedidosPendientes.add(p);
-            }
             if (!pedidosEntregados.isEmpty()) {
-                Collections.sort(pedidosEntregados);
                 System.out.println("""
                         ╔════════════════════════════════════════════════════╗
                         ║                PEDIDOS ENTREGADOS                  ║
@@ -985,7 +950,6 @@ public class main {
                 }
             }
             if (!pedidosCancelados.isEmpty()) {
-                Collections.sort(pedidosCancelados);
                 System.out.println("""
                         ╔════════════════════════════════════════════════════╗ 
                         ║                PEDIDOS CANCELADOS                  ║
@@ -995,7 +959,6 @@ public class main {
                 }
             }
             if (!pedidosPendientes.isEmpty()) {
-                Collections.sort(pedidosPendientes);
                 System.out.println("""
                         ╔════════════════════════════════════════════════════╗ 
                         ║                PEDIDOS PENDIENTES                  ║

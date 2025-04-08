@@ -7,6 +7,7 @@ import persistencia.Persistencia;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Controlador {
     // Atributos
@@ -413,7 +414,7 @@ public class Controlador {
                 }
             }
         }
-
+        Collections.sort(pedidosAsignadosT);
         return pedidosAsignadosT;
     }
 
@@ -462,6 +463,7 @@ public class Controlador {
             }
         }
 
+        Collections.sort(pedidosCompletadosT);
         return pedidosCompletadosT;
     }
 
@@ -720,5 +722,101 @@ public class Controlador {
     public void asignaTokenTrabajador(Trabajador t, String token) {
         t.setToken(token);
         Persistencia.guardaTrabajadorEnDisco(t);
+    }
+
+    // Metodo que devuelve los pedidos que esten Entregados
+    public ArrayList<Pedido> devuelvePedidosEntregados() {
+        ArrayList<Pedido> pedidosEntregados = new ArrayList<>();
+
+        for (Cliente c : clientes) {
+            if (c != null && !c.getPedidos().isEmpty()) {
+                for (Pedido p : c.getPedidos()) {
+                    if (p.getEstado() == 3) pedidosEntregados.add(p);
+                }
+            }
+        }
+
+        Collections.sort(pedidosEntregados);
+        return pedidosEntregados;
+    }
+
+    // Metodo que devuelve los pedidos que esten Cancelados
+    public ArrayList<Pedido> devuelvePedidosCancelados() {
+        ArrayList<Pedido> pedidosCancelados = new ArrayList<>();
+
+        for (Cliente c : clientes) {
+            if (c != null && !c.getPedidos().isEmpty()) {
+                for (Pedido p : c.getPedidos()) {
+                    if (p.getEstado() == 4) pedidosCancelados.add(p);
+                }
+            }
+        }
+
+        Collections.sort(pedidosCancelados);
+        return pedidosCancelados;
+    }
+
+    // Metodo que devuelve los pedidos que esten Pendientes (Creado, En preparación, Enviado)
+    public ArrayList<Pedido> devuelvePedidosPendientes() {
+        ArrayList<Pedido> pedidosPendientes = new ArrayList<>();
+
+        for (Cliente c : clientes) {
+            if (c != null && !c.getPedidos().isEmpty()) {
+                for (Pedido p : c.getPedidos()) {
+                    if (p.getEstado() == 0 || p.getEstado() == 1 || p.getEstado() == 2) pedidosPendientes.add(p);
+                }
+            }
+        }
+
+        Collections.sort(pedidosPendientes);
+        return pedidosPendientes;
+    }
+
+    // Metodo que devuelve los pedidos entregados de un cliente en especifico
+    public ArrayList<Pedido> verPedidosEntregados(int idCliente) {
+        ArrayList<Pedido> pedidosEntregados = new ArrayList<>();
+        Cliente temp = buscaClienteById(idCliente);
+
+        if (temp == null) return pedidosEntregados;
+        if (temp.getPedidos().isEmpty()) return pedidosEntregados;
+
+        for (Pedido p : temp.getPedidos()) {
+            if (p.getEstado() == 3) pedidosEntregados.add(p);
+        }
+
+        Collections.sort(pedidosEntregados);
+        return pedidosEntregados;
+    }
+
+    // Metodo que devuelve los pedidos cancelados de un cliente en especifico
+    public ArrayList<Pedido> verPedidosCancelados(int idCliente) {
+        ArrayList<Pedido> pedidosCancelados = new ArrayList<>();
+        Cliente temp = buscaClienteById(idCliente);
+
+        if (temp == null) return pedidosCancelados;
+        if (temp.getPedidos().isEmpty()) return pedidosCancelados;
+
+        for (Pedido p : temp.getPedidos()) {
+            if (p.getEstado() == 4) pedidosCancelados.add(p);
+        }
+
+        Collections.sort(pedidosCancelados);
+        return pedidosCancelados;
+    }
+
+    // Metodo que devuelve los pedidos pendientes (Creado, En preparación, Enviado) de un cliente en especifico
+    public ArrayList<Pedido> verPedidosPendientes(int idCliente) {
+        ArrayList<Pedido> pedidosPendientes = new ArrayList<>();
+        Cliente temp = buscaClienteById(idCliente);
+
+        if (temp == null) return pedidosPendientes;
+        if (temp.getPedidos().isEmpty()) return pedidosPendientes;
+
+        for (Pedido p : temp.getPedidos()) {
+            if (p.getEstado() == 0 || p.getEstado() == 1 || p.getEstado() == 2) pedidosPendientes.add(p);
+        }
+
+        Collections.sort(pedidosPendientes);
+        return pedidosPendientes;
     }
 }
