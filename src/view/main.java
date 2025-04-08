@@ -40,7 +40,7 @@ public class main {
                 System.out.print("""
                         1. Ver el catálogo
                         2. Registrarse
-                        3. Iniciar sesion
+                        3. Iniciar sesión
                         Marque su opción:""");
                 try {
                     op = Integer.parseInt(S.nextLine());
@@ -73,7 +73,7 @@ public class main {
         return usuarioLogueado;
     }
 
-    // Funcion que simula un mock
+    // Función que simula un mock
     private static void iniciaDatosPrueba(Controlador controlador) {
         boolean datosIniciados = false;
 
@@ -162,7 +162,7 @@ public class main {
         }
     }
 
-    // Funcion en el que ves el catálogo
+    // Función en el que ves el catálogo
     private static void verCatalogoAdmin(Controlador controlador) {
         int cont = 0;
         for (Producto producto : controlador.getCatalogo()) {
@@ -183,7 +183,7 @@ public class main {
         }
     }
 
-    // Funcion en el que ves el catálogo
+    // Función en el que ves el catálogo
     private static void verCatalogo(Controlador controlador) {
         int cont = 0;
         for (Producto producto : controlador.getCatalogo()) {
@@ -201,7 +201,7 @@ public class main {
         }
     }
 
-    // Funcion que nos llevara a un menu específico (Admin, Trabajador o Cliente)
+    // Función que nos llevara a un menu específico (Admin, Trabajador o Cliente)
     private static void menuUsuario(Controlador controlador, Object user) {
         menuAdmin(controlador, user);
         menuTrabajadores(controlador, user);
@@ -398,7 +398,7 @@ public class main {
                             break;
                         case "10": //Asignar un pedido a un trabajador
                             Utils.limpiarpantalla();
-                            asisgnaPedido(controlador, admin);
+                            asignaPedido(controlador);
                             Utils.pulsaContinuar();
                             Utils.limpiarpantalla();
                             break;
@@ -417,7 +417,7 @@ public class main {
         } // Bucle de admin
     }
 
-    // Funcion que muestra el historial de pedidos terminados
+    // Función que muestra el historial de pedidos terminados
     private static void historicoPedidosTerminados(Controlador controlador, Trabajador trabajador) {
         if (controlador.getPedidosCompletadosTrabajador(trabajador.getId()).isEmpty())
             System.out.println("No tienes ningún pedido...");
@@ -435,8 +435,8 @@ public class main {
         }
     }
 
-    // Funcion que hace que el administrador elija un pedido para asignar a un trabajador
-    private static void asisgnaPedido(Controlador controlador, Admin admin) {
+    // Función que hace que el administrador elija un pedido para asignar a un trabajador
+    private static void asignaPedido(Controlador controlador) {
         ArrayList<Pedido> pedidosSinAsignar = controlador.pedidosSinTrabajador();
 
         if (pedidosSinAsignar.isEmpty())
@@ -491,12 +491,12 @@ public class main {
         }
     }
 
-    // Funcion que pinta los pedidos sin asignar
+    // Función que pinta los pedidos sin asignar
     private static void pintaPedidosSinAsignar(Controlador controlador, ArrayList<Pedido> pedidosSinAsignar) {
         pintaPedidosSinData(controlador, pedidosSinAsignar);
     }
 
-    // Funcion que consulta los pedidos asignados del trabajador
+    // Función que consulta los pedidos asignados del trabajador
     private static void consultaPedidoAsignados(Controlador controlador, Trabajador trabajador) {
         if (trabajador.numPedidosPendientes() == 0) System.out.println("No tienes pedidos pendientes...");
         else {
@@ -514,7 +514,7 @@ public class main {
         }
     }
 
-    // Funcion que muestra los pedidos que se han realizado
+    // Función que muestra los pedidos que se han realizado
     private static void resumenPedidosAdmin(Controlador controlador) {
         if (controlador.getTodosPedidos().isEmpty()) System.out.println("No se han realizado pedidos...");
         else {
@@ -533,7 +533,7 @@ public class main {
             }
             if (!pedidosCancelados.isEmpty()) {
                 System.out.println("""
-                        ╔════════════════════════════════════════════════════╗ 
+                        ╔════════════════════════════════════════════════════╗
                         ║                PEDIDOS CANCELADOS                  ║
                         ╚════════════════════════════════════════════════════╝""");
                 for (Pedido p : pedidosCancelados) {
@@ -542,7 +542,7 @@ public class main {
             }
             if (!pedidosPendientes.isEmpty()) {
                 System.out.println("""
-                        ╔════════════════════════════════════════════════════╗ 
+                        ╔════════════════════════════════════════════════════╗
                         ║                PEDIDOS PENDIENTES                  ║
                         ╚════════════════════════════════════════════════════╝""");
                 for (Pedido p : pedidosPendientes) {
@@ -611,7 +611,7 @@ public class main {
         } while (!op.equals("6"));
     }
 
-    // Funcion que cancela un pedido del cliente
+    // Función que cancela un pedido del cliente
     private static void cancelaPedido(Controlador controlador, Cliente cliente) {
         ArrayList<Pedido> pedidosRealizados = cliente.getPedidos();
 
@@ -631,7 +631,7 @@ public class main {
         }
     }
 
-    // Funcion que selecciona un pedido en el cliente
+    // Función que selecciona un pedido en el cliente
     private static Pedido seleccionaPedidoCliente(Controlador controlador, Cliente cliente) {
         ArrayList<Pedido> pedidos = cliente.getPedidos();
 
@@ -673,7 +673,7 @@ public class main {
         return controlador.buscaPedidoById(pedidoElegido.getId());
     }
 
-    // Funcion que confirma un pedido del cliente
+    // Función que confirma un pedido del cliente
     private static void confirmaPedido(Controlador controlador, Cliente cliente) {
         if (cliente.numProductosCarro() == 0) System.out.println("No tienes productos en el carro...");
         else {
@@ -689,7 +689,7 @@ public class main {
         }
     }
 
-    // Funcion que elimina un producto del carrito
+    // Función que elimina un producto del carrito
     private static void eliminaProducto(Controlador controlador, Cliente cliente) {
         if (cliente.getCarro().isEmpty()) System.out.println("No hay productos en el carrito...");
         else {
@@ -726,7 +726,7 @@ public class main {
         }
     }
 
-    // Funcion que ve el carro de un cliente
+    // Función que ve el carro de un cliente
     private static void verCarroCliente(Cliente cliente) {
         if (cliente.numProductosCarro() == 0) System.out.println("El carro está vacío...");
         else {
@@ -748,7 +748,7 @@ public class main {
         }
     }
 
-    // Funcion que inserta un producto en el carro
+    // Función que inserta un producto en el carro
     private static void insertaProducto(Controlador controlador, Cliente cliente) {
         Producto temp = null;
         String productoSeleccionado;
@@ -774,7 +774,7 @@ public class main {
         else System.out.println("No se ha encontrado ningún producto...");
     }
 
-    // Funcion que simula un submenu para buscar productos en el catálogo
+    // Función que simula un submenu para buscar productos en el catálogo
     private static void consultaCatalogo(Controlador controlador) {
         String op;
         do {
@@ -838,7 +838,7 @@ public class main {
 
     }
 
-    // Funcion que busca los productos por precio
+    // Función que busca los productos por precio
     private static void buscaProductosByPrecio(Controlador controlador) {
         float precioMin = Integer.MAX_VALUE, precioMax = Integer.MIN_VALUE;
         boolean continuar = false;
@@ -872,7 +872,7 @@ public class main {
         pintaProductos(controlador.buscaProductosByPrecio(precioMin, precioMax));
     }
 
-    // Funcion que busca los productos por un término
+    // Función que busca los productos por un término
     private static void buscaProductosByTermino(Controlador controlador) {
         System.out.print("Introduce la descripción: ");
         String terminoTeclado = S.nextLine();
@@ -880,7 +880,7 @@ public class main {
         pintaProductos(controlador.buscaProductosByTermino(terminoTeclado));
     }
 
-    // Funcion que busca los productos por su descripcion
+    // Función que busca los productos por su descripción
     private static void buscaProductosByDescripcion(Controlador controlador) {
         System.out.print("Introduce la descripción: ");
         String descripcionTeclado = S.nextLine();
@@ -888,7 +888,7 @@ public class main {
         pintaProductos(controlador.buscaProductosByDescripcion(descripcionTeclado));
     }
 
-    // Funcion que busca los productos por su modelo
+    // Función que busca los productos por su modelo
     private static void buscaProductosByModelo(Controlador controlador) {
         System.out.print("Introduce el nombre del modelo: ");
         String modeloTeclado = S.nextLine();
@@ -896,7 +896,7 @@ public class main {
         pintaProductos(controlador.buscaProductosByModelo(modeloTeclado));
     }
 
-    // Funcion que busca los productos por su marca
+    // Función que busca los productos por su marca
     private static void buscaProductosByMarca(Controlador controlador) {
         System.out.print("Introduce el nombre de la marca: ");
         String marcaTeclado = S.nextLine();
@@ -904,7 +904,7 @@ public class main {
         pintaProductos(controlador.buscaProductosByMarca(marcaTeclado));
     }
 
-    // Funcion que pinta un producto de los productos
+    // Función que pinta un producto de los productos
     private static void pintaProductos(ArrayList<Producto> productos) {
         int cont = 0;
         for (Producto producto : productos) {
@@ -943,7 +943,7 @@ public class main {
             }
             if (!pedidosCancelados.isEmpty()) {
                 System.out.println("""
-                        ╔════════════════════════════════════════════════════╗ 
+                        ╔════════════════════════════════════════════════════╗
                         ║                PEDIDOS CANCELADOS                  ║
                         ╚════════════════════════════════════════════════════╝""");
                 for (Pedido p : pedidosCancelados) {
@@ -952,7 +952,7 @@ public class main {
             }
             if (!pedidosPendientes.isEmpty()) {
                 System.out.println("""
-                        ╔════════════════════════════════════════════════════╗ 
+                        ╔════════════════════════════════════════════════════╗
                         ║                PEDIDOS PENDIENTES                  ║
                         ╚════════════════════════════════════════════════════╝""");
                 for (Pedido p : pedidosPendientes) {
@@ -1020,7 +1020,7 @@ public class main {
                 """, c.getNombre(), c.getEmail(), c.getLocalidad(), c.getProvincia(), c.getDireccion(), c.getMovil());
     }
 
-    //Metodo de que comprueba el token de un cliente
+    //Método de que comprueba el token de un cliente
     private static void compruebaToken(Controlador controlador, Cliente cliente) {
         //Clientes
         if (!cliente.isValid()) {
@@ -1032,7 +1032,7 @@ public class main {
         }
     }
 
-    // Funcion que da a elegir como se quiere dar de baja al Trabajador, si mediante su ID o en un menú de selección
+    // Función que da a elegir como se quiere dar de baja al Trabajador, si mediante su ID o en un menú de selección
     private static void bajaTrabajador(Controlador controlador) {
         if (controlador.getTrabajadores().isEmpty()) System.out.println("No hay trabajadores para dar de baja...");
         else {
@@ -1074,7 +1074,7 @@ public class main {
         }
     }
 
-    // Funcion que elimina un trabajador mediante un menú de selección
+    // Función que elimina un trabajador mediante un menú de selección
     private static Trabajador eligeTrabajadorByMenu(Controlador controlador) {
         int eligeTrabajador = -1, cont = 1;
 
@@ -1095,7 +1095,7 @@ public class main {
         return null;
     }
 
-    // Funcion que muestra el resumen de los trabajadores al admin
+    // Función que muestra el resumen de los trabajadores al admin
     private static void resumenTrabajadores(Controlador controlador) {
         if (controlador.getTrabajadores().isEmpty()) System.out.println("No hay trabajadores dados de alta...");
         else {
@@ -1115,12 +1115,12 @@ public class main {
         }
     }
 
-    // Funcion que pinta el resumen de un solo trabajador
+    // Función que pinta el resumen de un solo trabajador
     private static void pintaResumenTrabajador(int cont, Trabajador t) {
         System.out.println(cont + ".- ID: " + t.getId() + " .- " + t.getNombre() + "; Móvil: " + t.getMovil() + " - Correo: " + t.getEmail() + "\n");
     }
 
-    // Funcion que muestra el resumen de los clientes al admin
+    // Función que muestra el resumen de los clientes al admin
     private static void resumenClientes(Controlador controlador) {
         if (controlador.getClientes().isEmpty()) System.out.println("No hay clientes registrados...");
         else {
@@ -1141,7 +1141,7 @@ public class main {
         }
     }
 
-    // Funcion que muestra el número de clientes, trabajadores, pedidos, pedidos pendientes, pedidos completados o cancelados
+    // Función que muestra el número de clientes, trabajadores, pedidos, pedidos pendientes, pedidos completados o cancelados
     // y pedidos sin asignar
     private static void estadisticasApp(Controlador controlador) {
         String mensaje;
@@ -1168,7 +1168,7 @@ public class main {
                 controlador.pedidosSinTrabajador().size());
     }
 
-    // Funcion que pide los datos para crear un nuevo trabajador
+    // Función que pide los datos para crear un nuevo trabajador
     private static void altaTrabajador(Controlador controlador) {
         boolean bandera = false;
 
@@ -1196,7 +1196,7 @@ public class main {
         else System.out.println("Ha ocurrido un error...");
     }
 
-    // Funcion que modifica los datos de un trabajador
+    // Función que modifica los datos de un trabajador
     private static void modificaDatosPersonalesTrabajador(Controlador controlador, Trabajador trabajador) {
         int telefonoTeclado = -2;
 
@@ -1223,7 +1223,7 @@ public class main {
         else System.out.println("Tus datos han sido modificados...");
     }
 
-    // Funcion que crea un correo con sus validaciones
+    // Función que crea un correo con sus validaciones
     private static String compruebaCorreo(Controlador controlador) {
         boolean correoDistinto = false;
         String correoTeclado;
@@ -1247,7 +1247,7 @@ public class main {
         return correoTeclado;
     }
 
-    // Funcion que pinta el perfil de un trabajador
+    // Función que pinta el perfil de un trabajador
     private static void pintaPerfilTrabajador(Trabajador t) {
         System.out.printf("""
                 ╔═════════════════════════════════════════════════════════════════════╗
@@ -1261,7 +1261,7 @@ public class main {
                 """, t.getNombre(), t.getEmail(), t.getMovil(), t.numPedidosPendientes());
     }
 
-    // Funcion que modifica el estado de un pedido, añade un comentario al pedido o cambia fecha
+    // Función que modifica el estado de un pedido, añade un comentario al pedido o cambia fecha
     private static void modificaPedido(Controlador controlador, Object usuario) {
         Trabajador trabajador = buscaTrabajador(controlador, usuario);
         Admin admin = buscaAdmin(controlador, usuario);
@@ -1301,7 +1301,7 @@ public class main {
         }
     }
 
-    // Funcion que cambia la fecha de un pedido
+    // Función que cambia la fecha de un pedido
     private static void cambiaFechaPedido(Controlador controlador, Pedido temp) {
         LocalDate nuevaFecha = nuevaFecha();
         if (controlador.cambiaFechaEntregaPedido(temp.getId(), nuevaFecha))
@@ -1309,7 +1309,7 @@ public class main {
         else System.out.println("Ha ocurrido un error...");
     }
 
-    // Funcion que devuelve una fecha
+    // Función que devuelve una fecha
     private static LocalDate nuevaFecha() {
         int dia = -1, mes = -1, anio = -1;
 
@@ -1349,7 +1349,7 @@ public class main {
         return LocalDate.of(anio, mes, dia);
     }
 
-    // Funcion que busca al admin
+    // Función que busca al admin
     private static Admin buscaAdmin(Controlador controlador, Object usuario) {
         for (Admin a : controlador.getAdmins()) {
             if (usuario.equals(a)) return a;
@@ -1357,7 +1357,7 @@ public class main {
         return null;
     }
 
-    // Funcion que busca un trabajador
+    // Función que busca un trabajador
     private static Trabajador buscaTrabajador(Controlador controlador, Object usuario) {
         for (Trabajador t : controlador.getTrabajadores()) {
             if (usuario.equals(t)) return t;
@@ -1365,7 +1365,7 @@ public class main {
         return null;
     }
 
-    // Funcion que añade un comentario de un pedido
+    // Función que añade un comentario de un pedido
     private static void aniadeComentarioPedido(Controlador controlador, Pedido temp) {
         System.out.print("Introduce el comentario para el pedido: ");
         String comentarioTeclado = S.nextLine();
@@ -1378,7 +1378,7 @@ public class main {
         Utils.limpiarpantalla();
     }
 
-    // Funcion que modifica el estado de un pedido
+    // Función que modifica el estado de un pedido
     private static void modificaEstadoPedido(Controlador controlador, Pedido temp) {
         int estadoTeclado = -1;
         boolean continuar = false;
@@ -1407,7 +1407,7 @@ public class main {
         Utils.limpiarpantalla();
     }
 
-    // Funcion que selecciona un pedido desde el administrador
+    // Función que selecciona un pedido desde el administrador
     private static Pedido seleccionaPedidoAdmin(Controlador controlador, Admin admin) {
         ArrayList<Pedido> pedidos = controlador.getTodosPedidos();
 
@@ -1431,7 +1431,7 @@ public class main {
         return controlador.buscaPedidoById(pedidoElegido.getId());
     }
 
-    // Funcion que pinta un pedido sin data
+    // Función que pinta un pedido sin data
     private static void pintaPedidosSinData(Controlador controlador, ArrayList<Pedido> pedidos) {
         int cont = 1;
         if (pedidos.isEmpty()) System.out.println("No tienes pedidos...");
@@ -1444,7 +1444,7 @@ public class main {
         }
     }
 
-    // Funcion que pinta un unico pedido
+    // Función que pinta un único pedido
     private static void pintaPedidoUnico(Pedido temp) {
         System.out.println(temp);
     }
@@ -1480,7 +1480,7 @@ public class main {
         return pedidoTemp;
     }
 
-    // Funcion que modifica un producto del catálogo
+    // Función que modifica un producto del catálogo
     public static void modificaProducto(Controlador controlador) {
         int id = -1;
         float precioTeclado = -2;
