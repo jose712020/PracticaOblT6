@@ -613,21 +613,15 @@ public class main {
 
     // Función que cancela un pedido del cliente
     private static void cancelaPedido(Controlador controlador, Cliente cliente) {
-        ArrayList<Pedido> pedidosRealizados = cliente.getPedidos();
-
-        if (pedidosRealizados.isEmpty()) System.out.println("No se han realizado pedidos...");
+        if (cliente.numProductosCarro() == 0) System.out.println("No hay productos en el carro...");
         else {
-            Pedido temp = seleccionaPedidoCliente(controlador, cliente);
+            System.out.println("¿Deseas cancelar el pedido? (S/N)");
+            String cancelaPedido = S.nextLine();
 
-            if (temp == null) System.out.println("No hay pedidos para cancelar...");
-            else {
-                System.out.println("¿Deseas cancelar el pedido? (S/N)");
-                String cancelaPedido = S.nextLine();
+            if (cancelaPedido.equalsIgnoreCase("s"))
+                if (controlador.cancelaPedidoCliente(cliente.getId()))
+                    System.out.println("El pedido se ha cancelado con éxito...");
 
-                if (cancelaPedido.equalsIgnoreCase("s"))
-                    if (controlador.cancelaPedidoCliente(cliente.getId(), temp.getId()))
-                        System.out.println("El pedido se ha cancelado con éxito...");
-            }
         }
     }
 
@@ -1020,14 +1014,13 @@ public class main {
                 """, c.getNombre(), c.getEmail(), c.getLocalidad(), c.getProvincia(), c.getDireccion(), c.getMovil());
     }
 
-    //Método de que comprueba el token de un cliente
+    //Métdo de que comprueba el token de un cliente
     private static void compruebaToken(Controlador controlador, Cliente cliente) {
         //Clientes
         if (!cliente.isValid()) {
             System.out.print("Introduce tu token para registrarte: ");
             String tokenTeclado = S.nextLine();
-            if (controlador.compruebaToken(cliente, tokenTeclado))
-                System.out.println("Token correcto...");
+            if (controlador.compruebaToken(cliente, tokenTeclado)) System.out.println("Token correcto...");
             else System.out.println("Token incorrecto...");
         }
     }

@@ -624,16 +624,15 @@ public class Controlador {
     }
 
     // Metodo que cancela un pedido de un cliente
-    public boolean cancelaPedidoCliente(int idCliente, int idPedido) {
-        Cliente clienteTemp = buscaClienteById(idCliente);
-        Pedido pedidoTemp = buscaPedidoById(idPedido);
+    public boolean cancelaPedidoCliente(int idCliente) {
+        Cliente cliente = buscaClienteById(idCliente);
 
-        if (clienteTemp == null) return false;
-        if (pedidoTemp == null) return false;
-
-        boolean bandera = pedidoTemp.cambiaEstado(4);
-        if (bandera) Persistencia.guardaClienteEnDisco(clienteTemp);
-        return bandera;
+        if (cliente != null) {
+            cliente.vaciaCarro();
+            Persistencia.guardaClienteEnDisco(cliente);
+            return true;
+        }
+        return false;
     }
 
     // Metodo que devuelve el numero de pedidos pendientes (estado: en preparacion, enviado o creado)
