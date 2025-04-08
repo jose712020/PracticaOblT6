@@ -600,26 +600,12 @@ public class Controlador {
     }
 
     // Metodo que comprueba el token de un Trabajador y de los clientes
-    public boolean compruebaToken(Object user, String tokenTeclado) {
-        // Miramos si el usuario pasado coincide con algun trabajador
-        for (Trabajador t : trabajadores) {
-            if (user == t) {
-                if (t.getToken().equals(tokenTeclado)) {
-                    t.setValid(true);
-                    Persistencia.guardaTrabajadorEnDisco(t);
-                    return true;
-                } else t.setValid(false);
-            }
-        }
+    public boolean compruebaToken(Cliente c, String tokenTeclado) {
         // Miramos si el usuario pasado coincide con algun cliente
-        for (Cliente c : clientes) {
-            if (user == c) {
-                if (c.getToken().equals(tokenTeclado)) {
-                    c.setValid(true);
-                    return true;
-                } else c.setValid(false);
-            }
-        }
+        if (c.getToken().equals(tokenTeclado)) {
+            c.setValid(true);
+            return true;
+        } else c.setValid(false);
 
         return false;
     }

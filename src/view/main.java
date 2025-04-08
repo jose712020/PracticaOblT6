@@ -276,65 +276,62 @@ public class main {
         String op;
         for (Trabajador trabajador : controlador.getTrabajadores()) {
             if (user.equals(trabajador)) {
-                compruebaToken(controlador, trabajador);
-                if (trabajador.isValid()) {
-                    do {
-                        Menus.menuTrabajador(controlador, trabajador);
-                        op = S.nextLine();
-                        switch (op) {
-                            case "1": //Consultar los pedidos que tengo asignados
-                                Utils.limpiarpantalla();
-                                consultaPedidoAsignados(controlador, trabajador);
-                                Utils.pulsaContinuar();
-                                Utils.limpiarpantalla();
-                                break;
-                            case "2": //Modificar el estado de un pedido
-                                Utils.limpiarpantalla();
-                                modificaPedido(controlador, trabajador);
-                                Utils.pulsaContinuar();
-                                Utils.limpiarpantalla();
-                                break;
-                            case "3": //Consultar el catálogo de productos
-                                Utils.limpiarpantalla();
-                                verCatalogo(controlador);
-                                Utils.limpiarpantalla();
-                                break;
-                            case "4": //Modificar un producto
-                                Utils.limpiarpantalla();
-                                modificaProducto(controlador);
-                                Utils.pulsaContinuar();
-                                Utils.limpiarpantalla();
-                                break;
-                            case "5": //Ver el histórico de pedidos terminados
-                                Utils.limpiarpantalla();
-                                historicoPedidosTerminados(controlador, trabajador);
-                                Utils.pulsaContinuar();
-                                Utils.limpiarpantalla();
-                                break;
-                            case "6": //Ver mi perfil
-                                Utils.limpiarpantalla();
-                                pintaPerfilTrabajador(trabajador);
-                                Utils.pulsaContinuar();
-                                Utils.limpiarpantalla();
-                                break;
-                            case "7": //Modificar mis datos personales
-                                Utils.limpiarpantalla();
-                                modificaDatosPersonalesTrabajador(controlador, trabajador);
-                                Utils.pulsaContinuar();
-                                Utils.limpiarpantalla();
-                                break;
-                            case "8": //Salir
-                                Utils.animacionFinSesion();
-                                Utils.limpiarpantalla();
-                                break;
-                            default://Opción no existente
-                                System.out.println("Opción incorrecta...");
-                                Utils.pulsaContinuar();
-                                Utils.limpiarpantalla();
-                                break;
-                        }
-                    } while (trabajador.isValid() && !op.equals("8"));
-                }
+                do {
+                    Menus.menuTrabajador(controlador, trabajador);
+                    op = S.nextLine();
+                    switch (op) {
+                        case "1": //Consultar los pedidos que tengo asignados
+                            Utils.limpiarpantalla();
+                            consultaPedidoAsignados(controlador, trabajador);
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "2": //Modificar el estado de un pedido
+                            Utils.limpiarpantalla();
+                            modificaPedido(controlador, trabajador);
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "3": //Consultar el catálogo de productos
+                            Utils.limpiarpantalla();
+                            verCatalogo(controlador);
+                            Utils.limpiarpantalla();
+                            break;
+                        case "4": //Modificar un producto
+                            Utils.limpiarpantalla();
+                            modificaProducto(controlador);
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "5": //Ver el histórico de pedidos terminados
+                            Utils.limpiarpantalla();
+                            historicoPedidosTerminados(controlador, trabajador);
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "6": //Ver mi perfil
+                            Utils.limpiarpantalla();
+                            pintaPerfilTrabajador(trabajador);
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "7": //Modificar mis datos personales
+                            Utils.limpiarpantalla();
+                            modificaDatosPersonalesTrabajador(controlador, trabajador);
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "8": //Salir
+                            Utils.animacionFinSesion();
+                            Utils.limpiarpantalla();
+                            break;
+                        default://Opción no existente
+                            System.out.println("Opción incorrecta...");
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                    }
+                } while (!op.equals("8"));
             }
         } // Bucle de trabajadores
     }
@@ -1031,31 +1028,15 @@ public class main {
                 """, c.getNombre(), c.getEmail(), c.getLocalidad(), c.getProvincia(), c.getDireccion(), c.getMovil());
     }
 
-    //Metodo de que comprueba el token de un usuario
-    private static void compruebaToken(Controlador controlador, Object user) {
-        //Trabajadores
-        for (Trabajador trabajador : controlador.getTrabajadores()) {
-            if (user == trabajador) {
-                if (!trabajador.isValid()) {
-                    System.out.print("Introduce tu token para registrarte: ");
-                    String tokenTeclado = S.nextLine();
-                    if (controlador.compruebaToken(trabajador, tokenTeclado))
-                        System.out.println("Token correcto...");
-                    else System.out.println("Token incorrecto...");
-                }
-            }
-        }
+    //Metodo de que comprueba el token de un cliente
+    private static void compruebaToken(Controlador controlador, Cliente cliente) {
         //Clientes
-        for (Cliente cliente : controlador.getClientes()) {
-            if (user == cliente) {
-                if (!cliente.isValid()) {
-                    System.out.print("Introduce tu token para registrarte: ");
-                    String tokenTeclado = S.nextLine();
-                    if (controlador.compruebaToken(cliente, tokenTeclado))
-                        System.out.println("Token correcto...");
-                    else System.out.println("Token incorrecto...");
-                }
-            }
+        if (!cliente.isValid()) {
+            System.out.print("Introduce tu token para registrarte: ");
+            String tokenTeclado = S.nextLine();
+            if (controlador.compruebaToken(cliente, tokenTeclado))
+                System.out.println("Token correcto...");
+            else System.out.println("Token incorrecto...");
         }
     }
 
@@ -1218,19 +1199,8 @@ public class main {
             }
         } while (!bandera);
 
-        if (controlador.nuevoTrabajador(email, pass, nombreTeclado, movil)) {
-            System.out.println("Trabajador dado de alta correctamente...");
-            for (Trabajador t : controlador.getTrabajadores()) {
-                if (t.getEmail().equals(email)) {
-                    //Generamos el token después de la modificación de datos
-                    String token = controlador.generaToken(t);
-                    controlador.asignaTokenTrabajador(t, token);
-                    // Le mandamos el correo con el token
-                    Comunicaciones.enviaCorreoToken(t.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + t.getNombre()
-                            + ", " + "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, t.getNombre());
-                }
-            }
-        } else System.out.println("Ha ocurrido un error...");
+        if (controlador.nuevoTrabajador(email, pass, nombreTeclado, movil)) System.out.println("Trabajador dado de alta correctamente...");
+        else System.out.println("Ha ocurrido un error...");
     }
 
     // Funcion que modifica los datos de un trabajador
@@ -1255,21 +1225,9 @@ public class main {
             }
         } while (telefonoTeclado == -2);
 
-        if (!Controlador.modificaDatosPersonalesTrabajador(nombreTeclado, contraTeclado, correoTeclado, telefonoTeclado, trabajador))
-            System.out.println("Ha ocurrido un error...");
-        else {
-            //Generamos el token después de la modificación de datos
-            String token = controlador.generaToken(trabajador);
-            // Le mandamos el correo con el token
-            Comunicaciones.enviaCorreoToken(trabajador.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + trabajador.getNombre() + ", " +
-                    "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, trabajador.getNombre());
-
-            System.out.println("Tus datos han sido modificados...");
-            Utils.pulsaContinuar();
-            Utils.limpiarpantalla();
-            // Hacemos que introduzca el token nuevo, ya que ha cambiado sus datos personales
-            compruebaToken(controlador, trabajador);
-        }
+        if (!Controlador.modificaDatosPersonalesTrabajador(nombreTeclado, contraTeclado,
+                correoTeclado, telefonoTeclado, trabajador)) System.out.println("Ha ocurrido un error...");
+        else System.out.println("Tus datos han sido modificados...");
     }
 
     // Funcion que crea un correo con sus validaciones
