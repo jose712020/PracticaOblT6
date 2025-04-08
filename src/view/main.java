@@ -155,12 +155,10 @@ public class main {
                     if (c.getEmail().equals(email)) cliente = c;
                 }
 
-                String token = controlador.generaToken(cliente);
-
-                System.out.println("Registrado correctamente...");
-                Comunicaciones.enviaCorreoToken(email, "¡Hola! Bienvenido a FERNANSHOP " + nombre + ", " +
-                        "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, nombre);
-
+                if (cliente != null) {
+                    controlador.generaToken(cliente);
+                    System.out.println("Registrado correctamente...");
+                }
             } else System.out.println("Ha ocurrido un error...");
         }
     }
@@ -1000,10 +998,7 @@ public class main {
             System.out.println("Ha ocurrido un error...");
         else {
             //Generamos el token después de la modificación de datos
-            String token = controlador.generaToken(cliente);
-            // Le mandamos el correo con el token
-            Comunicaciones.enviaCorreoToken(cliente.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + cliente.getNombre() + ", " +
-                    "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, cliente.getNombre());
+            controlador.generaToken(cliente);
 
             System.out.println("Tus datos han sido modificados...");
             Utils.pulsaContinuar();

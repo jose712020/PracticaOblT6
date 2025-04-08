@@ -2,10 +2,11 @@ package models;
 
 import utils.Utils;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Pedido implements Comparable<Pedido> {
+public class Pedido implements Comparable<Pedido>, Serializable {
     //Atributos
     private int id;
     private LocalDate fechaPedido;

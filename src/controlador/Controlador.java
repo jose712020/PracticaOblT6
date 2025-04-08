@@ -52,11 +52,9 @@ public class Controlador {
             c1.setToken(generaToken(c1));
             c1.setValid(true);
             clientes.add(c1);
-            Persistencia.guardaClientesEnDisco(c1);
+            Persistencia.guardaClienteEnDisco(c1);
 
             Trabajador t1 = new Trabajador(100000, "trabajador", "trabajador", "joseluissanchez0406@gmail.com", 55443322);
-            t1.setToken(generaToken(t1));
-            t1.setValid(true);
             trabajadores.add(t1);
             Persistencia.guardaTrabajadorEnDisco(t1);
         }
@@ -119,7 +117,7 @@ public class Controlador {
         if (temp == null) return false;
         Producto copia = new Producto(temp.getId(), temp.getMarca(), temp.getModelo(), temp.getDescripcion(), temp.getPrecio(), temp.getRelevancia());
         cliente.addProductoCarro(copia);
-        Persistencia.guardaClientesEnDisco(cliente);
+        Persistencia.guardaClienteEnDisco(cliente);
         return true;
     }
 
@@ -145,7 +143,7 @@ public class Controlador {
 
         temp.addPedido(pedidoTemp);
         temp.vaciaCarro();
-        Persistencia.guardaClientesEnDisco(temp);
+        Persistencia.guardaClienteEnDisco(temp);
 
         Trabajador trabajadorTemp = buscaTrabajadorCandidatoParaAsignar();
 
@@ -304,9 +302,17 @@ public class Controlador {
     public boolean cambiaEstadoPedido(int idPedido, int nuevoEstado) {
         boolean bandera = false;
         for (Pedido p : getTodosPedidos()) {
-            if (p.getId() == idPedido) {
-                bandera = p.cambiaEstado(nuevoEstado);
-                // TODO meterle persistencia de cliente y trabajador
+            if (p.getId() == idPedido) bandera = p.cambiaEstado(nuevoEstado);
+        }
+
+        // TODO meterle persistencia de cliente y trabajador
+        if (bandera) {
+            for (Cliente c : clientes) {
+                if (c != null && !c.getPedidos().isEmpty()) {
+                    for (Pedido p : c.getPedidos()) {
+                        if (p.getId() == idPedido) Persistencia.guardaClienteEnDisco(c);
+                    }
+                }
             }
         }
         return bandera;
@@ -341,7 +347,7 @@ public class Controlador {
     // Metodo que añade un cliente a clientes
     public boolean nuevoCliente(String email, String clave, String nombre, String localidad, String provincia, String direccion, int movil) {
         Cliente c = new Cliente(generaIdCliente(), email, clave, nombre, localidad, provincia, direccion, movil);
-        Persistencia.guardaClientesEnDisco(c);
+        Persistencia.guardaClienteEnDisco(c);
         return clientes.add(c);
     }
 
@@ -391,7 +397,11 @@ public class Controlador {
         if (pedidoTemp == null) return false;
         if (trabajadorTemp == null) return false;
 
-        return trabajadorTemp.asignaPedido(pedidoTemp);
+        boolean bandera = trabajadorTemp.asignaPedido(pedidoTemp);
+
+        if (bandera) Persistencia.guardaTrabajadorEnDisco(trabajadorTemp);
+
+        return bandera;
     }
 
     // Metodo que devuelve los pedidos asignados del trabajador
@@ -579,31 +589,23 @@ public class Controlador {
         return false;
     }
 
-    // Metodo que genera un Token aleatorio
-    public String generaToken(Object user) {
+    // Metodo que genera un Token aleatorio al cliente
+    public String generaToken(Cliente c) {
         String token = "JM-" + (int) (Math.random() * 99999999);
-
-        for (Trabajador t : trabajadores) {
-            if (user == t) {
-                t.setToken(token);
-                t.setValid(false);
-            }
-        }
-
-        for (Cliente c : clientes) {
-            if (user == c) {
-                c.setToken(token);
-                c.setValid(false);
-            }
-        }
+        c.setToken(token);
+        c.setValid(false);
+        Persistencia.guardaClienteEnDisco(c);
+        Comunicaciones.enviaCorreoToken(c.getEmail(), "¡Hola! Bienvenido a FERNANSHOP " + c.getNombre() + ", " +
+                "tu token de verificación de la cuenta es", "TU CÓDIGO DE VERIFICACIÓN DE CUENTA", token, c.getNombre());
         return token;
     }
 
-    // Metodo que comprueba el token de un Trabajador y de los clientes
+    // Metodo que comprueba el token de los clientes
     public boolean compruebaToken(Cliente c, String tokenTeclado) {
         // Miramos si el usuario pasado coincide con algun cliente
         if (c.getToken().equals(tokenTeclado)) {
             c.setValid(true);
+            Persistencia.guardaClienteEnDisco(c);
             return true;
         } else c.setValid(false);
 
@@ -618,8 +620,9 @@ public class Controlador {
         if (clienteTemp == null) return false;
         if (pedidoTemp == null) return false;
 
-        Persistencia.guardaClientesEnDisco(clienteTemp);
-        return pedidoTemp.cambiaEstado(4);
+        boolean bandera = pedidoTemp.cambiaEstado(4);
+        if (bandera) Persistencia.guardaClienteEnDisco(clienteTemp);
+        return bandera;
     }
 
     // Metodo que devuelve el numero de pedidos pendientes (estado: en preparacion, enviado o creado)
@@ -647,6 +650,7 @@ public class Controlador {
         if (pedido == null) return false;
 
         pedido.setComentario(comentarioTeclado);
+        // TODO guardar cliente
         return true;
     }
 
@@ -673,7 +677,7 @@ public class Controlador {
         if (!provinciaTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(provinciaTeclado);
         if (!direccionTeclado.equalsIgnoreCase("no")) cliente.setLocalidad(direccionTeclado);
         if (telefonoTeclado != -1) cliente.setMovil(telefonoTeclado);
-        Persistencia.guardaClientesEnDisco(cliente);
+        Persistencia.guardaClienteEnDisco(cliente);
         return true;
     }
 
@@ -700,14 +704,9 @@ public class Controlador {
     public boolean quitaProductoCarroCliente(Cliente cliente, int idProducto) {
         boolean borrado = cliente.quitaProducto(idProducto);
 
-        if (borrado) Persistencia.guardaClientesEnDisco(cliente);
+        if (borrado) Persistencia.guardaClienteEnDisco(cliente);
 
         return borrado;
-    }
-
-    public void asignaTokenTrabajador(Trabajador t, String token) {
-        t.setToken(token);
-        Persistencia.guardaTrabajadorEnDisco(t);
     }
 
     // Metodo que devuelve los pedidos que esten Entregados

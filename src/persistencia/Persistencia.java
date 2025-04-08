@@ -104,6 +104,7 @@ public class Persistencia {
         File carpetaTrabajadores = new File(leeRutaTrabajadores());
 
         if (!carpetaTrabajadores.exists()) carpetaTrabajadores.mkdirs();
+        boolean bandera = false;
 
         for (String archivo : carpetaTrabajadores.list()) {
             try {
@@ -113,10 +114,10 @@ public class Persistencia {
                 trabajador = (Trabajador) ois.readObject();
                 if (trabajador.getId() == 100000) return true;
             } catch (IOException | ClassNotFoundException e) {
-                return false;
+                bandera = false;
             }
         }
-        return false;
+        return bandera;
     }
 
     // Funcion que busca el ID del cliente de prueba
@@ -124,6 +125,7 @@ public class Persistencia {
         File carpetaClientes = new File(leeRutaClientes());
 
         if (!carpetaClientes.exists()) carpetaClientes.mkdirs();
+        boolean bandera = false;
 
         for (String archivo : carpetaClientes.list()) {
             try {
@@ -135,10 +137,10 @@ public class Persistencia {
                 fis.close();
                 if (cliente.getId() == 99999) return true;
             } catch (IOException | ClassNotFoundException e) {
-                return false;
+                bandera = false;
             }
         }
-        return false;
+        return bandera;
     }
 
     // Metodo que lee los clientes en disco
@@ -190,7 +192,7 @@ public class Persistencia {
     }
 
     // Metodo que guarda los clientes en disco
-    public static void guardaClientesEnDisco(Cliente cliente) {
+    public static void guardaClienteEnDisco(Cliente cliente) {
         File carpetaClientes = new File(leeRutaClientes());
 
         if (!carpetaClientes.exists()) carpetaClientes.mkdirs();
