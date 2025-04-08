@@ -302,15 +302,7 @@ public class Controlador {
     public boolean cambiaEstadoPedido(int idPedido, int nuevoEstado) {
         Pedido pedido = buscaPedidoById(idPedido);
         if (pedido == null) return false;
-        boolean bandera = pedido.cambiaEstado(nuevoEstado);
-
-        if (bandera) {
-            Cliente c = sacaClienteDeUnPedido(idPedido);
-            if (c != null) Comunicaciones.enviaCorreoPedidoEstadoCliente(c.getEmail(), "PEDIDO MODIFICADO", pedido);
-            enviaCorreoPedidoModificadoTrabajador(pedido);
-            Persistencia.guardaClienteEnDisco(c);
-        }
-        return bandera;
+        return pedido.cambiaEstado(nuevoEstado);
     }
 
     // Funcion que saca un cliente de un pedido
@@ -665,19 +657,8 @@ public class Controlador {
     // Metodo que cambia el comentario de un pedido
     public boolean cambiaComentarioPedido(int idPedido, String comentarioTeclado) {
         Pedido pedido = buscaPedidoById(idPedido);
-
         if (pedido == null) return false;
-
         pedido.addComentario(comentarioTeclado);
-        pedido.setComentario(comentarioTeclado);
-
-        Cliente cliente = sacaClienteDeUnPedido(pedido.getId());
-
-        if (cliente != null) {
-            Persistencia.guardaClienteEnDisco(cliente);
-            Comunicaciones.enviaCorreoPedidoEstadoCliente(cliente.getEmail(), "PEDIDO MODIFICADO", pedido);
-            enviaCorreoPedidoModificadoTrabajador(pedido);
-        }
         return true;
     }
 
@@ -719,6 +700,7 @@ public class Controlador {
     }
 
     // Metodo que borra un trabajador
+    // TODO meter Persistencia que borra un trabajador
     public boolean borraTrabajador(Trabajador temp) {
         return trabajadores.remove(temp);
     }
@@ -837,15 +819,19 @@ public class Controlador {
     public boolean cambiaFechaEntregaPedido(int idPedido, LocalDate nuevaFecha) {
         Pedido pedido = buscaPedidoById(idPedido);
         if (pedido == null) return false;
-        boolean bandera = pedido.cambiaFechaEntrega(nuevaFecha);
+        return pedido.cambiaFechaEntrega(nuevaFecha);
+    }
 
-        if (bandera) {
+    // Metodo que envia un correo de que se ha modificado un pedido para el cliente
+    public void enviaCorreoPedidoModificadoCliente(int idPedido) {
+        Pedido pedido = buscaPedidoById(idPedido);
+        if (pedido != null) {
             Cliente c = sacaClienteDeUnPedido(pedido.getId());
             if (c != null) {
                 Comunicaciones.enviaCorreoPedidoEstadoCliente(c.getEmail(), "PEDIDO MODIFICADO", pedido);
                 Persistencia.guardaClienteEnDisco(c);
+                enviaCorreoPedidoModificadoTrabajador(pedido);
             }
         }
-        return bandera;
     }
 }

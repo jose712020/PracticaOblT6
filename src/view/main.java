@@ -213,9 +213,7 @@ public class main {
         String op;
         for (Cliente cliente : controlador.getClientes()) {
             if (user.equals(cliente)) {
-
                 compruebaToken(controlador, cliente);
-
                 if (cliente.isValid()) {
                     do {
                         Menus.menuCliente(controlador, cliente);
@@ -1193,7 +1191,8 @@ public class main {
             }
         } while (!bandera);
 
-        if (controlador.nuevoTrabajador(email, pass, nombreTeclado, movil)) System.out.println("Trabajador dado de alta correctamente...");
+        if (controlador.nuevoTrabajador(email, pass, nombreTeclado, movil))
+            System.out.println("Trabajador dado de alta correctamente...");
         else System.out.println("Ha ocurrido un error...");
     }
 
@@ -1266,43 +1265,48 @@ public class main {
     private static void modificaPedido(Controlador controlador, Object usuario) {
         Trabajador trabajador = buscaTrabajador(controlador, usuario);
         Admin admin = buscaAdmin(controlador, usuario);
-        String op;
-
-        System.out.print("""
-                1. Modifica el estado
-                2. Añade un comentario
-                3. Cambiar fecha
-                Marque una opción:""");
-        op = S.nextLine();
-
-        switch (op) {
-            case "1": // Modifica el estado
-                modificaEstadoPedido(controlador, trabajador, admin);
-                break;
-            case "2": //Añade un comentario
-                aniadeComentarioPedido(controlador, trabajador, admin);
-                break;
-            case "3": //Cambiar fecha
-                cambiaFechaPedido(controlador, trabajador, admin);
-                break;
-            default:
-                System.out.println("Opción incorrecta...");
-                break;
-        }
-    }
-
-    // Funcion que cambia la fecha de un pedido
-    private static void cambiaFechaPedido(Controlador controlador, Trabajador trabajador, Admin admin) {
         Pedido temp = null;
         if (trabajador != null) temp = seleccionaPedidoTrabajador(controlador, trabajador);
         if (admin != null) temp = seleccionaPedidoAdmin(controlador, admin);
 
         if (temp == null) System.out.println("No se ha encontrado ningún pedido...");
         else {
-            LocalDate nuevaFecha = nuevaFecha();
-            if (controlador.cambiaFechaEntregaPedido(temp.getId(), nuevaFecha)) System.out.println("Fecha actualizada correctamente...");
-            else System.out.println("Ha ocurrido un error...");
+            boolean pedidoModificado = false;
+
+            System.out.println("¿Quieres modificar el estado del pedido? (S/N)");
+            String respuestaEst = S.nextLine();
+            if (respuestaEst.equalsIgnoreCase("s")) {
+                modificaEstadoPedido(controlador, temp);
+                pedidoModificado = true;
+            }
+
+            System.out.println("¿Quieres añadir un comentario al pedido? (S/N)");
+            String respuestaCom = S.nextLine();
+            if (respuestaCom.equalsIgnoreCase("s")) {
+                aniadeComentarioPedido(controlador, temp);
+                pedidoModificado = true;
+            }
+
+            System.out.println("¿Quieres modificar la fecha de entrega del pedido? (S/N)");
+            String respuestaFec = S.nextLine();
+            if (respuestaFec.equalsIgnoreCase("s")) {
+                cambiaFechaPedido(controlador, temp);
+                pedidoModificado = true;
+            }
+
+            if (pedidoModificado) {
+                System.out.println("Pedido modificado correctamente...");
+                controlador.enviaCorreoPedidoModificadoCliente(temp.getId());
+            }
         }
+    }
+
+    // Funcion que cambia la fecha de un pedido
+    private static void cambiaFechaPedido(Controlador controlador, Pedido temp) {
+        LocalDate nuevaFecha = nuevaFecha();
+        if (controlador.cambiaFechaEntregaPedido(temp.getId(), nuevaFecha))
+            System.out.println("Fecha actualizada correctamente...");
+        else System.out.println("Ha ocurrido un error...");
     }
 
     // Funcion que devuelve una fecha
@@ -1362,59 +1366,45 @@ public class main {
     }
 
     // Funcion que añade un comentario de un pedido
-    private static void aniadeComentarioPedido(Controlador controlador, Trabajador trabajador, Admin admin) {
-        Pedido temp = null;
-        if (trabajador != null) temp = seleccionaPedidoTrabajador(controlador, trabajador);
-        if (admin != null) temp = seleccionaPedidoAdmin(controlador, admin);
+    private static void aniadeComentarioPedido(Controlador controlador, Pedido temp) {
+        System.out.print("Introduce el comentario para el pedido: ");
+        String comentarioTeclado = S.nextLine();
 
-        if (temp == null) System.out.println("No se ha encontrado ningún pedido...");
-        else {
-            System.out.print("Introduce el comentario para el pedido: ");
-            String comentarioTeclado = S.nextLine();
-
-            // Le enviamos al cliente que su correo ha sido modificado
-            if (controlador.cambiaComentarioPedido(temp.getId(), comentarioTeclado))
-                System.out.println("Se ha añido un comentario al pedido correctamente...");
-            else System.out.println("Ha ocurrido un error...");
-        }
-
+        // Le enviamos al cliente que su correo ha sido modificado
+        if (controlador.cambiaComentarioPedido(temp.getId(), comentarioTeclado))
+            System.out.println("Se ha añido un comentario al pedido correctamente...");
+        else System.out.println("Ha ocurrido un error...");
+        Utils.pulsaContinuar();
+        Utils.limpiarpantalla();
     }
 
     // Funcion que modifica el estado de un pedido
-    private static void modificaEstadoPedido(Controlador controlador, Trabajador trabajador, Admin admin) {
-        Pedido temp = null;
-
-        if (trabajador != null) temp = seleccionaPedidoTrabajador(controlador, trabajador);
-        if (admin != null) temp = seleccionaPedidoAdmin(controlador, admin);
-
-        if (temp == null) System.out.println("No se ha encontrado ningún pedido...");
-        else {
-            int estadoTeclado = -1;
-            boolean continuar = false;
-            pintaPedidoUnico(temp);
-            do {
-                System.out.print("""
-                        Selecciona el nuevo estado:
-                        1. En preparación
-                        2. Enviado
-                        3. Entregado
-                        4. Cancelado
-                        Introduce el nuevo estado:""");
-                try {
-                    estadoTeclado = Integer.parseInt(S.nextLine());
-                    continuar = true;
-                } catch (NumberFormatException e) {
-                    System.out.println("Debes introducir un número...");
-                    Utils.pulsaContinuar();
-                    Utils.limpiarpantalla();
-                }
-            } while (!continuar);
-
-
-            if (controlador.cambiaEstadoPedido(temp.getId(), estadoTeclado)) System.out.println("El pedido se ha modificado con éxito...");
-            else System.out.println("Ha ocurrido un error...");
-        }
-
+    private static void modificaEstadoPedido(Controlador controlador, Pedido temp) {
+        int estadoTeclado = -1;
+        boolean continuar = false;
+        pintaPedidoUnico(temp);
+        do {
+            System.out.print("""
+                    Selecciona el nuevo estado:
+                    1. En preparación
+                    2. Enviado
+                    3. Entregado
+                    4. Cancelado
+                    Introduce el nuevo estado:""");
+            try {
+                estadoTeclado = Integer.parseInt(S.nextLine());
+                continuar = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Debes introducir un número...");
+                Utils.pulsaContinuar();
+                Utils.limpiarpantalla();
+            }
+        } while (!continuar);
+        if (controlador.cambiaEstadoPedido(temp.getId(), estadoTeclado))
+            System.out.println("El estado se ha modificado con éxito...");
+        else System.out.println("Ha ocurrido un error...");
+        Utils.pulsaContinuar();
+        Utils.limpiarpantalla();
     }
 
     // Funcion que selecciona un pedido desde el administrador
