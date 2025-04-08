@@ -154,8 +154,8 @@ public class PedidoClienteDataClass implements Comparable<PedidoClienteDataClass
                 "Localidad: " + localidad + "\n" +
                 "Provincia: " + provincia + "\n" +
                 "Teléfono: " + movil + "\n" +
-                "Fecha del pedido: " + fechaPedido + "\n" +
-                "Fecha de entrega estimada: " + fechaEntregaEstimada + "\n" +
+                "Fecha del pedido: " + Utils.formateaFecha(fechaPedido) + "\n" +
+                "Fecha de entrega estimada: " + Utils.formateaFecha(fechaEntregaEstimada) + "\n" +
                 "Comentarios del pedido: " + comentario + "\n" +
                 "Detalles del pedido: \n" +
                 pintaProductos(productos);
@@ -172,8 +172,8 @@ public class PedidoClienteDataClass implements Comparable<PedidoClienteDataClass
         salida += "Localidad: " + localidad + "<br>";
         salida += "Provincia: " + provincia + "<br>";
         salida += "Teléfono: " + movil + "<br>";
-        salida += "Fecha del pedido: " + fechaPedido + "<br>";
-        salida += "Fecha de entrega estimada: " + fechaEntregaEstimada + "<br>";
+        salida += "Fecha del pedido: " + Utils.formateaFecha(fechaPedido) + "<br>";
+        salida += "Fecha de entrega estimada: " + Utils.formateaFecha(fechaEntregaEstimada) + "<br>";
         salida += "Comentario del pedido: " + comentario + "<br>";
         salida += "Detalles del pedido:<br>";
         for (Producto p : productos) {

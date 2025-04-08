@@ -142,8 +142,8 @@ public class Pedido implements Comparable<Pedido>, Serializable {
         salida += "\n\n";
         salida += "==========\tPedido " + id + "\t===========<br>";
         salida += "Estado: " + devuelveEstado(estado) + "<br>";
-        salida += "Fecha del pedido: " + fechaPedido + "<br>";
-        salida += "Fecha de entrega estimada: " + fechaEntregaEstimada + "<br>";
+        salida += "Fecha del pedido: " + Utils.formateaFecha(fechaPedido) + "<br>";
+        salida += "Fecha de entrega estimada: " + Utils.formateaFecha(fechaEntregaEstimada) + "<br>";
         salida += "Comentario del pedido: " + comentario + "<br>";
         salida += "Detalles del pedido:<br>";
         for (Producto p : productos) {
@@ -160,8 +160,8 @@ public class Pedido implements Comparable<Pedido>, Serializable {
     public String toString() {
         String resultado = "";
         resultado += "======== PEDIDO " + id + " ========\n";
-        resultado += "Fecha de pedido: " + fechaPedido + "\n";
-        resultado += "Fecha de entrega: " + fechaEntregaEstimada + "\n";
+        resultado += "Fecha de pedido: " + Utils.formateaFecha(fechaPedido) + "\n";
+        resultado += "Fecha de entrega: " + Utils.formateaFecha(fechaEntregaEstimada) + "\n";
         resultado += "Estado: " + devuelveEstado(estado) + "\n";
         resultado += "Comentario: " + comentario + "\n";
         resultado += "Productos: \n" + pintaProductos(productos) + "\n";
