@@ -879,6 +879,7 @@ public class Controlador implements Serializable {
         return true;
     }
 
+    // Metodo que adjunta
     public void adjuntaCorreosExcel() {
         ArrayList<Pedido> correosAdj = getTodosPedidos();
         Persistencia.adjuntaCorreos(correosAdj);

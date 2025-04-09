@@ -77,6 +77,7 @@ public class Main {
         return usuarioLogueado;
     }
 
+    // Funcion que si tenemos acceso
     private static Object menuAccesoInvitado(Controlador controlador, Object usuarioLogueado) {
         int op = 0;
         boolean excepcion = false;
@@ -475,6 +476,7 @@ public class Main {
         } // Bucle de admin
     }
 
+    // Función que envia un correo con todos los pedidos que se han hecho
     private static void enviaExcel(Controlador controlador, Admin admin) {
         System.out.print("Introduce el correo al que quieres enviarlo: ");
         String correo = S.nextLine();
