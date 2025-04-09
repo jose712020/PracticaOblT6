@@ -1,6 +1,7 @@
 package utils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -50,7 +51,12 @@ public class Utils {
     }
 
     public static String formateaFecha(LocalDate fechaPedido) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return fechaPedido.format(formatter);
+    }
+
+    public static String formateaFechaLog(LocalDateTime now) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy/HH:mm:ss");
+        return now.format(formatter);
     }
 }

@@ -211,8 +211,7 @@ public class PedidoClienteDataClass implements Comparable<PedidoClienteDataClass
             case 0 -> "Creado";
             case 1 -> "En preparación";
             case 2 -> "Enviado";
-            case 3 -> "Entregado";
-            case 4 -> "Cancelado";
+            case 3 -> "Cancelado";
             default -> "";
         };
 

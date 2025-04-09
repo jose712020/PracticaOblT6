@@ -13,6 +13,8 @@ import java.util.Scanner;
 public class main {
     public static final Scanner S = new Scanner(System.in);
 
+    // TODO cambiar que los pedidos cancelados se pasen a entregados
+    // TODO pendientes(Creado, En preparacion) y terminados(Enviado y cancelado)
     public static void main(String[] args) {
         Controlador controlador = new Controlador();
 
@@ -250,6 +252,7 @@ public class main {
                                 Utils.limpiarpantalla();
                                 break;
                             case "6":// Salir
+                                controlador.guardaCierreSesion(cliente);
                                 Utils.animacionFinSesion();
                                 Utils.limpiarpantalla();
                                 break;
@@ -419,18 +422,21 @@ public class main {
 
     // Función que muestra el historial de pedidos terminados
     private static void historicoPedidosTerminados(Controlador controlador, Trabajador trabajador) {
-        if (controlador.getPedidosCompletadosTrabajador(trabajador.getId()).isEmpty())
-            System.out.println("No tienes ningún pedido...");
+        if (trabajador.numPedidosCompletados() == 0) System.out.println("No tienes pedidos terminados...");
         else {
             ArrayList<PedidoClienteDataClass> pedidosTerminados = controlador.getPedidosCompletadosTrabajador(trabajador.getId());
-            int cont = 1;
+            if (pedidosTerminados.isEmpty()) System.out.println("No tienes pedidos terminados...");
+            else {
+                int cont = 1;
 
-            System.out.println("""
+                System.out.println("""
                     ╔════════════════════════════════════════════════════╗
                     ║                 PEDIDOS TERMINADOS                 ║
                     ╚════════════════════════════════════════════════════╝""");
-            for (PedidoClienteDataClass p : pedidosTerminados) {
-                System.out.println(cont + ".- " + p);
+                for (PedidoClienteDataClass p : pedidosTerminados) {
+                    System.out.println(cont + ".- " + p);
+                    cont++;
+                }
             }
         }
     }
@@ -501,15 +507,19 @@ public class main {
         if (trabajador.numPedidosPendientes() == 0) System.out.println("No tienes pedidos pendientes...");
         else {
             ArrayList<PedidoClienteDataClass> pedidosAsignados = controlador.getPedidosAsignadosTrabajador(trabajador.getId());
-            int cont = 1;
 
-            System.out.println("""
+            if (pedidosAsignados.isEmpty()) System.out.println("No tienes pedidos pendientes...");
+            else {
+                int cont = 1;
+
+                System.out.println("""
                     ╔════════════════════════════════════════════════════╗
                     ║                 PEDIDOS ASIGNADOS                  ║
                     ╚════════════════════════════════════════════════════╝""");
-            for (PedidoClienteDataClass p : pedidosAsignados) {
-                System.out.println(cont + ".- " + p);
-                cont++;
+                for (PedidoClienteDataClass p : pedidosAsignados) {
+                    System.out.println(cont + ".- " + p);
+                    cont++;
+                }
             }
         }
     }
@@ -518,19 +528,9 @@ public class main {
     private static void resumenPedidosAdmin(Controlador controlador) {
         if (controlador.getTodosPedidos().isEmpty()) System.out.println("No se han realizado pedidos...");
         else {
-            ArrayList<Pedido> pedidosEntregados = controlador.devuelvePedidosEntregados();
             ArrayList<Pedido> pedidosCancelados = controlador.devuelvePedidosCancelados();
             ArrayList<Pedido> pedidosPendientes = controlador.devuelvePedidosPendientes();
 
-            if (!pedidosEntregados.isEmpty()) {
-                System.out.println("""
-                        ╔════════════════════════════════════════════════════╗
-                        ║                PEDIDOS ENTREGADOS                  ║
-                        ╚════════════════════════════════════════════════════╝""");
-                for (Pedido p : pedidosEntregados) {
-                    System.out.println(p);
-                }
-            }
             if (!pedidosCancelados.isEmpty()) {
                 System.out.println("""
                         ╔════════════════════════════════════════════════════╗
@@ -623,48 +623,6 @@ public class main {
                     System.out.println("El pedido se ha cancelado con éxito...");
 
         }
-    }
-
-    // Función que selecciona un pedido en el cliente
-    private static Pedido seleccionaPedidoCliente(Controlador controlador, Cliente cliente) {
-        ArrayList<Pedido> pedidos = cliente.getPedidos();
-
-        if (pedidos == null) return null;
-        if (pedidos.isEmpty()) return null;
-
-        ArrayList<Pedido> pedidosSinCancelado = new ArrayList<>();
-
-        for (Pedido p : pedidos) {
-            if (p.getEstado() != 4) pedidosSinCancelado.add(p);
-        }
-
-        if (pedidosSinCancelado.isEmpty()) return null;
-
-        int cont = 1;
-
-        System.out.print("""
-                ╔════════════════════════════════════════════════════╗
-                ║                  CANCELA PEDIDOS                   ║
-                ╚════════════════════════════════════════════════════╝
-                """);
-        for (Pedido p : pedidos) {
-            System.out.println("\t" + cont + ".- " + p);
-            cont++;
-        }
-
-        System.out.print("Introduce el pedido: ");
-        String pedidoSeleccionado = S.nextLine();
-
-        Pedido pedidoElegido = null;
-        try {
-            pedidoElegido = pedidos.get(Integer.parseInt(pedidoSeleccionado) - 1);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("Error al elegir pedido...");
-        }
-
-        if (pedidoElegido == null) return null;
-
-        return controlador.buscaPedidoById(pedidoElegido.getId());
     }
 
     // Función que confirma un pedido del cliente
@@ -922,19 +880,9 @@ public class main {
     private static void verMisPedidosCliente(Controlador controlador, Cliente cliente) {
         if (cliente.getPedidos().isEmpty()) System.out.println("No has realizado ningún pedido...");
         else {
-            ArrayList<Pedido> pedidosEntregados = controlador.verPedidosEntregados(cliente.getId());
             ArrayList<Pedido> pedidosCancelados = controlador.verPedidosCancelados(cliente.getId());
             ArrayList<Pedido> pedidosPendientes = controlador.verPedidosPendientes(cliente.getId());
 
-            if (!pedidosEntregados.isEmpty()) {
-                System.out.println("""
-                        ╔════════════════════════════════════════════════════╗
-                        ║                PEDIDOS ENTREGADOS                  ║
-                        ╚════════════════════════════════════════════════════╝""");
-                for (Pedido p : pedidosEntregados) {
-                    System.out.println(p);
-                }
-            }
             if (!pedidosCancelados.isEmpty()) {
                 System.out.println("""
                         ╔════════════════════════════════════════════════════╗
@@ -1381,8 +1329,7 @@ public class main {
                     Selecciona el nuevo estado:
                     1. En preparación
                     2. Enviado
-                    3. Entregado
-                    4. Cancelado
+                    3. Cancelado
                     Introduce el nuevo estado:""");
             try {
                 estadoTeclado = Integer.parseInt(S.nextLine());
@@ -1444,7 +1391,7 @@ public class main {
 
     // Función de menú de selección de un pedido
     private static Pedido seleccionaPedidoTrabajador(Controlador controlador, Trabajador trabajador) {
-        ArrayList<PedidoClienteDataClass> pedidosData = controlador.getPedidosAsignadosYCompletados(trabajador.getId());
+        ArrayList<PedidoClienteDataClass> pedidosData = controlador.getPedidosAsignadosTrabajador(trabajador.getId());
         int cont = 1;
 
         if (pedidosData == null) return null;

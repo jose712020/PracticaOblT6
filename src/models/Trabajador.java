@@ -110,7 +110,7 @@ public class Trabajador implements Serializable {
         if (pedidosAsignados == null) return pedidosPendientes;
 
         for (Pedido p : pedidosAsignados) {
-             if (p.getEstado() == 0 || p.getEstado() == 1 || p.getEstado() == 2) pedidosPendientes.add(p);
+             if (p.getEstado() == 0 || p.getEstado() == 1) pedidosPendientes.add(p);
         }
         return pedidosPendientes;
     }
@@ -122,7 +122,7 @@ public class Trabajador implements Serializable {
         if (pedidosAsignados == null) return pedidosCompletados;
 
         for (Pedido p : pedidosAsignados) {
-            if (p.getEstado() == 3 || p.getEstado() == 4) pedidosCompletados.add(p);
+            if (p.getEstado() == 2 || p.getEstado() == 3) pedidosCompletados.add(p);
         }
         return pedidosCompletados;
     }
@@ -130,5 +130,10 @@ public class Trabajador implements Serializable {
     // Metodo que comprueba el numero de pedidos pendientes
     public int numPedidosPendientes() {
         return getPedidosPendientes().size();
+    }
+
+    // Metodo que comprueba el numero de pedidos completados
+    public int numPedidosCompletados() {
+        return getPedidosCompletados().size();
     }
 }

@@ -98,18 +98,28 @@ public class Controlador {
     // Metodo que sirve para registrarnos, introduciremos el correo y la contraseña del usuario, devolvera quien coincida
     public Object login(String email, String clave) {
         for (Admin admin : admins) {
-            if (admin.login(email, clave)) return admin;
+            if (admin.login(email, clave)) {
+                Persistencia.guardaActividadInicioSesion(admin);
+                return admin;
+            }
         }
 
         for (Trabajador trabajador : trabajadores) {
-            if (trabajador.login(email, clave)) return trabajador;
+            if (trabajador.login(email, clave)) {
+                Persistencia.guardaActividadInicioSesion(trabajador);
+                return trabajador;
+            }
         }
 
         for (Cliente cliente : clientes) {
-            if (cliente.login(email, clave)) return cliente;
+            if (cliente.login(email, clave)) {
+                Persistencia.guardaActividadInicioSesion(cliente);
+                return cliente;
+            }
         }
         return null;
     }
+
 
     // Metodo que añade un producto al carrito le pasamos una copia
     public boolean addProductoCarrito(Cliente cliente, int idProducto) {
@@ -302,7 +312,11 @@ public class Controlador {
     public boolean cambiaEstadoPedido(int idPedido, int nuevoEstado) {
         Pedido pedido = buscaPedidoById(idPedido);
         if (pedido == null) return false;
-        return pedido.cambiaEstado(nuevoEstado);
+        boolean bandera = pedido.cambiaEstado(nuevoEstado);
+
+        if (bandera) Persistencia.guardaActividadActualizaPedido(pedido);
+
+        return bandera;
     }
 
     // Funcion que saca un cliente de un pedido
@@ -410,7 +424,11 @@ public class Controlador {
 
         boolean bandera = trabajadorTemp.asignaPedido(pedidoTemp);
 
-        if (bandera) Persistencia.guardaTrabajadorEnDisco(trabajadorTemp);
+        if (bandera) {
+            Cliente cliente = sacaClienteDeUnPedido(pedidoTemp.getId());
+            if (cliente != null) Persistencia.guardaActividadNuevoPedido(cliente.getId(), trabajadorTemp.getId());
+            Persistencia.guardaTrabajadorEnDisco(trabajadorTemp);
+        }
 
         return bandera;
     }
@@ -422,7 +440,7 @@ public class Controlador {
         Trabajador temp = buscaTrabajadorById(idTrabajador);
 
         //Bucle que mira los pedidos completados de los trabajadores
-        for (Pedido pT : temp.getPedidosAsignados()) {
+        for (Pedido pT : temp.getPedidosPendientes()) {
             // Bucle del cliente
             for (Cliente c : clientes) {
                 // Bucle que mira los pedidos de los clientes
@@ -431,6 +449,7 @@ public class Controlador {
                         pedidosAsignadosT.add(new PedidoClienteDataClass(c.getId(), c.getEmail(), c.getNombre(), c.getLocalidad(),
                                 c.getProvincia(), c.getDireccion(), c.getMovil(), pA.getId(), pA.getFechaPedido(), pA.getFechaEntregaEstimada(),
                                 pA.getEstado(), pA.getComentario(), pA.getProductos()));
+
                     }
                 }
             }
@@ -468,6 +487,8 @@ public class Controlador {
         ArrayList<PedidoClienteDataClass> pedidosCompletadosT = new ArrayList<>();
 
         Trabajador temp = buscaTrabajadorById(idTrabajador);
+        if (temp == null) return null;
+        if (temp.getPedidosAsignados().isEmpty()) return pedidosCompletadosT;
 
         //Bucle que mira los pedidos completados de los trabajadores
         for (Pedido pT : temp.getPedidosCompletados()) {
@@ -483,6 +504,7 @@ public class Controlador {
                 }
             }
         }
+
 
         Collections.sort(pedidosCompletadosT);
         return pedidosCompletadosT;
@@ -766,22 +788,6 @@ public class Controlador {
         return pedidosPendientes;
     }
 
-    // Metodo que devuelve los pedidos entregados de un cliente en especifico
-    public ArrayList<Pedido> verPedidosEntregados(int idCliente) {
-        ArrayList<Pedido> pedidosEntregados = new ArrayList<>();
-        Cliente temp = buscaClienteById(idCliente);
-
-        if (temp == null) return pedidosEntregados;
-        if (temp.getPedidos().isEmpty()) return pedidosEntregados;
-
-        for (Pedido p : temp.getPedidos()) {
-            if (p.getEstado() == 3) pedidosEntregados.add(p);
-        }
-
-        Collections.sort(pedidosEntregados);
-        return pedidosEntregados;
-    }
-
     // Metodo que devuelve los pedidos cancelados de un cliente en especifico
     public ArrayList<Pedido> verPedidosCancelados(int idCliente) {
         ArrayList<Pedido> pedidosCancelados = new ArrayList<>();
@@ -832,5 +838,10 @@ public class Controlador {
                 enviaCorreoPedidoModificadoTrabajador(pedido);
             }
         }
+    }
+
+    // Metodo que llama a un metodo de la Persistencia para guardarlo en el log
+    public void guardaCierreSesion(Object user) {
+        Persistencia.guardaActividadCierreSesion(user);
     }
 }

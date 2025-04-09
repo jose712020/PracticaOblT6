@@ -79,7 +79,7 @@ public class Pedido implements Comparable<Pedido>, Serializable {
     // Funcion que cambia el estado de un pedido
     public boolean cambiaEstado(int nuevoEstado) {
         switch (nuevoEstado) {
-            case 1, 2, 3, 4:
+            case 1, 2, 3:
                 estado = nuevoEstado;
                 return true;
             default:
@@ -179,13 +179,12 @@ public class Pedido implements Comparable<Pedido>, Serializable {
     }
 
     // Funcion que devuelve el estado de un Pedido
-    private String devuelveEstado(int estado) {
+    public String devuelveEstado(int estado) {
         return switch (estado) {
             case 0 -> "Creado";
             case 1 -> "En preparación";
             case 2 -> "Enviado";
-            case 3 -> "Entregado";
-            case 4 -> "Cancelado";
+            case 3 -> "Cancelado";
             default -> "";
         };
     }

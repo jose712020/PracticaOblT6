@@ -1,11 +1,10 @@
 package persistencia;
 
-import models.Admin;
-import models.Cliente;
-import models.Producto;
-import models.Trabajador;
+import models.*;
+import utils.Utils;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -287,6 +286,122 @@ public class Persistencia {
             return prop.getProperty("RUTA_CLIENTES", "data/usuarios/clientes");
         } catch (IOException e) {
             return "";
+        }
+    }
+
+    // Metodo que lee la ruta de los logs
+    private static String leeRutaLogs() {
+        Properties prop = new Properties();
+        try {
+            prop.load(new BufferedReader(new FileReader(RUTA_P)));
+            return prop.getProperty("RUTA_LOGS", "data/logs");
+        } catch (IOException e) {
+            return "";
+        }
+    }
+
+    // Metodo que guarda los inicio de sesion en disco
+    public static void guardaActividadInicioSesion(Object user) {
+        File carpetaLog = new File(leeRutaLogs());
+
+        if (!carpetaLog.exists()) carpetaLog.mkdirs();
+
+        if (user instanceof Admin) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
+                bw.write("Inicio de sesión;" + (((Admin) user).getNombre()) + ";Administrador;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                bw.close();
+            } catch (IOException e) {
+                return;
+            }
+        }
+
+        if (user instanceof Trabajador) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
+                bw.write("Inicio de sesión;" + (((Trabajador) user).getNombre()) + ";Trabajador;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                bw.close();
+            } catch (IOException e) {
+                return;
+            }
+        }
+
+        if (user instanceof Cliente) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
+                bw.write("Inicio de sesión;" + (((Cliente) user).getNombre()) + ";Cliente;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                bw.close();
+            } catch (IOException e) {
+                return;
+            }
+        }
+
+    }
+
+    // Metodo que guarda los cierres de sesion en disco
+    public static void guardaActividadCierreSesion(Object user) {
+        File carpetaLog = new File(leeRutaLogs());
+
+        if (!carpetaLog.exists()) carpetaLog.mkdirs();
+
+        if (user instanceof Admin) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
+                bw.write("Cierre sesión;" + ((Admin) user).getNombre() + ";Administrador;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                bw.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if (user instanceof Trabajador) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
+                bw.write("Cierre sesión;" + ((Trabajador) user).getNombre() + ";Trabajador;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                bw.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if (user instanceof Cliente) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
+                bw.write("Cierre sesión;" + ((Cliente) user).getNombre() + ";Cliente;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                bw.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    // Metodo que guarda los nuevos pedidos en el disco
+    public static void guardaActividadNuevoPedido(int idCliente, int idTrabajador) {
+        File carpetaLog = new File(leeRutaLogs());
+        if (!carpetaLog.exists()) carpetaLog.mkdirs();
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
+            bw.write("Nuevo pedido;" + idCliente + ";" + idTrabajador + ";" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+            bw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void guardaActividadActualizaPedido(Pedido pedido) {
+        File carpetaLog = new File(leeRutaLogs());
+
+        if (!carpetaLog.exists()) carpetaLog.mkdirs();
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
+            bw.write("Actualiza pedido;" + pedido.getId() + ";" + pedido.devuelveEstado(pedido.getEstado()) + ";"
+                    + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+            bw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
