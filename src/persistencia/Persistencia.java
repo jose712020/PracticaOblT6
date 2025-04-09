@@ -4,6 +4,7 @@ import models.*;
 import utils.Utils;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -300,7 +301,7 @@ public class Persistencia {
         }
     }
 
-    // Metodo que guarda los inicio de sesion en disco
+    // Metodo que guarda los inicio de sesion un log
     public static void guardaActividadInicioSesion(Object user) {
         File carpetaLog = new File(leeRutaLogs());
 
@@ -338,7 +339,7 @@ public class Persistencia {
 
     }
 
-    // Metodo que guarda los cierres de sesion en disco
+    // Metodo que guarda los cierres de sesion un log
     public static void guardaActividadCierreSesion(Object user) {
         File carpetaLog = new File(leeRutaLogs());
 
@@ -348,6 +349,7 @@ public class Persistencia {
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
                 bw.write("Cierre sesión;" + ((Admin) user).getNombre() + ";Administrador;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                escribirUltimoCierreSesion(((Admin) user).getId());
                 bw.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -358,6 +360,7 @@ public class Persistencia {
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
                 bw.write("Cierre sesión;" + ((Trabajador) user).getNombre() + ";Trabajador;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                escribirUltimoCierreSesion(((Trabajador) user).getId());
                 bw.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -368,6 +371,7 @@ public class Persistencia {
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(carpetaLog + "\\" + "actividad.logs", true));
                 bw.write("Cierre sesión;" + ((Cliente) user).getNombre() + ";Cliente;" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
+                escribirUltimoCierreSesion(((Cliente) user).getId());
                 bw.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -376,7 +380,19 @@ public class Persistencia {
 
     }
 
-    // Metodo que guarda los nuevos pedidos en el disco
+    // Metodo que escribe el ultimo inicio de sesion del usuario (escribe en el properties)
+    private static void escribirUltimoCierreSesion(int idUsuario) {
+        Properties prop = new Properties();
+        try {
+            prop.load(new BufferedReader(new FileReader(RUTA_P)));
+            prop.setProperty(String.valueOf(idUsuario), Utils.formateaFechaLog(LocalDateTime.now()));
+            prop.store(new FileOutputStream(RUTA_P), "Ultimo inicio sesión de " + idUsuario + " a las " + Utils.formateaFecha(LocalDate.now()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Metodo que guarda los nuevos pedidos en un log
     public static void guardaActividadNuevoPedido(int idCliente, int idTrabajador) {
         File carpetaLog = new File(leeRutaLogs());
         if (!carpetaLog.exists()) carpetaLog.mkdirs();
@@ -390,6 +406,7 @@ public class Persistencia {
         }
     }
 
+    // Metodo que guarda los actualiza pedido en un log
     public static void guardaActividadActualizaPedido(Pedido pedido) {
         File carpetaLog = new File(leeRutaLogs());
 
@@ -402,6 +419,18 @@ public class Persistencia {
             bw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    // Metodo que devuelve el ultimo inicio de sesion del usuario (busca en el properties)
+    public static String ultimoInicioSesion(int idUsuario) {
+        Properties prop = new Properties();
+
+        try {
+            prop.load(new BufferedReader(new FileReader(RUTA_P)));
+            return prop.getProperty(String.valueOf(idUsuario));
+        } catch (IOException e) {
+            return "";
         }
     }
 }

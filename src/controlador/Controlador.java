@@ -844,4 +844,9 @@ public class Controlador {
     public void guardaCierreSesion(Object user) {
         Persistencia.guardaActividadCierreSesion(user);
     }
+
+    // Metodo que muestra el ultimo inicio de sesion del usuario
+    public String ultimoInicioSesion(int idUsuario) {
+        return Persistencia.ultimoInicioSesion(idUsuario);
+    }
 }

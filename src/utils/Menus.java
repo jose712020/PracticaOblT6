@@ -12,6 +12,9 @@ public class Menus {
 
     //Menu del administrador
     public static void menuAdministrador(Controlador controlador, Admin admin) {
+        System.out.println("╔════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║\t\tUsted inició sesión por última vez el " + controlador.ultimoInicioSesion(admin.getId()) + "\t\t ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════╝");
         System.out.print("""
                 1.- Ver todo el catálogo
                 2.- Editar un producto
@@ -34,6 +37,9 @@ public class Menus {
         System.out.print("Bienvenido " + cliente.getNombre());
         System.out.println(". Actualmente tiene " + pedidosPendientes + ((pedidosPendientes == 1) ?
                 " pedido pendiente" : " pedidos pendientes") + " de entrega");
+        System.out.println("╔════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║\t\tUsted inició sesión por última vez el " + controlador.ultimoInicioSesion(cliente.getId()) + "\t\t ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════╝");
         System.out.print("""
                 1.- Consultar el catálogo de productos
                 2.- Realizar un pedido
@@ -48,6 +54,9 @@ public class Menus {
     public static void menuTrabajador(Controlador controlador, Trabajador trabajador) {
         System.out.println("Bienvenido " + trabajador.getNombre() + ". Tienes " + trabajador.numPedidosPendientes() +
                 (trabajador.numPedidosPendientes() == 1 ? " pedido" : " pedidos") + " que gestionar.");
+        System.out.println("╔════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║\t\tUsted inició sesión por última vez el " + controlador.ultimoInicioSesion(trabajador.getId()) + "\t\t ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════╝");
         System.out.print("""
                 1.- Consultar los pedidos que tengo asignados
                 2.- Modificar el estado de un pedido

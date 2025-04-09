@@ -320,6 +320,7 @@ public class main {
                             Utils.limpiarpantalla();
                             break;
                         case "8": //Salir
+                            controlador.guardaCierreSesion(trabajador);
                             Utils.animacionFinSesion();
                             Utils.limpiarpantalla();
                             break;
@@ -406,6 +407,7 @@ public class main {
                             Utils.limpiarpantalla();
                             break;
                         case "11": //Salir
+                            controlador.guardaCierreSesion(admin);
                             Utils.animacionFinSesion();
                             Utils.limpiarpantalla();
                             break;
