@@ -447,14 +447,18 @@ public class Main {
                             Utils.limpiarpantalla();
                             break;
                         case "11": // Muestra la configuracion de nuestro programa (del properties)
+                            Utils.limpiarpantalla();
+                            verConfiguracionPrograma(controlador);
                             Utils.pulsaContinuar();
                             Utils.limpiarpantalla();
                             break;
                         case "12": // Envia todos los pedidos en un Excel
+                            Utils.limpiarpantalla();
                             Utils.pulsaContinuar();
                             Utils.limpiarpantalla();
                             break;
                         case "13": // Realiza copia de seguridad
+                            Utils.limpiarpantalla();
                             Utils.pulsaContinuar();
                             Utils.limpiarpantalla();
                             break;
@@ -472,6 +476,15 @@ public class Main {
                 } while (!op.equals("14"));
             }
         } // Bucle de admin
+    }
+
+    // Metodo del administrador que ve la configuración del programa
+    private static void verConfiguracionPrograma(Controlador controlador) {
+        ArrayList<String> configuracion = controlador.configuracionPrograma();
+
+        for (String linea : configuracion) {
+            System.out.println(linea);
+        }
     }
 
     // Función que muestra el historial de pedidos terminados

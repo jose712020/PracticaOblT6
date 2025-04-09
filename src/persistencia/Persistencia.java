@@ -445,4 +445,19 @@ public class Persistencia {
             return false;
         }
     }
+
+    public static ArrayList<String> configuracionPrograma() {
+        ArrayList<String> configuracion = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(RUTA_P));
+            String linea = "";
+            while (linea != null) {
+                linea = br.readLine();
+                if (linea != null) configuracion.add(linea);
+            }
+        } catch (IOException e) {
+            return configuracion;
+        }
+        return configuracion;
+    }
 }

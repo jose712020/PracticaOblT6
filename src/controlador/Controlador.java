@@ -854,4 +854,9 @@ public class Controlador {
     public boolean accesoInvitado() {
         return Persistencia.accesoInvitado();
     }
+
+    // Metodo que devuelve un arraylist de String del properties linea a linea
+    public ArrayList<String> configuracionPrograma() {
+        return Persistencia.configuracionPrograma();
+    }
 }
