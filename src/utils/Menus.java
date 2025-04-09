@@ -26,7 +26,10 @@ public class Menus {
                 8.- Dar de alta un trabajador
                 9.- Dar de baja un trabajador
                 10.- Asignar un pedido a un trabajador
-                11.- Salir
+                11.- Muestra configuración del programa
+                12.- Envía listado de pedidos por correo
+                13.- Realiza copia de seguridad
+                14.- Salir
                 Introduce una opción:""");
     }
 

@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Main {
     public static final Scanner S = new Scanner(System.in);
 
-    // TODO cambiar que cuando se registre un usuario lo lleve al menu directamente
+    // TODO cambiar que cuando se registre un usuario lo lleve al menu directamente y quitar antes de entregar los catch de Persistencia
     public static void main(String[] args) {
         Controlador controlador = new Controlador();
 
@@ -446,7 +446,19 @@ public class Main {
                             Utils.pulsaContinuar();
                             Utils.limpiarpantalla();
                             break;
-                        case "11": //Salir
+                        case "11": // Muestra la configuracion de nuestro programa (del properties)
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "12": // Envia todos los pedidos en un Excel
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "13": // Realiza copia de seguridad
+                            Utils.pulsaContinuar();
+                            Utils.limpiarpantalla();
+                            break;
+                        case "14": //Salir
                             controlador.guardaCierreSesion(admin);
                             Utils.animacionFinSesion();
                             Utils.limpiarpantalla();
@@ -457,7 +469,7 @@ public class Main {
                             Utils.limpiarpantalla();
                             break;
                     }
-                } while (!op.equals("11"));
+                } while (!op.equals("14"));
             }
         } // Bucle de admin
     }

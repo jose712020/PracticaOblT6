@@ -434,7 +434,7 @@ public class Persistencia {
         }
     }
 
-    // Metodo que devuelve
+    // Metodo que devuelve si hay acceso de invitados
     public static boolean accesoInvitado() {
         Properties prop = new Properties();
 
