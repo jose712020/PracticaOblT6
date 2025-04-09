@@ -120,8 +120,7 @@ public class Controlador implements Serializable {
         }
         return null;
     }
-
-
+    
     // Metodo que añade un producto al carrito le pasamos una copia
     public boolean addProductoCarrito(Cliente cliente, int idProducto) {
         Producto temp = buscaProductoById(idProducto);
@@ -371,10 +370,11 @@ public class Controlador implements Serializable {
     }
 
     // Metodo que añade un cliente a clientes
-    public boolean nuevoCliente(String email, String clave, String nombre, String localidad, String provincia, String direccion, int movil) {
+    public Cliente nuevoCliente(String email, String clave, String nombre, String localidad, String provincia, String direccion, int movil) {
         Cliente c = new Cliente(generaIdCliente(), email, clave, nombre, localidad, provincia, direccion, movil);
         Persistencia.guardaClienteEnDisco(c);
-        return clientes.add(c);
+        clientes.add(c);
+        return c;
     }
 
     // Metodo que busca un trabajador en un pedido asignado
@@ -722,8 +722,8 @@ public class Controlador implements Serializable {
     }
 
     // Metodo que borra un trabajador
-    // TODO meter Persistencia que borra un trabajador
     public boolean borraTrabajador(Trabajador temp) {
+        Persistencia.borraTrabajador(temp.getId());
         return trabajadores.remove(temp);
     }
 
@@ -739,22 +739,6 @@ public class Controlador implements Serializable {
         if (borrado) Persistencia.guardaClienteEnDisco(cliente);
 
         return borrado;
-    }
-
-    // Metodo que devuelve los pedidos que esten Entregados
-    public ArrayList<Pedido> devuelvePedidosEntregados() {
-        ArrayList<Pedido> pedidosEntregados = new ArrayList<>();
-
-        for (Cliente c : clientes) {
-            if (c != null && !c.getPedidos().isEmpty()) {
-                for (Pedido p : c.getPedidos()) {
-                    if (p.getEstado() == 3) pedidosEntregados.add(p);
-                }
-            }
-        }
-
-        Collections.sort(pedidosEntregados);
-        return pedidosEntregados;
     }
 
     // Metodo que devuelve los pedidos que esten Cancelados
@@ -881,7 +865,6 @@ public class Controlador implements Serializable {
         catalogo = recuperado.catalogo;
         return true;
     }
-
 
     // Metodo que recupera una copia de seguridad en la ruta por defecto
     public boolean recuperaBackup() {

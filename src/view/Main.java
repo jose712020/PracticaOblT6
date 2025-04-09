@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Main {
     public static final Scanner S = new Scanner(System.in);
 
-    // TODO cambiar que cuando se registre un usuario lo lleve al menu directamente y quitar antes de entregar los catch de Persistencia
+    // TODO quitar antes de entregar los catch de Persistencia
     public static void main(String[] args) {
         Controlador controlador = new Controlador();
 
@@ -190,16 +190,11 @@ public class Main {
                 }
             } while (!bandera);
 
-            if (controlador.nuevoCliente(email, clave, nombre, localidad, provincia, direccion, movil)) {
-                Cliente cliente = null;
-                for (Cliente c : controlador.getClientes()) {
-                    if (c.getEmail().equals(email)) cliente = c;
-                }
-
-                if (cliente != null) {
-                    controlador.generaToken(cliente);
-                    System.out.println("Registrado correctamente...");
-                }
+            Cliente cliente = controlador.nuevoCliente(email, clave, nombre, localidad, provincia, direccion, movil);
+            if (cliente != null) {
+                controlador.generaToken(cliente);
+                System.out.println("Registrado correctamente...");
+                menuClientes(controlador, cliente);
             } else System.out.println("Ha ocurrido un error...");
         }
     }
@@ -1091,8 +1086,11 @@ public class Main {
         if (!cliente.isValid()) {
             System.out.print("Introduce tu token para registrarte: ");
             String tokenTeclado = S.nextLine();
-            if (controlador.compruebaToken(cliente, tokenTeclado)) System.out.println("Token correcto...");
-            else System.out.println("Token incorrecto...");
+            if (controlador.compruebaToken(cliente, tokenTeclado)) {
+                System.out.println("Token correcto...");
+                Utils.pulsaContinuar();
+                Utils.limpiarpantalla();
+            } else System.out.println("Token incorrecto...");
         }
     }
 

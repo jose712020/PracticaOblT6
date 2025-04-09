@@ -550,6 +550,21 @@ public class Persistencia {
         return recuperado;
     }
 
+    // Metodo que borra al trabajador del disco
+    public static void borraTrabajador(int idTrabajador) {
+        File carpetaTrabajadores = new File(leeRutaTrabajadores());
+
+        if (carpetaTrabajadores.exists()) {
+            for (String archivo : carpetaTrabajadores.list()) {
+                int idArchivo = Integer.parseInt(archivo.substring(0, archivo.indexOf(".")));
+                if (idArchivo == idTrabajador) {
+                    File trabajador = new File(leeRutaTrabajadores() + "\\" + archivo);
+                    trabajador.delete();
+                }
+            }
+        }
+    }
+
  /*   public static void enviarExcelGuardadoPorCorreo(String destino) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
