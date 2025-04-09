@@ -5,11 +5,12 @@ import data.DataProductos;
 import models.*;
 import persistencia.Persistencia;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Controlador {
+public class Controlador implements Serializable {
     // Atributos
     private ArrayList<Cliente> clientes;
     private ArrayList<Trabajador> trabajadores;
@@ -858,5 +859,38 @@ public class Controlador {
     // Metodo que devuelve un arraylist de String del properties linea a linea
     public ArrayList<String> configuracionPrograma() {
         return Persistencia.configuracionPrograma();
+    }
+
+    // Metodo que crea una copia de seguridad en la ruta
+    public boolean creaBackup(String rutaBackup) {
+        return Persistencia.creaBackup(rutaBackup, this);
+    }
+
+    // Metodo que crea una copia de seguridad en la ruta por defecto
+    public boolean creaBackup() {
+        return Persistencia.creaBackup(this);
+    }
+
+    // Metodo que recupera una copia de seguridad en la ruta que nos pasen
+    public boolean recuperaBackup(String rutaBackup) {
+        Controlador recuperado = Persistencia.recuperaBackup(rutaBackup);
+        if (recuperado == null) return false;
+        clientes = recuperado.clientes;
+        trabajadores = recuperado.trabajadores;
+        admins = recuperado.admins;
+        catalogo = recuperado.catalogo;
+        return true;
+    }
+
+
+    // Metodo que recupera una copia de seguridad en la ruta por defecto
+    public boolean recuperaBackup() {
+        Controlador recuperado = Persistencia.recuperaBackup();
+        if (recuperado == null) return false;
+        clientes = recuperado.clientes;
+        trabajadores = recuperado.trabajadores;
+        admins = recuperado.admins;
+        catalogo = recuperado.catalogo;
+        return true;
     }
 }

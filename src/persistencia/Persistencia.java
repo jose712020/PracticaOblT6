@@ -1,5 +1,6 @@
 package persistencia;
 
+import controlador.Controlador;
 import models.*;
 import utils.Utils;
 
@@ -301,6 +302,18 @@ public class Persistencia {
         }
     }
 
+    // Metodo que lee la ruta de los backups
+    private static String leeRutaBackup() {
+        Properties prop = new Properties();
+
+        try {
+            prop.load(new BufferedReader(new FileReader(RUTA_P)));
+            return prop.getProperty("RUTA_BACKUP", "data/backup");
+        } catch (IOException e) {
+            return "";
+        }
+    }
+
     // Metodo que guarda los inicio de sesion un log
     public static void guardaActividadInicioSesion(Object user) {
         File carpetaLog = new File(leeRutaLogs());
@@ -446,6 +459,7 @@ public class Persistencia {
         }
     }
 
+    // Metodo que rellena un ArrayList de String con el contenido del properties
     public static ArrayList<String> configuracionPrograma() {
         ArrayList<String> configuracion = new ArrayList<>();
         try {
@@ -460,4 +474,131 @@ public class Persistencia {
         }
         return configuracion;
     }
+
+    // Metodo que crea una copia de seguridad en la ruta que nos pasen
+    public static boolean creaBackup(String rutaBackup, Controlador controlador) {
+        File carpetaBackup = new File(rutaBackup);
+
+        if (!carpetaBackup.exists()) carpetaBackup.mkdirs();
+
+        try {
+            FileOutputStream fos = new FileOutputStream(carpetaBackup + "\\" + "copiaSeguridad.backup");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(controlador);
+            oos.close();
+            fos.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    // Metodo que crea una copia de seguridad en la ruta por defecto
+    public static boolean creaBackup(Controlador controlador) {
+        File carpetaBackup = new File(leeRutaBackup());
+
+        if (!carpetaBackup.exists()) carpetaBackup.mkdirs();
+
+        try {
+            FileOutputStream fos = new FileOutputStream(carpetaBackup + "\\" + "copiaSeguridad.backup");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(controlador);
+            oos.close();
+            fos.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    // Metodo que recupera una copia de seguridad en la ruta que nos pasen
+    public static Controlador recuperaBackup(String rutaBackup) {
+        Controlador recuperado = null;
+
+        File carpetaCopia = new File(rutaBackup);
+
+        if (!carpetaCopia.exists()) return recuperado;
+        try {
+            FileInputStream fis = new FileInputStream(rutaBackup + "\\" + "copiaSeguridad.backup");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            recuperado = (Controlador) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return recuperado;
+    }
+
+    // Metodo que recupera una copia de seguridad en la ruta por defecto
+    public static Controlador recuperaBackup() {
+        Controlador recuperado = null;
+        File carpetaCopia = new File(leeRutaBackup());
+        if (!carpetaCopia.exists()) return null;
+
+        try {
+            FileInputStream fis = new FileInputStream(carpetaCopia + "\\" + "copiaSeguridad.backup");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            recuperado = (Controlador) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return recuperado;
+    }
+
+ /*   public static void enviarExcelGuardadoPorCorreo(String destino) {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+        Session session = Session.getInstance(props, new jakarta.mail.Authenticator() {
+            @Override
+            protected jakarta.mail.PasswordAuthentication getPasswordAuthentication() {
+                return new jakarta.mail.PasswordAuthentication(user, pass);
+            }
+        });
+        try {
+
+            MimeMessage mensaje = new MimeMessage(session);
+            mensaje.setFrom(new InternetAddress(user));
+            mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destino));
+            mensaje.setSubject("Listado de pedidos");
+
+            // Cuerpo de texto
+            MimeBodyPart cuerpoTexto = new MimeBodyPart();
+            cuerpoTexto.setText("Hola,\n\nAdjunto te envío el archivo Excel con los pedidos.\n\nUn saludo.");
+
+            // Adjuntar archivo
+            MimeBodyPart adjunto = new MimeBodyPart();
+            File archivo = new File(Persistencia.leeRutaDocumentos() + "\\Pedidos.xlsx");
+            if (!archivo.exists()) {
+                throw new FileNotFoundException("No se encontró el archivo en la ruta: " +
+                        Persistencia.leeRutaDocumentos() + "\\Pedidos.xlsx");
+            }
+            adjunto.attachFile(archivo);
+
+            // Ensamblar multipart
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(cuerpoTexto);
+            multipart.addBodyPart(adjunto);
+
+            // Asignar contenido al mensaje
+            mensaje.setContent(multipart);
+
+            // Enviar
+            Transport.send(mensaje);
+
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }*/
 }

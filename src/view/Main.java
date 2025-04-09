@@ -459,6 +459,7 @@ public class Main {
                             break;
                         case "13": // Realiza copia de seguridad
                             Utils.limpiarpantalla();
+                            menuCopiaSeguridad(controlador);
                             Utils.pulsaContinuar();
                             Utils.limpiarpantalla();
                             break;
@@ -478,7 +479,62 @@ public class Main {
         } // Bucle de admin
     }
 
-    // Metodo del administrador que ve la configuración del programa
+    // Menú de copias de seguridad
+    private static void menuCopiaSeguridad(Controlador controlador) {
+        System.out.print("""
+                1. Realizar copia de seguridad
+                2. Recuperar copia de seguridad
+                Introduce una opción:""");
+        String op = S.nextLine();
+
+        switch (op) {
+            case "1": //Realizar copia de seguridad
+                realizaCopiaSeguridad(controlador);
+                break;
+            case "2": //Recuperar copia de seguridad
+                recuperaCopiaSeguridad(controlador);
+                break;
+            default:
+                System.out.println("Opción incorrecta...");
+                break;
+        }
+    }
+
+    // Función que recupera una copia de seguridad
+    private static void recuperaCopiaSeguridad(Controlador controlador) {
+        System.out.println("¿Quieres recuperarla de la ruta por defecto? (S/N)");
+        String respuesta = S.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            if (controlador.recuperaBackup()) System.out.println("Copia recuperada con éxito...");
+            else System.out.println("Error al recuperar la copia de seguridad...");
+        } else if (respuesta.equalsIgnoreCase("n")) {
+            System.out.print("Introduce la ruta donde está la copia (Ejemplo de ruta: C:/Users/Jl/Desktop/): ");
+            String rutaBackup = S.nextLine();
+            if (controlador.recuperaBackup(rutaBackup)) System.out.println("La copia ha sido recuperada con éxito...");
+            else System.out.println("Error al recuperar la copia de seguridad...");
+        } else System.out.println("Respuesta incorrecta...");
+    }
+
+    // Función que crea una copia de seguridad
+    private static void realizaCopiaSeguridad(Controlador controlador) {
+        System.out.println("¿Quieres usar la ruta por defecto? (S/N)");
+        String respuesta = S.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            if (controlador.creaBackup()) System.out.println("La copia ha sido un exito...");
+            else System.out.println("Ha ocurrido un error...");
+
+        } else if (respuesta.equalsIgnoreCase("n")) {
+            System.out.print("Introduce la ruta donde quieres hacer la copia de seguridad (Ejemplo de ruta: C:/Users/Jl/Desktop/):");
+            String rutaBackup = S.nextLine();
+
+            if (controlador.creaBackup(rutaBackup)) System.out.println("La copia ha sido un exito...");
+            else System.out.println("Ha ocurrido un error...");
+        } else System.out.println("Respuesta incorrecta...");
+    }
+
+    // Función del administrador que ve la configuración del programa
     private static void verConfiguracionPrograma(Controlador controlador) {
         ArrayList<String> configuracion = controlador.configuracionPrograma();
 
