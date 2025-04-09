@@ -479,7 +479,7 @@ public class Main {
         System.out.print("Introduce el correo al que quieres enviarlo: ");
         String correo = S.nextLine();
 
-        controlador.adjuntaCorreos();
+        controlador.adjuntaCorreosExcel();
         Comunicaciones.enviarExcelGuardadoPorCorreo(correo);
     }
 

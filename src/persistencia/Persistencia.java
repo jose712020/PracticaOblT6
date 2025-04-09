@@ -1,5 +1,9 @@
 package persistencia;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import controlador.Controlador;
 import models.*;
 import org.apache.poi.ss.usermodel.Cell;
@@ -319,11 +323,28 @@ public class Persistencia {
         }
     }
 
-    // Metodo que lee la ruta de los documentos
-    public static File leeRutaDocumentos() {
-        File carpetaDocumentos = new File("data/documentos");
-        if (!carpetaDocumentos.exists()) carpetaDocumentos.mkdirs();
-        return carpetaDocumentos;
+    // Metodo que lee la ruta de los documentos de excel
+    public static String leeRutaDocumentosExcel() {
+        Properties prop = new Properties();
+
+        try {
+            prop.load(new BufferedReader(new FileReader(RUTA_P)));
+            return prop.getProperty("RUTA_EXCEL", "data/documentos/excel");
+        } catch (IOException e) {
+            return "";
+        }
+    }
+
+    // Metodo que lee la ruta de los documentos pdf
+    public static String leeRutaDocumentosPdf() {
+        Properties prop = new Properties();
+
+        try {
+            prop.load(new BufferedReader(new FileReader(RUTA_P)));
+            return prop.getProperty("RUTA_PDF", "data/documentos/pdf");
+        } catch (IOException e) {
+            return "";
+        }
     }
 
     // Metodo que guarda los inicio de sesion un log
@@ -579,7 +600,7 @@ public class Persistencia {
 
     // Metodo que adjunta todos los correos
     public static void adjuntaCorreos(ArrayList<Pedido> correosAdj) {
-        File carpetaDocumentos = leeRutaDocumentos();
+        File carpetaDocumentos = new File(leeRutaDocumentosExcel());
 
         if (!carpetaDocumentos.exists()) carpetaDocumentos.mkdirs();
         String nombreArchivo = "Pedidos.xlsx";
@@ -615,6 +636,26 @@ public class Persistencia {
             libro.write(fos);
             libro.close();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Metodo que guarda un resumen del PDF
+    public static void guardaResumenPedido(Pedido pedidoTemp) {
+        File carpetaDocumentos = new File(leeRutaDocumentosPdf());
+        if (!carpetaDocumentos.exists()) carpetaDocumentos.mkdirs();
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(new File(carpetaDocumentos, pedidoTemp.getId() + ".pdf")));
+            document.open();
+            document.add(new Paragraph("======== PEDIDO " + pedidoTemp.getId() + " ========\n"));
+            document.add(new Paragraph("Fecha de pedido: " + Utils.formateaFecha(pedidoTemp.getFechaPedido()) + "\n"));
+            document.add(new Paragraph("Fecha de entrega: " + Utils.formateaFecha(pedidoTemp.getFechaEntregaEstimada()) + "\n"));
+            document.add(new Paragraph("Estado: " + pedidoTemp.devuelveEstado(pedidoTemp.getEstado()) + "\n"));
+            document.add(new Paragraph("Comentario: " + pedidoTemp.getComentario() + "\n"));
+            document.add(new Paragraph("Productos: \n" + pedidoTemp.pintaProductos(pedidoTemp.getProductos()) + "\n"));
+            document.close();
+        } catch (IOException | DocumentException e) {
             throw new RuntimeException(e);
         }
     }

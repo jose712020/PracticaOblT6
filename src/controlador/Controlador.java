@@ -152,6 +152,8 @@ public class Controlador implements Serializable {
                 "Pedido creado", copiaCarro);
 
         temp.addPedido(pedidoTemp);
+        Persistencia.guardaResumenPedido(pedidoTemp);
+        Comunicaciones.enviaCorreoResumen(temp.getEmail(), pedidoTemp);
         temp.vaciaCarro();
         Persistencia.guardaClienteEnDisco(temp);
 
@@ -877,7 +879,7 @@ public class Controlador implements Serializable {
         return true;
     }
 
-    public void adjuntaCorreos() {
+    public void adjuntaCorreosExcel() {
         ArrayList<Pedido> correosAdj = getTodosPedidos();
         Persistencia.adjuntaCorreos(correosAdj);
     }

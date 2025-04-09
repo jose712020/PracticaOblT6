@@ -774,10 +774,66 @@ public class Comunicaciones {
 
             // Adjuntar archivo
             MimeBodyPart adjunto = new MimeBodyPart();
-            File archivo = new File(Persistencia.leeRutaDocumentos() + "\\Pedidos.xlsx");
+            File archivo = new File(Persistencia.leeRutaDocumentosExcel() + "\\Pedidos.xlsx");
             if (!archivo.exists()) {
                 throw new FileNotFoundException("No se encontró el archivo en la ruta: " +
-                        Persistencia.leeRutaDocumentos() + "\\Pedidos.xlsx");
+                        Persistencia.leeRutaDocumentosExcel() + "\\Pedidos.xlsx");
+            }
+            adjunto.attachFile(archivo);
+
+            // Ensamblar multipart
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(cuerpoTexto);
+            multipart.addBodyPart(adjunto);
+
+            // Asignar contenido al mensaje
+            mensaje.setContent(multipart);
+
+            // Enviar
+            Transport.send(mensaje);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Metodo que envia el resumen del pedido en formato PDF
+    public static void enviaCorreoResumen(String destino, Pedido pedidoTemp) {
+        //Guardamos la dirección que va a remitir el mensaje
+        String emisor = "fernanshopjlmanule@gmail.com";
+        String usuario = "fernanshopjlmanule@gmail.com";//Usuario para el logueo en el server de correo
+        String clave = "sfkmqvpupcjjahcg";//Clave del usuario de correo
+        //Host del servidor de correo
+        String host = "smtp.gmail.com";
+        //Creamos nuestra variable de propiedades con los datos de nuestro servidor de correo
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+        //Obtenemos la sesión en nuestro servidor de correo
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            @Override
+            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(usuario, clave);
+            }
+        });
+        try {
+            MimeMessage mensaje = new MimeMessage(session);
+            mensaje.setFrom(new InternetAddress(usuario));
+            mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destino));
+            mensaje.setSubject("Resumen del pedido");
+
+            // Cuerpo de texto
+            MimeBodyPart cuerpoTexto = new MimeBodyPart();
+            cuerpoTexto.setText("Hola,\n\nAdjunto te envío el resumen del pedido.\n\nUn saludo.");
+
+            // Adjuntar archivo
+            MimeBodyPart adjunto = new MimeBodyPart();
+            File archivo = new File(Persistencia.leeRutaDocumentosPdf() + "\\" + pedidoTemp.getId() + ".pdf");
+            if (!archivo.exists()) {
+                throw new FileNotFoundException("No se encontró el archivo en la ruta: " +
+                        Persistencia.leeRutaDocumentosPdf() + "\\" + pedidoTemp.getId() + ".pdf");
             }
             adjunto.attachFile(archivo);
 

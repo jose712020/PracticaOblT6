@@ -28,7 +28,7 @@ public class Menus {
                 10.- Asignar un pedido a un trabajador
                 11.- Muestra configuración del programa
                 12.- Envía listado de pedidos por correo
-                13.- Realiza copia de seguridad
+                13.- Copia de seguridad
                 14.- Salir
                 Introduce una opción:""");
     }

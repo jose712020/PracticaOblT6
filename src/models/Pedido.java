@@ -169,7 +169,7 @@ public class Pedido implements Comparable<Pedido>, Serializable {
     }
 
     // Funcion que pinta los productos de un pedido
-    private String pintaProductos(ArrayList<Producto> productos) {
+    public String pintaProductos(ArrayList<Producto> productos) {
         String resultado = "";
         for (Producto p : productos) {
             resultado += p.toString() + "\n";
