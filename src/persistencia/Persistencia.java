@@ -502,6 +502,7 @@ public class Persistencia {
                 linea = br.readLine();
                 if (linea != null) configuracion.add(linea);
             }
+            br.close();
         } catch (IOException e) {
             return configuracion;
         }
