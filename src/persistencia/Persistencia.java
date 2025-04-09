@@ -621,8 +621,8 @@ public class Persistencia {
             fila = hoja.createRow(indiceFila);
             Pedido pedido = correosAdj.get(i);
             fila.createCell(0).setCellValue(pedido.getId());
-            fila.createCell(1).setCellValue(pedido.getFechaPedido());
-            fila.createCell(2).setCellValue(pedido.getFechaEntregaEstimada());
+            fila.createCell(1).setCellValue(Utils.formateaFecha(pedido.getFechaPedido()));
+            fila.createCell(2).setCellValue(Utils.formateaFecha(pedido.getFechaEntregaEstimada()));
             fila.createCell(3).setCellValue(pedido.devuelveEstado(pedido.getEstado()));
             fila.createCell(4).setCellValue(pedido.getComentario());
             fila.createCell(5).setCellValue(pedido.getProductos().size());
