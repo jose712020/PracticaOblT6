@@ -433,4 +433,16 @@ public class Persistencia {
             return "";
         }
     }
+
+    // Metodo que devuelve
+    public static boolean accesoInvitado() {
+        Properties prop = new Properties();
+
+        try {
+            prop.load(new BufferedReader(new FileReader(RUTA_P)));
+            return Boolean.parseBoolean(prop.getProperty("ACCESO_INVITADO", String.valueOf(false)));
+        } catch (IOException e) {
+            return false;
+        }
+    }
 }

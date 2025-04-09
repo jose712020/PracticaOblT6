@@ -849,4 +849,9 @@ public class Controlador {
     public String ultimoInicioSesion(int idUsuario) {
         return Persistencia.ultimoInicioSesion(idUsuario);
     }
+
+    // Metodo que te comprueba si tienes
+    public boolean accesoInvitado() {
+        return Persistencia.accesoInvitado();
+    }
 }
