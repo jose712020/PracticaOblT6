@@ -120,7 +120,7 @@ public class Controlador implements Serializable {
         }
         return null;
     }
-    
+
     // Metodo que añade un producto al carrito le pasamos una copia
     public boolean addProductoCarrito(Cliente cliente, int idProducto) {
         Producto temp = buscaProductoById(idProducto);
