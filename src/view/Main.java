@@ -449,6 +449,7 @@ public class Main {
                             break;
                         case "12": // Envia todos los pedidos en un Excel
                             Utils.limpiarpantalla();
+                            enviaExcel(controlador, admin);
                             Utils.pulsaContinuar();
                             Utils.limpiarpantalla();
                             break;
@@ -472,6 +473,14 @@ public class Main {
                 } while (!op.equals("14"));
             }
         } // Bucle de admin
+    }
+
+    private static void enviaExcel(Controlador controlador, Admin admin) {
+        System.out.print("Introduce el correo al que quieres enviarlo: ");
+        String correo = S.nextLine();
+
+        controlador.adjuntaCorreos();
+        Comunicaciones.enviarExcelGuardadoPorCorreo(correo);
     }
 
     // Menú de copias de seguridad

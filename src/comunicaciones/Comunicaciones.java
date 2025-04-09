@@ -2,16 +2,14 @@ package comunicaciones;
 
 import models.Pedido;
 import models.PedidoClienteDataClass;
+import persistencia.Persistencia;
 
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.mail.internet.MimeMultipart;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
@@ -741,5 +739,61 @@ public class Comunicaciones {
             System.out.println("El correo introducido no es válido");
         }
 
+    }
+
+    // Metodo que envia un excel al correo
+    public static void enviarExcelGuardadoPorCorreo(String destino) {
+        //Guardamos la dirección que va a remitir el mensaje
+        String emisor = "fernanshopjlmanule@gmail.com";
+        String usuario = "fernanshopjlmanule@gmail.com";//Usuario para el logueo en el server de correo
+        String clave = "sfkmqvpupcjjahcg";//Clave del usuario de correo
+        //Host del servidor de correo
+        String host = "smtp.gmail.com";
+        //Creamos nuestra variable de propiedades con los datos de nuestro servidor de correo
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+        //Obtenemos la sesión en nuestro servidor de correo
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            @Override
+            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(usuario, clave);
+            }
+        });
+        try {
+            MimeMessage mensaje = new MimeMessage(session);
+            mensaje.setFrom(new InternetAddress(usuario));
+            mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destino));
+            mensaje.setSubject("Listado de pedidos");
+
+            // Cuerpo de texto
+            MimeBodyPart cuerpoTexto = new MimeBodyPart();
+            cuerpoTexto.setText("Hola,\n\nAdjunto te envío el archivo Excel con los pedidos.\n\nUn saludo.");
+
+            // Adjuntar archivo
+            MimeBodyPart adjunto = new MimeBodyPart();
+            File archivo = new File(Persistencia.leeRutaDocumentos() + "\\Pedidos.xlsx");
+            if (!archivo.exists()) {
+                throw new FileNotFoundException("No se encontró el archivo en la ruta: " +
+                        Persistencia.leeRutaDocumentos() + "\\Pedidos.xlsx");
+            }
+            adjunto.attachFile(archivo);
+
+            // Ensamblar multipart
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(cuerpoTexto);
+            multipart.addBodyPart(adjunto);
+
+            // Asignar contenido al mensaje
+            mensaje.setContent(multipart);
+
+            // Enviar
+            Transport.send(mensaje);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

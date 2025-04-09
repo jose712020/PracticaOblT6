@@ -876,4 +876,9 @@ public class Controlador implements Serializable {
         catalogo = recuperado.catalogo;
         return true;
     }
+
+    public void adjuntaCorreos() {
+        ArrayList<Pedido> correosAdj = getTodosPedidos();
+        Persistencia.adjuntaCorreos(correosAdj);
+    }
 }

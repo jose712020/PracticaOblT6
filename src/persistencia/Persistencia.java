@@ -2,6 +2,11 @@ package persistencia;
 
 import controlador.Controlador;
 import models.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utils.Utils;
 
 import java.io.*;
@@ -314,6 +319,13 @@ public class Persistencia {
         }
     }
 
+    // Metodo que lee la ruta de los documentos
+    public static File leeRutaDocumentos() {
+        File carpetaDocumentos = new File("data/documentos");
+        if (!carpetaDocumentos.exists()) carpetaDocumentos.mkdirs();
+        return carpetaDocumentos;
+    }
+
     // Metodo que guarda los inicio de sesion un log
     public static void guardaActividadInicioSesion(Object user) {
         File carpetaLog = new File(leeRutaLogs());
@@ -565,55 +577,45 @@ public class Persistencia {
         }
     }
 
- /*   public static void enviarExcelGuardadoPorCorreo(String destino) {
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    // Metodo que adjunta todos los correos
+    public static void adjuntaCorreos(ArrayList<Pedido> correosAdj) {
+        File carpetaDocumentos = leeRutaDocumentos();
 
-        Session session = Session.getInstance(props, new jakarta.mail.Authenticator() {
-            @Override
-            protected jakarta.mail.PasswordAuthentication getPasswordAuthentication() {
-                return new jakarta.mail.PasswordAuthentication(user, pass);
-            }
-        });
+        if (!carpetaDocumentos.exists()) carpetaDocumentos.mkdirs();
+        String nombreArchivo = "Pedidos.xlsx";
+        Workbook libro = new XSSFWorkbook();
+        Sheet hoja = libro.createSheet("Hoja 1");
+        String[] encabezados = {"ID", "Fecha Pedido", "Fecha Entrega", "Estado", "Comentario", "Nº de productos"};
+        int indiceFila = 0;
+
+        Row fila = hoja.createRow(indiceFila);
+        for (int i = 0; i < encabezados.length; i++) {
+            String encabezado = encabezados[i];
+            Cell celda = fila.createCell(i);
+            celda.setCellValue(encabezado);
+        }
+
+        indiceFila++;
+        for (int i = 0; i < correosAdj.size(); i++) {
+            fila = hoja.createRow(indiceFila);
+            Pedido pedido = correosAdj.get(i);
+            fila.createCell(0).setCellValue(pedido.getId());
+            fila.createCell(1).setCellValue(pedido.getFechaPedido());
+            fila.createCell(2).setCellValue(pedido.getFechaEntregaEstimada());
+            fila.createCell(3).setCellValue(pedido.devuelveEstado(pedido.getEstado()));
+            fila.createCell(4).setCellValue(pedido.getComentario());
+            fila.createCell(5).setCellValue(pedido.getProductos().size());
+            indiceFila++;
+        }
+
+        // Guardamos
+        File directorioActual = new File(carpetaDocumentos + "\\" + nombreArchivo);
         try {
-
-            MimeMessage mensaje = new MimeMessage(session);
-            mensaje.setFrom(new InternetAddress(user));
-            mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destino));
-            mensaje.setSubject("Listado de pedidos");
-
-            // Cuerpo de texto
-            MimeBodyPart cuerpoTexto = new MimeBodyPart();
-            cuerpoTexto.setText("Hola,\n\nAdjunto te envío el archivo Excel con los pedidos.\n\nUn saludo.");
-
-            // Adjuntar archivo
-            MimeBodyPart adjunto = new MimeBodyPart();
-            File archivo = new File(Persistencia.leeRutaDocumentos() + "\\Pedidos.xlsx");
-            if (!archivo.exists()) {
-                throw new FileNotFoundException("No se encontró el archivo en la ruta: " +
-                        Persistencia.leeRutaDocumentos() + "\\Pedidos.xlsx");
-            }
-            adjunto.attachFile(archivo);
-
-            // Ensamblar multipart
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(cuerpoTexto);
-            multipart.addBodyPart(adjunto);
-
-            // Asignar contenido al mensaje
-            mensaje.setContent(multipart);
-
-            // Enviar
-            Transport.send(mensaje);
-
-
-
-        } catch (Exception e) {
+            FileOutputStream fos = new FileOutputStream(directorioActual);
+            libro.write(fos);
+            libro.close();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
 }
