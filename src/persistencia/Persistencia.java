@@ -214,7 +214,7 @@ public class Persistencia {
             oos.close();
             fos.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 
@@ -232,7 +232,7 @@ public class Persistencia {
             oos.close();
             fos.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 
@@ -248,7 +248,7 @@ public class Persistencia {
             oos.close();
             fos.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 
@@ -398,7 +398,7 @@ public class Persistencia {
                 escribirUltimoCierreSesion(((Admin) user).getId());
                 bw.close();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return;
             }
         }
 
@@ -409,7 +409,7 @@ public class Persistencia {
                 escribirUltimoCierreSesion(((Trabajador) user).getId());
                 bw.close();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return;
             }
         }
 
@@ -420,7 +420,7 @@ public class Persistencia {
                 escribirUltimoCierreSesion(((Cliente) user).getId());
                 bw.close();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return;
             }
         }
 
@@ -434,7 +434,7 @@ public class Persistencia {
             prop.setProperty(String.valueOf(idUsuario), Utils.formateaFechaLog(LocalDateTime.now()));
             prop.store(new FileOutputStream(RUTA_P), "Ultimo inicio sesión de " + idUsuario + " a las " + Utils.formateaFecha(LocalDate.now()));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 
@@ -448,7 +448,7 @@ public class Persistencia {
             bw.write("Nuevo pedido;" + idCliente + ";" + idTrabajador + ";" + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
             bw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 
@@ -464,7 +464,7 @@ public class Persistencia {
                     + Utils.formateaFechaLog(LocalDateTime.now()) + "\n");
             bw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 
@@ -559,7 +559,7 @@ public class Persistencia {
             ois.close();
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            return null;
         }
 
         return recuperado;
@@ -578,7 +578,7 @@ public class Persistencia {
             ois.close();
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            return null;
         }
 
         return recuperado;
@@ -637,7 +637,7 @@ public class Persistencia {
             libro.write(fos);
             libro.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 
@@ -657,7 +657,7 @@ public class Persistencia {
             document.add(new Paragraph("Productos: \n" + pedidoTemp.pintaProductos(pedidoTemp.getProductos()) + "\n"));
             document.close();
         } catch (IOException | DocumentException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 }
