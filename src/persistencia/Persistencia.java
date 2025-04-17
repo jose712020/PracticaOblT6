@@ -655,6 +655,7 @@ public class Persistencia {
             document.add(new Paragraph("Estado: " + pedidoTemp.devuelveEstado(pedidoTemp.getEstado()) + "\n"));
             document.add(new Paragraph("Comentario: " + pedidoTemp.getComentario() + "\n"));
             document.add(new Paragraph("Productos: \n" + pedidoTemp.pintaProductos(pedidoTemp.getProductos()) + "\n"));
+            document.add(new Paragraph("El total del pedido es: " + pedidoTemp.precioFinal() + "€"));
             document.close();
         } catch (IOException | DocumentException e) {
             return;

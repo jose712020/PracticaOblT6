@@ -193,4 +193,13 @@ public class Pedido implements Comparable<Pedido>, Serializable {
     public int compareTo(Pedido p) {
         return this.fechaEntregaEstimada.compareTo(p.fechaEntregaEstimada);
     }
+
+    // Metodo que te dice el precio final del pedido
+    public String precioFinal() {
+        float precio = 0;
+        for (Producto p : productos) {
+            precio += p.getPrecio();
+        }
+        return String.valueOf(precio);
+    }
 }

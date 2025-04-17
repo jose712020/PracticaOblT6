@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class Main {
     public static final Scanner S = new Scanner(System.in);
 
-    // TODO quitar antes de entregar los catch de Persistencia
     public static void main(String[] args) {
         Controlador controlador = new Controlador();
 
