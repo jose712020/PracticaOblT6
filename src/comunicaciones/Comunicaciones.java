@@ -793,7 +793,7 @@ public class Comunicaciones {
             Transport.send(mensaje);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("El correo introducido no es válido");
         }
     }
 
@@ -849,7 +849,7 @@ public class Comunicaciones {
             Transport.send(mensaje);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("El correo introducido no es válido");
         }
     }
 }

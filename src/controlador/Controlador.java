@@ -873,15 +873,28 @@ public class Controlador implements Serializable {
         Controlador recuperado = Persistencia.recuperaBackup();
         if (recuperado == null) return false;
         clientes = recuperado.clientes;
+
+        //Borramos a los trabajadores en disco
+        for (Trabajador t : trabajadores) {
+            Persistencia.borraTrabajador(t.getId());
+        }
+        //Recuperamos los trabajadores
         trabajadores = recuperado.trabajadores;
+        //Guardamos los trabajadores en disco
+        for (Trabajador t : trabajadores) {
+            Persistencia.guardaTrabajadorEnDisco(t);
+        }
+
         admins = recuperado.admins;
         catalogo = recuperado.catalogo;
         return true;
     }
 
     // Metodo que adjunta
-    public void adjuntaCorreosExcel() {
+    public void adjuntaCorreosExcel(String correo) {
         ArrayList<Pedido> correosAdj = getTodosPedidos();
         Persistencia.adjuntaCorreos(correosAdj);
+
+        Comunicaciones.enviarExcelGuardadoPorCorreo(correo);
     }
 }

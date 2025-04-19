@@ -479,8 +479,7 @@ public class main {
         System.out.print("Introduce el correo al que quieres enviarlo: ");
         String correo = S.nextLine();
 
-        controlador.adjuntaCorreosExcel();
-        Comunicaciones.enviarExcelGuardadoPorCorreo(correo);
+        controlador.adjuntaCorreosExcel(correo);
     }
 
     // Menú de copias de seguridad

@@ -80,7 +80,7 @@ public class Pedido implements Comparable<Pedido>, Serializable {
     public boolean cambiaEstado(int nuevoEstado) {
         switch (nuevoEstado) {
             case 1, 2, 3:
-                estado = nuevoEstado;
+                setEstado(nuevoEstado);
                 return true;
             default:
                 return false;
