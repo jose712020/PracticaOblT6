@@ -4,7 +4,7 @@ import utils.Utils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Pedido implements Comparable<Pedido>, Serializable {
     //Atributos
@@ -146,9 +146,27 @@ public class Pedido implements Comparable<Pedido>, Serializable {
         salida += "Fecha de entrega estimada: " + Utils.formateaFecha(fechaEntregaEstimada) + "<br>";
         salida += "Comentario del pedido: " + comentario + "<br>";
         salida += "Detalles del pedido:<br>";
+        Map<Integer, Integer> contador = new HashMap<>();
+
         for (Producto p : productos) {
-            if (p != null) salida += p + "<br>";
+            if (p != null){
+                contador.put(p.getId(), contador.getOrDefault(p.getId(), 0) + 1);
+            }
         }
+
+        Set<Integer> productosImpresos = new HashSet<>();
+        for (Producto p : productos) {
+            if (p != null){
+                if (!productosImpresos.contains(p.getId())) {
+                    int cantidad = contador.get(p.getId());
+                    salida += "\t- " + p.getMarca() + " - " + p.getModelo() + " (" + p.getPrecio() + ") Cantidad: " + cantidad + "<br>";
+                    productosImpresos.add(p.getId());
+                }
+            }
+        }
+        /*for (Producto p : productos) {
+            if (p != null) salida += p + "<br>";
+        }*/
         salida += "<hr>";
         salida += "Total pedido: " + calculaTotalPedidoConIVA(Utils.IVA) + "€<br>";
         salida += "<br>";
@@ -171,9 +189,24 @@ public class Pedido implements Comparable<Pedido>, Serializable {
     // Funcion que pinta los productos de un pedido
     public String pintaProductos(ArrayList<Producto> productos) {
         String resultado = "";
+        Map<Integer, Integer> contador = new HashMap<>();
+
         for (Producto p : productos) {
-            resultado += p.toString() + "\n";
+            contador.put(p.getId(), contador.getOrDefault(p.getId(), 0) + 1);
         }
+
+        Set<Integer> productosImpresos = new HashSet<>();
+        for (Producto p : productos) {
+            if (!productosImpresos.contains(p.getId())) {
+                int cantidad = contador.get(p.getId());
+                resultado += "\t- " + p.getMarca() + " - " + p.getModelo() + " (" + p.getPrecio() + ") (" + cantidad + ")\n";
+                productosImpresos.add(p.getId());
+            }
+        }
+
+        /*for (Producto p : productos) {
+            resultado += p.toString() + "\n";
+        }*/
 
         return resultado;
     }

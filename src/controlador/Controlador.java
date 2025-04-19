@@ -48,14 +48,14 @@ public class Controlador implements Serializable {
     // Mock que va a decidir el usuario si iniciarlo o no
     public void mock(boolean iniciaMockTeclado) {
         if (iniciaMockTeclado) {
-            Cliente c1 = new Cliente(99999, "garfieldkeka@gmail.com", "cliente", "cliente",
+            Cliente c1 = new Cliente(99999, "cliente@cliente", "cliente", "cliente",
                     "Pueblo Paleta", "Madrid", "Avd Perdido", 11223344);
             c1.setToken(generaToken(c1));
             c1.setValid(true);
             clientes.add(c1);
             Persistencia.guardaClienteEnDisco(c1);
 
-            Trabajador t1 = new Trabajador(100000, "trabajador", "trabajador", "joseluissanchez0406@gmail.com", 55443322);
+            Trabajador t1 = new Trabajador(100000, "trabajador", "trabajador", "trabajador@trabajador", 55443322);
             trabajadores.add(t1);
             Persistencia.guardaTrabajadorEnDisco(t1);
         }

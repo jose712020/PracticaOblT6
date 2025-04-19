@@ -3,7 +3,7 @@ package models;
 import utils.Utils;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 public class PedidoClienteDataClass implements Comparable<PedidoClienteDataClass>{
     //Atributos Cliente
@@ -220,10 +220,24 @@ public class PedidoClienteDataClass implements Comparable<PedidoClienteDataClass
     // Funcion que pinta productos
     private String pintaProductos(ArrayList<Producto> productos) {
         String resultado = "";
+        Map<Integer, Integer> contador = new HashMap<>();
 
         for (Producto p : productos) {
-            resultado += p.toString() + "\n";
+            contador.put(p.getId(), contador.getOrDefault(p.getId(), 0) + 1);
         }
+
+        Set<Integer> productosImpresos = new HashSet<>();
+        for (Producto p : productos) {
+            if (!productosImpresos.contains(p.getId())) {
+                int cantidad = contador.get(p.getId());
+                resultado += "\t- " + p.getMarca() + " - " + p.getModelo() + " (" + p.getPrecio() + ") (" + cantidad + ")";
+                productosImpresos.add(p.getId());
+            }
+        }
+
+        /*for (Producto p : productos) {
+            resultado += p.toString() + "\n";
+        }*/
         return resultado;
     }
 

@@ -294,7 +294,7 @@ public class Persistencia {
 
         try {
             prop.load(new BufferedReader(new FileReader(RUTA_P)));
-            return prop.getProperty("RUTA_CLIENTES", "data/usuarios/clientes");
+            return prop.getProperty("RUTA_CLIENTES", "data/DDusuarios/clientes");
         } catch (IOException e) {
             return "";
         }
