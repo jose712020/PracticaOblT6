@@ -96,3 +96,39 @@ Se nos abrirá la siguiente pestaña y le daremos a **"Variables de entorno..."*
 -Para ver que todo es correcto escribimos el comando **"javac -version"**, si todo sale bien nos saldrá la versión 24
 ![image](https://github.com/user-attachments/assets/bf22037e-f064-4747-96fa-6eca49319485)
 
+-Para ejecutar nuestro programa nos iremos al enlace de GitHub [aquí](https://github.com/jose712020/PracticaOblT6). Después le daremos a **"<> Code"** donde se desplegará varias opciones, y le daremos a **"Download ZIP"**
+
+**(IMAGEN AQUÍ)**
+
+-Al descargarlo, extraemos la carpeta en la ubicación donde más te convenga, al tenerla extraida nos meteros en la carpeta extraida y nos saldrá lo siguiente, donde ejecutaremos el **"PracticaObl5.bat"** haciendo doble click o dandole click derecho
+al ratón y dandole a la opción **"Abrir"**:
+
+**(IMAGEN AQUÍ)**
+
+**(IMAGEN AQUÍ)**
+
+
+(En caso de que nos salga un pantallazo azul de Windows le daremos a donde ponga más información y le daremos a ejectucar de todas maneras)
+
+**(IMAGEN AQUÍ)**
+
+**(IMAGEN AQUÍ)**
+
+### **MENÚ PRINCIPAL**
+
+- Finalmente tendremos nuestro programa en funcionamiento:
+
+Principalmente, el programa nada mas iniciar nos avisará si queremos usar datos de prueba en el software, se deberá elegir la opción S o N, aunque no necesariamente en mayúsculas:
+
+![image](https://github.com/user-attachments/assets/5ac49b8c-79d2-48a2-a84e-c72132efa6d6)
+
+Si le damos a la opción "N" pasará directamente al menú principal:
+
+![image](https://github.com/user-attachments/assets/59e5ebd9-7f6b-4176-9920-508b8ca97bff)
+
+Si le damos al opción "S" nos dirá los datos de prueba para el programa:
+
+![image](https://github.com/user-attachments/assets/684ea8de-e064-41ce-a837-e9e5f8fd9eab)
+
+Y después volverá al menu principal, mostrado anteriormente
+
