@@ -476,10 +476,13 @@ public class main {
 
     // Función que envia un correo con todos los pedidos que se han hecho
     private static void enviaExcel(Controlador controlador, Admin admin) {
-        System.out.print("Introduce el correo al que quieres enviarlo: ");
-        String correo = S.nextLine();
+        if (controlador.getTodosPedidos().isEmpty()) System.out.println("No se han realizado pedidos...");
+        else {
+            System.out.print("Introduce el correo al que quieres enviarlo: ");
+            String correo = S.nextLine();
 
-        controlador.adjuntaCorreosExcel(correo);
+            controlador.adjuntaCorreosExcel(correo);
+        }
     }
 
     // Menú de copias de seguridad

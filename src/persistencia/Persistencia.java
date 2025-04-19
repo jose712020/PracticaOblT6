@@ -21,7 +21,7 @@ import java.util.Properties;
 
 public class Persistencia {
 
-    public static final String RUTA_P = "config/config.properties";
+    public static final String RUTA_P = "./config/config.properties";
 
     // Metodo que lee el producto de los catalogos
     public static ArrayList<Producto> leeCatalogo() {
@@ -116,6 +116,8 @@ public class Persistencia {
         if (!carpetaTrabajadores.exists()) carpetaTrabajadores.mkdirs();
         boolean bandera = false;
 
+        if (carpetaTrabajadores.list() == null) return false;
+
         for (String archivo : carpetaTrabajadores.list()) {
             try {
                 Trabajador trabajador;
@@ -136,6 +138,8 @@ public class Persistencia {
 
         if (!carpetaClientes.exists()) carpetaClientes.mkdirs();
         boolean bandera = false;
+
+        if (carpetaClientes.list() == null) return false;
 
         for (String archivo : carpetaClientes.list()) {
             try {
