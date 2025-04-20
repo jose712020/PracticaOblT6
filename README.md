@@ -70,6 +70,7 @@
 
 ## **0. INSTALACIÓN**
 -Lo primero que vamos ha hacer es instalar el archivo .jar del programa desde Google Drive [aquí](https://drive.google.com/file/d/17L9t4K1SB4Jgq2fdjiYfEImc2iACYx0X/view?usp=sharing)
+
 -Para poder usar nuestro programa tenemos que instalar la versión mas reciente del JDK (Java Development Kit) [click aquí para descargar](https://download.oracle.com/java/24/latest/jdk-24_windows-x64_bin.exe). Durante la instalación tenemos que asegurarnos de que esté instalado en **"C:\Program Files\Java"**, después tenemos que entrar en el **"Panel de Control"** (para entrar podemos meternos en "Configuración" y buscamos panel del control)
 
 ![image](https://github.com/user-attachments/assets/142e6ab5-3d75-49d5-b6e7-56d8e87320cd)
