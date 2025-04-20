@@ -861,18 +861,15 @@ public class Controlador implements Serializable {
     public boolean recuperaBackup(String rutaBackup) {
         Controlador recuperado = Persistencia.recuperaBackup(rutaBackup);
         if (recuperado == null) return false;
+        //Borramos a los clientes en disco
+        for (Cliente c : clientes) {
+            Persistencia.borraCliente(c.getId());
+        }
         clientes = recuperado.clientes;
-        trabajadores = recuperado.trabajadores;
-        admins = recuperado.admins;
-        catalogo = recuperado.catalogo;
-        return true;
-    }
-
-    // Metodo que recupera una copia de seguridad en la ruta por defecto
-    public boolean recuperaBackup() {
-        Controlador recuperado = Persistencia.recuperaBackup();
-        if (recuperado == null) return false;
-        clientes = recuperado.clientes;
+        //Recuperamos los clientes
+        for (Cliente c : clientes) {
+            Persistencia.guardaClienteEnDisco(c);
+        }
 
         //Borramos a los trabajadores en disco
         for (Trabajador t : trabajadores) {
@@ -884,9 +881,55 @@ public class Controlador implements Serializable {
         for (Trabajador t : trabajadores) {
             Persistencia.guardaTrabajadorEnDisco(t);
         }
-
         admins = recuperado.admins;
+
+        //Borramos a los productos en disco
+        for (Producto p : catalogo) {
+            Persistencia.borraProductoEnDisco(p.getId());
+        }
         catalogo = recuperado.catalogo;
+        //Guardamos los productos en disco
+        for (Producto p : catalogo) {
+            Persistencia.guardaProductoEnDisco(p);
+        }
+        return true;
+    }
+
+    // Metodo que recupera una copia de seguridad en la ruta por defecto
+    public boolean recuperaBackup() {
+        Controlador recuperado = Persistencia.recuperaBackup();
+        if (recuperado == null) return false;
+        //Borramos a los clientes en disco
+        for (Cliente c : clientes) {
+            Persistencia.borraCliente(c.getId());
+        }
+        clientes = recuperado.clientes;
+        //Recuperamos los clientes
+        for (Cliente c : clientes) {
+            Persistencia.guardaClienteEnDisco(c);
+        }
+
+        //Borramos a los trabajadores en disco
+        for (Trabajador t : trabajadores) {
+            Persistencia.borraTrabajador(t.getId());
+        }
+        //Recuperamos los trabajadores
+        trabajadores = recuperado.trabajadores;
+        //Guardamos los trabajadores en disco
+        for (Trabajador t : trabajadores) {
+            Persistencia.guardaTrabajadorEnDisco(t);
+        }
+        admins = recuperado.admins;
+
+        //Borramos a los productos en disco
+        for (Producto p : catalogo) {
+            Persistencia.borraProductoEnDisco(p.getId());
+        }
+        catalogo = recuperado.catalogo;
+        //Guardamos los productos en disco
+        for (Producto p : catalogo) {
+            Persistencia.guardaProductoEnDisco(p);
+        }
         return true;
     }
 
@@ -896,5 +939,19 @@ public class Controlador implements Serializable {
         Persistencia.adjuntaCorreos(correosAdj);
 
         Comunicaciones.enviarExcelGuardadoPorCorreo(correo);
+    }
+
+    // Metodo que devuelve todos los pedidos que haya sin gestionar por ningún admin ni trabajador
+    public ArrayList<Pedido> getTodosPedidosSinGestionar() {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+
+        for (Cliente c : clientes){
+            if (!c.getPedidos().isEmpty()){
+                for (Pedido p : c.getPedidos()){
+                    if (p.getEstado() != 2 && p.getEstado() != 3) pedidos.add(p);
+                }
+            }
+        }
+        return pedidos;
     }
 }

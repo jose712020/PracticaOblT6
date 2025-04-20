@@ -1498,7 +1498,7 @@ public class main {
 
     // Función que selecciona un pedido desde el administrador
     private static Pedido seleccionaPedidoAdmin(Controlador controlador, Admin admin) {
-        ArrayList<Pedido> pedidos = controlador.getTodosPedidos();
+        ArrayList<Pedido> pedidos = controlador.getTodosPedidosSinGestionar();
 
         if (pedidos == null) return null;
         if (pedidos.isEmpty()) return null;

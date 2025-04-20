@@ -665,4 +665,34 @@ public class Persistencia {
             return;
         }
     }
+
+    // Metodo que borra clientes en disco
+    public static void borraCliente(int idCliente) {
+        File carpetaClientes = new File(leeRutaClientes());
+
+        if (carpetaClientes.exists()) {
+            for (String archivo : carpetaClientes.list()) {
+                int idArchivo = Integer.parseInt(archivo.substring(0, archivo.indexOf(".")));
+                if (idArchivo == idCliente) {
+                    File cliente = new File(leeRutaClientes() + "\\" + archivo);
+                    cliente.delete();
+                }
+            }
+        }
+    }
+
+    // Metodo que borra productos en disco
+    public static void borraProductoEnDisco(int idProducto) {
+        File carpetaProductos = new File(leeRutaProductos());
+
+        if (carpetaProductos.exists()) {
+            for (String archivo : carpetaProductos.list()) {
+                int idArchivo = Integer.parseInt(archivo.substring(0, archivo.indexOf(".")));
+                if (idArchivo == idProducto) {
+                    File producto = new File(leeRutaProductos() + "\\" + archivo);
+                    producto.delete();
+                }
+            }
+        }
+    }
 }
