@@ -69,8 +69,6 @@
 
 
 ## **0. INSTALACIÓN**
--Lo primero que vamos ha hacer es instalar el archivo .jar del programa desde Google Drive [aquí](https://drive.google.com/file/d/17L9t4K1SB4Jgq2fdjiYfEImc2iACYx0X/view?usp=sharing)
-
 -Para poder usar nuestro programa tenemos que instalar la versión mas reciente del JDK (Java Development Kit) [click aquí para descargar](https://download.oracle.com/java/24/latest/jdk-24_windows-x64_bin.exe). Durante la instalación tenemos que asegurarnos de que esté instalado en **"C:\Program Files\Java"**, después tenemos que entrar en el **"Panel de Control"** (para entrar podemos meternos en "Configuración" y buscamos panel del control)
 
 ![image](https://github.com/user-attachments/assets/142e6ab5-3d75-49d5-b6e7-56d8e87320cd)
@@ -102,13 +100,7 @@ Se nos abrirá la siguiente pestaña y le daremos a **"Variables de entorno..."*
 
 ![image](https://github.com/user-attachments/assets/54504807-d4e3-4821-b3d5-0eeb366a2622)
 
--Al descargarlo, extraemos la carpeta en la ubicación donde más te convenga, al tenerla extraida nos meteros en la carpeta extraida y nos saldrá lo siguiente. Antes de ejecutar el **"PracticaOblT6.bat"**, tendremos que haber añadido el archivo jar
-del programa al principio de este punto. 
-
-![image](https://github.com/user-attachments/assets/0ab1ef01-8eb5-4b0b-b79c-c379527cb5fb)
-![image](https://github.com/user-attachments/assets/92105ad5-7bd8-4a71-980d-dc738885ca10)
-
-Una vez descargado, añadiremos al archivo a la carpeta del proyecto donde este el ejecutable .bat y lo ejecutaremos haciendo doble click o dandole click derecho al ratón y dandole a la opción "Abrir":
+-Al descargarlo, extraemos la carpeta en la ubicación donde más te convenga, al tenerla extraida nos meteros en la carpeta extraida y nos saldrá lo siguiente. Para iniciar el programa ejecutaremos el archivo **"PracticaOblT6.bat"** haciendo doble click o dandole click derecho al ratón y dandole a la opción "Abrir":
 
 ![image](https://github.com/user-attachments/assets/71c3d4be-36da-480c-a8aa-be80a73ee51f)
 
