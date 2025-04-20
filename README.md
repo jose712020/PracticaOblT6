@@ -112,7 +112,7 @@ Una vez descargado, añadiremos al archivo a la carpeta del proyecto donde este 
 
 ![image](https://github.com/user-attachments/assets/71c3d4be-36da-480c-a8aa-be80a73ee51f)
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/4bcec1fd-e4e8-498e-90ef-b546b73af513)
 
 
 (En caso de que nos salga un pantallazo azul de Windows le daremos a donde ponga más información y le daremos a ejectucar de todas maneras)
@@ -158,20 +158,26 @@ Está es la entrada del programa donde tendremos 3 opciones en nuestro menú pri
 
 - La **opción 3** será **Iniciar sesión**, donde podrán iniciar sesión cualquiera de los 3 perfiles, después dependerá si introduce sus datos correctos:
 
-**(IMAGEN NUEVA AQUÍ)**
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/cd3ab1c7-eaa8-4cd1-a319-dfa782de2d41)
 
 ## 3. **MENÚ CLIENTE**
 
-- Para acceder tendremos que registrarnos primero en el menú principal en **"Registrarse"**, una vez hecho eso habremos registrado un cliente.
+- Para acceder tendremos que registrarnos primero en el menú principal en **"Registrarse"**, una vez hecho eso habremos registrado un cliente. Nos avisa primero si estamos realmente seguros de registrarnos, en el caso de que nos hayamos equivocado:
 
+![image](https://github.com/user-attachments/assets/105bdfae-24bb-4bd2-a7e7-1224ab083b3b)
+
+Si no es el caso y le damos "S" comenzarán las instrucciones de inicio de sesión:
 ![image](https://github.com/user-attachments/assets/fb43f3f1-ac88-4871-803b-56d181cdcb82)
 
-- Una vez registrados podemos iniciar sesión:
+- Una vez registrados, antes nos pedirá un token para validar la sesión de nuestra cuenta al correo que hemos introducido:
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/d53f7471-ec99-44c0-9001-68b2e4ad214b)
 
-**(IMAGEN NUEVA AQUÍ)**
+Si el token introducido es correcto nos dejará entrar:
+
+![image](https://github.com/user-attachments/assets/10308bb6-985a-494e-b4e9-f60b9f333421)
+
+![image](https://github.com/user-attachments/assets/77f89bf8-5858-4271-9c81-aa43388bca20)
 
 ## **CONSULTAR EL CATÁLOGO DE PRODUCTOS**
 
@@ -217,65 +223,65 @@ Las opciones siguientes son busquedas concretas por marca, modelo, descripción,
 
 **Inserta un producto en el carro**
 
-Los productos se insertan uno a uno con un menú resumido de todos los productos resumidos
+Los productos se insertan uno a uno con un menú resumido de todos los productos del catálogo y se insertan poniendo el número que los define la principio de cada uno
 
 ![image](https://github.com/user-attachments/assets/3770a711-53f1-4832-a8a3-ac287ba8d197)
 
 **Ver el carro**
 
-Mostrar los productos totales disponibles en el carro y el precio total de todo el carro
+Mostrar los productos totales disponibles en el carro y el precio total de todo el carro, salen todos los datos destacados del producto y la cantidad de cada uno entre paréntesis:
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/d103683d-92bd-45ca-98b0-c88ee261d8b0)
 
 **Eliminar un producto del carro**
 
 Nos saldrán los productos del carrito de forma enumerada
 
-![image](https://github.com/user-attachments/assets/9d80f323-4d61-487b-821a-d4c6a865f143)
+![image](https://github.com/user-attachments/assets/2b0d6f11-8f4a-4c76-88bf-62210f0ff920)
 
 Elegiremos el producto a eliminar mediante el número de enumeración, y se eliminará con éxito
 
-![image](https://github.com/user-attachments/assets/113927d0-f92d-4955-9ad3-44d2c7ca5ac2)
+![image](https://github.com/user-attachments/assets/9cce9c9b-4569-4899-9bf4-8ab4158ff337)
 
 Podemos ver que ha funcionado: 
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/8ce0555a-9b82-4214-a4e3-2c825d1904c7)
 
 **Confirmar pedido**
 
 Nos saldra una ventana como esta:
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/461f5874-b201-4769-96d7-99e0ee0d6488)
 
 Si le damos a "N" cancelará la opción de realizar pedido y volvera de nuevo al menú principal de realizar pedido
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/dd3d6845-b6b1-4138-8064-9599eca3a695)
 
-Si le damos a "S" el envió se realizará con éxito según los productos que tengamos en el carrito
+Si le damos a "S" el envió se realizará con éxito según los productos que tengamos en el carrito y nos enviará un correo con todos los productos que hayamos pedido
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/a0509f28-03b9-4475-96bc-b31b1bca3016)
+
+![image](https://github.com/user-attachments/assets/f274ceb2-d0c8-418f-9f3b-c67e0a221b9b)
 
 **Cancelar pedido**
 
-Nos saldrá la lista de pedidos realizados por el cliente de forma enumerada comenzando por "1", el cliente deberá introducir el número de enumeración del pedido para elegir el pedido a cancelar
+Nos saldrá un mensaje como este:
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/382834dd-ccc5-4d64-a23e-e08388418fe6)
 
-Cuando introduzcamos el número del pedido nos preguntará si de verdad estamos seguros de cancelarlo:
+Si entroducimos "N", volveremos al menú de realización del pedido y nuestros productos seguirán en el carrito:
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/77af2306-aaff-4da7-b5d4-774c852ec61f)
 
-Si le damos a "N" cancelará la opción de cancelar pedido y volvera de nuevo al menú principal de realizar pedido
+![image](https://github.com/user-attachments/assets/0ba57bb5-b1e0-4f1d-ab1a-5c11951ded69)
 
-**(IMAGEN NUEVA AQUÍ)**
+Si le damos a "S" se cancelará el pedido con éxito y se borrarán todos nuestros productos introducidos en el carrito
 
-Si le damos a "S" se cancelará el pedido con éxito
-
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/66db6c85-6bee-4097-8a96-6d3469cb1218)
 
 Podemos ver por esta captura que ha funcionado:
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/2ff912a4-f207-4261-82c1-18a50ec1a5b8)
 
 **Salir**
 
@@ -285,9 +291,9 @@ Con esta opción volveremos al menú principal del cliente
 
 ## **VER MIS PEDIDOS**
 
-- Podremos ver los pedidos que hayamos realizado, tanto los cancelados como los no cancelados (pendientes).
+- Podremos ver los pedidos que hayamos realizado.
 
-**(IMAGEN NUEVA AQUÍ)**
+![image](https://github.com/user-attachments/assets/cc93243e-3149-41f9-8c62-89a392ff519a)
 
 (En caso de que no hayamos pedido nada)
 
@@ -305,6 +311,14 @@ Con esta opción volveremos al menú principal del cliente
 
 ![image](https://github.com/user-attachments/assets/baee6d19-6c3b-49ed-b41e-de90bb043d97)
 
+- Nos volverá a pedir un token tanto si hemos puesto un correo nuevo o no:
+
+![image](https://github.com/user-attachments/assets/3f0a535f-df67-47c8-aba1-7705c575a17b)
+
+![image](https://github.com/user-attachments/assets/264e4383-4d61-41e0-ab20-5dacb91721c2)
+
+![image](https://github.com/user-attachments/assets/8240fe09-ad16-42ed-8367-b115cc3827e1)
+
 - Si vemos de nuevo los datos, vemos que ha funcionado
 
 ![image](https://github.com/user-attachments/assets/237329d4-9fa3-45df-b190-a11657f8ff79)
@@ -319,9 +333,9 @@ Con esta opción volveremos al menú principal del cliente
 
 El trabajador deberá ser creado por el administrador previamente, pero lo veremos en el apartado de administrador después
 
-- El trabajador se registrará a traves de la opción de iniciar sesión, igual que el cliente, pero eligiendo la opción 2 "Trabajador":
+- El trabajador se registrará a traves de la opción de iniciar sesión, igual que el cliente:
 
-![image](https://github.com/user-attachments/assets/50bb9f78-16a8-4073-9be8-88a7f4d704d4)
+![image](https://github.com/user-attachments/assets/dda8cf11-7b24-4642-9fc0-2d731cb61d49)
 
 - Una vez la sesión iniciada, tendremos las siguiente opciones:
 
@@ -329,11 +343,11 @@ El trabajador deberá ser creado por el administrador previamente, pero lo verem
 
 ## **CONSULTAR LOS PEDIDOS QUE TENGO ASIGNADOS**
 
-- Aquí el trabajador mira los pedidos que le han asignado automáticamente o mediante la administración. Para demostrar su funcionamiento, haremos que nuestro cliente de prueba haga un pedido y haremos que se asigne automáticamente o mediante el administrador (se explicará después en el aparto de administrador)
+- Aquí el trabajador mira los pedidos que le han asignado automáticamente o mediante la administración. Para demostrar su funcionamiento, haremos que nuestro cliente de prueba haga un pedido y haremos que se asigne automáticamente o mediante el administrador (se explicará después en el apartado de administrador)
 
 Una vez el pedido realizado y asignado automáticamente o mediante el administrador, volveremos a iniciar sesión en el trabajador cuyo pedido ha sido asignado y le daremos a la opción 1, nos saldrán todos los pedidos asignados, aunque en este caso solo haya uno:
 
-![image](https://github.com/user-attachments/assets/d3696619-fa93-41ae-a766-ee18343b2d13)
+![image](https://github.com/user-attachments/assets/3183cd40-57cd-409c-8971-ab69f2fff32c)
 (En el caso de que hayan pedidos)
 
 ![image](https://github.com/user-attachments/assets/6ebc9908-2605-477d-98b0-921d7cc25dce)
@@ -341,33 +355,51 @@ Una vez el pedido realizado y asignado automáticamente o mediante el administra
 
 ## **MODIFICAR EL ESTADO DE UN PEDIDO**
 
-- Aquí se modificar el estado de un pedido asignado a un trabajador, nos saldrán dos opciones:
-
-![image](https://github.com/user-attachments/assets/332846a0-ddd6-4079-aa3e-d738afd8e97a)
-
-**Modifica el estado**
-
 - Saldrán los pedidos de forma enumerada y tendremos que poner el número de enumeración que nos aparece:
 
 ![image](https://github.com/user-attachments/assets/25c3bd84-3b9d-41b9-9eba-bc156fc63d3c)
 
-- Saldrá un menú para elegir el nuevo estado:
+**Modifica el estado**
 
-![image](https://github.com/user-attachments/assets/7a897558-c3c5-4605-a165-41ce2d0b2276)
+Nos preguntará si queremos modificar el estado del pedido, si le decimos "n" pasará a la siguiente pregunta todo el rato:
+
+![image](https://github.com/user-attachments/assets/74758657-5b34-45bc-bdfb-967d238b5cda)
+
+- Si le decimos "s" a la primera pregunta, saldrá un menú para elegir el nuevo estado:
+
+![image](https://github.com/user-attachments/assets/20253ca4-b9a3-4b34-823d-192bb4bca5b6)
 
 - Elegimos un nuevo estado para el pedido:
 
-![image](https://github.com/user-attachments/assets/976d01de-c5b8-4873-afb3-c3d2579b6e0c)
+![image](https://github.com/user-attachments/assets/80620efe-a8c6-41f2-a6dc-594a5ed63373)
 
 **Añade comentario**
 
-- Añadir un comentario de forma opcional al pedido asignado
+Saldrá después de añadir el estado nuevo, primero nos preguntará si queremos añadir el comentario o no
 
-![image](https://github.com/user-attachments/assets/a92b27c4-91f0-4951-90dd-057c823a0e9d)
+![image](https://github.com/user-attachments/assets/5397f4d9-f07e-4e15-aeb6-81a65436e8bf)
 
-- Podemos ver con esta captura que ha funcionado:
+- Si le decimos "s", saldrá un apartado para poner el comentario al pedido seleccionado:
 
-![image](https://github.com/user-attachments/assets/850320df-2d41-4290-977b-d21998a4d4ef)
+ ![image](https://github.com/user-attachments/assets/2c2fd0cb-ee32-4883-bbed-94106492d51e)
+
+ **Modificar fecha de entrega**
+
+Saldrá después de añadir el comentario, primero nos preguntará si queremos modificar la fecha o no
+
+![image](https://github.com/user-attachments/assets/3c14a570-55d2-4204-818a-aa2c5dd32aca)
+
+- Si le decimos "s", empezarán a salir solicitudes por teclado del día, el mes y el año de entrega:
+
+![image](https://github.com/user-attachments/assets/cd229d40-ae48-4d3b-8d2e-73d23ca7f86f)
+
+Una vez terminados todos los cambios en el pedido, le enviarán un correo al cliente que realizó el pedido con los cambios que, podemos ver que son los correctos:
+
+![image](https://github.com/user-attachments/assets/2bdfd628-d573-4e9a-91b6-9ed1e9cc65c4)
+
+Si volvemos a la cuenta del cliente, podemos ver con esta captura que ha funcionado:
+
+![image](https://github.com/user-attachments/assets/d6b018d8-4bd7-4cab-baac-10f65e20ed0a)
 
 ## **CONSULTAR EL CATÁLOGO DE PRODUCTOS**
 
@@ -397,7 +429,7 @@ Si pulsamos esta opción, saldrá todo el catálogo tal y como en la primera opc
 
 - Aquí podremos ver un resumen de todos los pedidos que han sido terminados de cambiar estado y comentarios
 
-![image](https://github.com/user-attachments/assets/c10253e7-670a-4c7a-bae9-6062ab26f0d3)
+![image](https://github.com/user-attachments/assets/a9a31f3e-4ddf-4e38-9053-e0cb7fd8271a)
 
 ## **VER MI PERFIL**
 
@@ -422,9 +454,13 @@ Si pulsamos esta opción, saldrá todo el catálogo tal y como en la primera opc
 
 ## 5. **MENÚ ADMINISTRADOR.**
 
+Para acceder al administrador lo haremos desde iniciar sesión en el menu principal añadiendo sus datos:
+
+![image](https://github.com/user-attachments/assets/98c8c791-21e2-44eb-9f13-69af65675809)
+
 El administrador es el gestor de nivel más alto de todo el programa, podemos verlo solo con el menú del mismo:
 
-![image](https://github.com/user-attachments/assets/27049010-4991-46d0-8f1f-2c21413e9ac9)
+![image](https://github.com/user-attachments/assets/2f0204e6-eed7-455b-b60c-dfc5abc6f10e)
 
 - Podemos ver las estadísticas de la APP de forma general y global
 
@@ -458,7 +494,7 @@ El administrador es el gestor de nivel más alto de todo el programa, podemos ve
 
 - Nos muestran los datos de todos los clientes:
 
-![image](https://github.com/user-attachments/assets/24dece0b-3afd-4bd9-b999-aa25d3d0faca)
+![image](https://github.com/user-attachments/assets/1ab23dc6-2595-42d7-8037-fe6d89d1631b)
 
 - En el caso de que no haya:
 
@@ -468,7 +504,7 @@ El administrador es el gestor de nivel más alto de todo el programa, podemos ve
 
 - Nos muestran los datos de todos los pedidos:
 
-![image](https://github.com/user-attachments/assets/2f514172-e338-4e32-af5b-83468f184cb1)
+![image](https://github.com/user-attachments/assets/17d7dc48-e981-4892-8296-102d4bfe0d06)
 
 - En el caso de que no haya:
 
@@ -492,12 +528,13 @@ El administrador es el gestor de nivel más alto de todo el programa, podemos ve
 
 ## **CAMBIAR EL ESTADO DE UN PEDIDO**
 
-- Mediante esta opción cambiaremos el estado de un pedido realizado por un cliente
+- Mediante esta opción cambiaremos el estado de un pedido realizado por un cliente, el administrador puede cambiar cualquier estado de cualquier pedido en todo el programa
 
 En el caso de que no haya ninguno saldrá este mensaje:
 
 ![image](https://github.com/user-attachments/assets/36084e24-6c66-45d3-b40e-79d9d76dd57d)
 
+**TODO**{
 Vamos a crear un pedido rápido a traves de un cliente para demostrar su funcionalidad:
 
 ![image](https://github.com/user-attachments/assets/cf80369a-44fc-470a-b7fa-5479af2778f8)
@@ -521,7 +558,7 @@ Vamos a crear un pedido rápido a traves de un cliente para demostrar su funcion
 - Podemos ver con esta captura que ha funcionado:
 
 ![image](https://github.com/user-attachments/assets/32010f59-3313-45f2-98d1-8f72553c8ca2)
-
+}
 ## **DAR DE ALTA UN TRABAJADOR**
 
 - Aquí crearemos los trabajadores para que gestión los diversos productos de los clientes
@@ -564,27 +601,42 @@ Para probar, vamos ha hacer que uno de nuestros clientes haga varios pedidos
 
 - Con los pedidos realizados, vamos a asignar uno de los pedidos:
 
-![image](https://github.com/user-attachments/assets/3dfb7f0a-64f6-4cda-a860-03f228f448fa)
+![image](https://github.com/user-attachments/assets/6dfba0d8-fd57-48b7-90bb-3aa18e717890)
 
 - Nos saldrá un menú de selección de los trabajadores creados por el administrador:
 
-![image](https://github.com/user-attachments/assets/55e3b001-366f-418b-bf87-15c494c08f5e)
+![image](https://github.com/user-attachments/assets/5c5eae3c-b68f-428f-a8b5-74b76c62140d)
 
 - Elegimos a uno de ellos como gestionador del producto seleccionado anteriormente:
 
-![image](https://github.com/user-attachments/assets/ca53a560-50d4-44f6-9239-2fafd53994e7)
+![image](https://github.com/user-attachments/assets/0f985348-a1f1-4674-806d-cd8d80fb59f6)
 
 - Vemos que ha funcionado:
 
-![image](https://github.com/user-attachments/assets/e557049e-f3ec-4b19-98a4-3758e54d4a78)
+![image](https://github.com/user-attachments/assets/6beecb40-72ad-4470-bc86-c5ab5f3c5ff1)
 
-![image](https://github.com/user-attachments/assets/414094d4-d795-449e-adf7-635ace46626b)
+![image](https://github.com/user-attachments/assets/266dc196-0505-4ef9-ad90-49e949ccc186)
+
+## **MUESTRA CONFIGURACIÓN DEL PROGRAMA**
+
+Forma parte de las funcionalidades nuevas del programa, muestra la configuración del programa donde se guardan los datos en disco y si se permite el modo invitado o no:
+
+![image](https://github.com/user-attachments/assets/d24e43cf-29c6-4bf1-97f7-958edb926274)
+
+## **ENVIA LISTADO DE PEDIDOS POR CORREO**
+
+Forma parte de la funcionalidades nuevas del programa, envia al correo electrónico introducido por teclado un excel con los datos de todos los pedidos y la cantidad de productos de cada uno:
+
+![image](https://github.com/user-attachments/assets/ef584ab7-3704-4f1f-8ba9-48b462fac8d0)
+
+![image](https://github.com/user-attachments/assets/ed011ffd-c42a-4f9f-94b1-42c532a3838c)
+
 
 ## **SALIR**
 
 - Cerramos sesión y volvemos al menu principal:
 
-![image](https://github.com/user-attachments/assets/605937d2-ac26-41e0-aa75-ee75135db758)
+![image](https://github.com/user-attachments/assets/c17b5a4a-3427-49e8-9293-ed7fdec0e835)
 
 ## 6. **CAMBIOS Y FUNCIONALIDADES NUEVAS**
 
