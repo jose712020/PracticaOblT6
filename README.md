@@ -617,6 +617,10 @@ Para probar, vamos ha hacer que uno de nuestros clientes haga varios pedidos
 
 ![image](https://github.com/user-attachments/assets/266dc196-0505-4ef9-ad90-49e949ccc186)
 
+- Además cuando se asigne el pedido, se enviará un correo electrónico al email del trabajador al que ha sido asignado:
+
+![image](https://github.com/user-attachments/assets/6bb93e9f-35cc-49be-a59b-de6b8ce12e2a)
+
 ## **MUESTRA CONFIGURACIÓN DEL PROGRAMA**
 
 Forma parte de las funcionalidades nuevas del programa, muestra la configuración del programa donde se guardan los datos en disco y si se permite el modo invitado o no:
@@ -631,6 +635,15 @@ Forma parte de la funcionalidades nuevas del programa, envia al correo electrón
 
 ![image](https://github.com/user-attachments/assets/ed011ffd-c42a-4f9f-94b1-42c532a3838c)
 
+![image](https://github.com/user-attachments/assets/652efe1d-3c12-4063-9292-1b15a3641057)
+
+## **COPIA DE SEGURIDAD**
+
+Forma parte de la funcionalidades nuevas del programa, se mostrará un menú donde puedes realizar la copia de seguridad del programa o recuperar una ya realizada:
+
+![image](https://github.com/user-attachments/assets/d6c1d073-7afe-45d0-91c7-e969431837c4)
+
+Veremos su funcionamiento en el siguiente apartado
 
 ## **SALIR**
 
@@ -642,99 +655,20 @@ Forma parte de la funcionalidades nuevas del programa, envia al correo electrón
 
 ## **IMPLANTACIÓN DE CORREOS ELECTRÓNICOS Y MENSAJES DE TELEGRAM**
 
-Una de las funcionalidades más importantes es la implantación de correos electrónicos en el software, ocurrira en diferentes casos:
-- **Durante el registro para generar un token para activar la cuenta registrada ya sea de un cliente o un trabajador**
-- **Cuando un trabajador o administrador modifique un pedido realizado**
+Ya hemos visto los correos electrónicos se envían automáticamente en diferentes casos:
+- **Durante el registro para generar un token para activar la cuenta registrada de un cliente**
+- **Cuando un trabajador o administrador modifique un pedido realizado, que se le enviará al cliente**
 - **Cuando el administrador asigna un pedido a un trabajador, este lo recibirán solo los trabajadores**
-- **Cuando se realice un pedido nuevo por un cliente**
+- **Cuando se realice un pedido nuevo por un cliente, lo recibirá el cliente**
 
 Y para el telegram ocurrirá cuando:
 - **Cuando el administrador asigna un pedido a un trabajador, este lo recibirán solo los trabajadores**
 
-## **SEGURIDAD AL REGISTRARTE**
-
-Nos hemos fijado que cualquier cosa que metieras en el correo funcionaba, así que hemos mejorado la implementación de correos:
-
-![image](https://github.com/user-attachments/assets/c1168e46-937b-4a4c-b54c-797cba3fe36a)
-
-Lo mismo hemos aplicado con los números de teléfono, etc...
-
-![image](https://github.com/user-attachments/assets/0bbec500-5662-4629-9414-96f32a8e7ce5)
-
-## **CORREO DE REGISTRO (TOKEN) Y SEGURIDAD**
-
-Una vez nos hayamos registrado, miraremos nuestra bandeja del correo y veremos que nos ha llegado un correo con una combinación de numeros y dos caracteres:
-
-![image](https://github.com/user-attachments/assets/68843b59-f7f5-4002-b213-05f7a8cf267b)
-
-Se necesitará una validación de dicho código que nos ha llegado a nuestro correo electrónico para poder iniciar sesión:
-
-![image](https://github.com/user-attachments/assets/5b4c4605-c311-471a-8519-708455910024)
-
-Si introducimos un token incorrecto, nos lo hará saber y nos llevará de vuelta al inicio de nuestro software:
-
-![image](https://github.com/user-attachments/assets/2d0ecabd-03be-45fc-b923-c2bc0fcc11da)
-
-Sin embargo si ponemos el token que nos aparece en el correo ya nos dejará acceder:
-
-![image](https://github.com/user-attachments/assets/01eddb00-aea5-41b9-9b77-6813d50f06a5)
-
-**MODIFICACIÓN DE DATOS**
-
-Por seguridad cuando modifiquemos nuestros datos, se nos enviará un nuevo token al correo:
-
-![image](https://github.com/user-attachments/assets/e8b595d6-f448-462e-a1cb-e2cca87ba11b)
-![image](https://github.com/user-attachments/assets/edd03910-4a82-4691-af16-ac00d28f16a3)
-![image](https://github.com/user-attachments/assets/e2085025-20d2-4f78-b4dc-44b59e0cf668)
-
-Y volveremos a tener la petición del token, en caso de introducirlo mal, se nos cerrará la sesión y volveremos al programa principal
-
-Si lo introducimos bien volveremos a entrar:
-
-![image](https://github.com/user-attachments/assets/cfc58bdc-9c96-41ed-b5b2-1a3dedc28758)
-![image](https://github.com/user-attachments/assets/ddef2f44-c819-4059-bc2c-88df302c6e73)
-
-Además con los datos modificados:
-
-![image](https://github.com/user-attachments/assets/e6ad30f4-8414-41ea-90e5-6489cbd77aa9)
-
-**REALIZACIÓN DE PEDIDO**
-
-Ahora, cuando un cliente realice un pedido, se le enviará un correo con los datos del pedido, además del precio con IVA final:
-
-![image](https://github.com/user-attachments/assets/e04eab69-166d-418e-bf46-c4fb6bf15acd)
-
-![image](https://github.com/user-attachments/assets/7c30cb94-fdc3-4fdf-9c76-ce35198a1eec)
-![image](https://github.com/user-attachments/assets/6af8a697-8408-4ef3-9ec6-4e7686abf3fe)
-
-Lo mismo con el perfil de Trabajadores: 
-
-![image](https://github.com/user-attachments/assets/c8322dfa-1797-4316-a884-b6122353853b)
-
-Miraremos el correo:
-
-![image](https://github.com/user-attachments/assets/050e53f6-8549-4f68-bde0-88d96d3b105a)
-
-![image](https://github.com/user-attachments/assets/c5428cdb-91ab-4bca-a28b-4537e9b5751e)
-
-
-Y una vez introducido el token válido entraremos al menú con nuestro perfil actualizado:
-
-![image](https://github.com/user-attachments/assets/0c9892cf-b6e6-4107-84f8-3464e74ac87b)
-
-**CORREOS CON PEDIDOS ASIGNADOS AL TRABAJADOR**
-
-Para comprobar este cambio vamos a realizar un pedido con uno de nuestros clientes:
+Para comprobar esto vamos a realizar un pedido con uno de nuestros clientes:
 
 ![image](https://github.com/user-attachments/assets/f4d9c394-9e11-4b3e-84a6-7ea6b6a09a8f)
 
 Mediante la asignación automática o por el trabajador se lo asignamos al trabajador. Ahora a nuestro trabajador llamado carlos le habrá llegado una notificación al correo y en el telegram de que se le ha asignado un pedido con sus detalles:
-
-**-Correo:**
-
-![image](https://github.com/user-attachments/assets/e0f2e23a-b496-4706-ac7e-647017414e57)
-
-**Telegram:**
 
 ![image](https://github.com/user-attachments/assets/13778ac1-f89d-4f31-b11c-b47d031623d3)
 
@@ -742,24 +676,51 @@ Mediante la asignación automática o por el trabajador se lo asignamos al traba
 
 ![image](https://github.com/user-attachments/assets/2b3e423e-2cfd-48f3-8d3b-6631175ee1d1)
 
+Pero ahora hemos añadido una implementación muy importante
 
-**MODIFICACIÓN DE UN PEDIDO**
+## **PERSISTENCIA EN DISCO DEL PROGRAMA**
 
--Cuando hagamos un cambio de un pedido se lo haremos saber al cliente, les llegará un correo con los detalles del cambio de pedido. 
+Antes cuando nuestro programa se cerraba, todos los datos de todos los clientes, trabajadores y administrador se borraban y todo empezaba de cero, ahora con la implementación de la persistencia si cerramos el programa como en este caso:
 
--Vamos a modificar un pedido, hemos mejorado la selección de modificar un pedido:
+![image](https://github.com/user-attachments/assets/aa47c46b-9923-401a-a2d9-5c842adfcedc)
 
-![image](https://github.com/user-attachments/assets/999b00e7-abc3-4eac-9fb0-c1fd73ee061d)
+Si lo volvemos a abrir exactamente desde el .bat, no se habrá borrado nada:
 
-Ahora vamos hacer modificaciones en el pedido, hemos mejorado muchos aspectos de la modificación de un pedido:
+![image](https://github.com/user-attachments/assets/6f82416b-eaef-4ed0-a780-f80af51d542c)
 
-![image](https://github.com/user-attachments/assets/55669f2f-ea7e-4001-bc8d-3e791cfe69b0)
+![image](https://github.com/user-attachments/assets/46f9102c-e582-4e62-a20b-ea06f785e310)
 
-El cliente recibirá un correo con la modificación realizada:
+![image](https://github.com/user-attachments/assets/1ceda2d4-ed57-4ab4-aa0c-2d9576ce5a0e)
 
-![image](https://github.com/user-attachments/assets/cff8f2e9-71f9-4024-b127-345b8480a02d)
+Funciona mediante una serie de archivos localizados en la carpeta data
 
-El correo ha sido actualizado correctamente con todos los detalles de los datos modificados del pedido.
+![image](https://github.com/user-attachments/assets/9bf3a1be-aa5f-4b54-bcc9-3a885dd91c95)
+
+Donde están almacenados los usuarios del programa y los productos. Ademas de los documentos y los logs que hablaremos de ellos después.
+
+![image](https://github.com/user-attachments/assets/dbfcd811-65c1-4c53-a799-62b83529b831)
+
+Todos los archivos almacenados tienen un formato diferente según el tipo que sea:
+
+**Productos**
+
+![image](https://github.com/user-attachments/assets/bdcaed95-788e-4dd5-ab20-b82a4026d74a)
+
+**Trabajadores**
+
+![image](https://github.com/user-attachments/assets/67c261a9-8532-4b07-a0bc-0cdc0deabb4f)
+
+**Clientes**
+
+![image](https://github.com/user-attachments/assets/6ef6d1c6-7cbc-469c-a59f-b2cdd07a47cb)
+
+**Administradores**
+
+![image](https://github.com/user-attachments/assets/701e2319-0200-462b-b207-564e6d2b1915)
+
+
+
+
 
 
 
