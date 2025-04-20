@@ -528,37 +528,63 @@ El administrador es el gestor de nivel más alto de todo el programa, podemos ve
 
 ## **CAMBIAR EL ESTADO DE UN PEDIDO**
 
-- Mediante esta opción cambiaremos el estado de un pedido realizado por un cliente, el administrador puede cambiar cualquier estado de cualquier pedido en todo el programa
+- Mediante esta opción cambiaremos el estado de un pedido realizado por un cliente, el administrador puede cambiar cualquier estado de cualquier pedido en todo el programa pero, que no haya sido ya gestionado
 
-En el caso de que no haya ninguno saldrá este mensaje:
+En el caso de que no haya ningun pedido o que todos ya estén gestionados saldrá este mensaje:
 
-![image](https://github.com/user-attachments/assets/36084e24-6c66-45d3-b40e-79d9d76dd57d)
+![image](https://github.com/user-attachments/assets/06e18fbb-ee40-49bc-bdc7-2d33cafa5eb8)
 
 **TODO**{
+
 Vamos a crear un pedido rápido a traves de un cliente para demostrar su funcionalidad:
 
-![image](https://github.com/user-attachments/assets/cf80369a-44fc-470a-b7fa-5479af2778f8)
+![image](https://github.com/user-attachments/assets/7ea12e8d-b113-478c-af14-53db11bee7bb)
+
+Es **exactamente igual** que con el trabajador:
 
 **Modifica el estado**
 
-- Saldrán los pedidos de forma enumerada y tendremos que poner el número de enumeración que nos aparece:
+Nos preguntará si queremos modificar el estado del pedido, si le decimos "n" pasará a la siguiente pregunta todo el rato:
 
-![image](https://github.com/user-attachments/assets/ce0a3168-e4cc-43a7-aabe-06d7f2347b82)
+![image](https://github.com/user-attachments/assets/74758657-5b34-45bc-bdfb-967d238b5cda)
 
-- Saldrá un menú para elegir el nuevo estado y elegimos un nuevo estado para el pedido:
+- Si le decimos "s" a la primera pregunta, saldrá un menú para elegir el nuevo estado:
 
-![image](https://github.com/user-attachments/assets/d9bb1ede-7131-4f18-a83a-0c67cc6663c2)
+![image](https://github.com/user-attachments/assets/3fae1eac-f341-48c1-a242-f7f2a2cc15aa)
+
+- Elegimos un nuevo estado para el pedido:
+
+![image](https://github.com/user-attachments/assets/1b473cf9-4b7c-4c04-9581-29eda4c74283)
 
 **Añade comentario**
 
-- Añadir un comentario de forma opcional al pedido asignado
+Saldrá después de añadir el estado nuevo, primero nos preguntará si queremos añadir el comentario o no
 
-![image](https://github.com/user-attachments/assets/de6d39f4-2516-4073-848f-7b802864a61b)
+![image](https://github.com/user-attachments/assets/5397f4d9-f07e-4e15-aeb6-81a65436e8bf)
 
-- Podemos ver con esta captura que ha funcionado:
+- Si le decimos "s", saldrá un apartado para poner el comentario al pedido seleccionado:
 
-![image](https://github.com/user-attachments/assets/32010f59-3313-45f2-98d1-8f72553c8ca2)
-}
+ ![image](https://github.com/user-attachments/assets/1c6a042c-3b47-44ae-8f7b-d7756825cf6d)
+
+ **Modificar fecha de entrega**
+
+Saldrá después de añadir el comentario, primero nos preguntará si queremos modificar la fecha o no
+
+![image](https://github.com/user-attachments/assets/3c14a570-55d2-4204-818a-aa2c5dd32aca)
+
+- Si le decimos "s", empezarán a salir solicitudes por teclado del día, el mes y el año de entrega:
+
+![image](https://github.com/user-attachments/assets/161fc283-d47f-448c-a390-8da9e05f5339)
+
+Una vez terminados todos los cambios en el pedido, le enviarán un correo al cliente que realizó el pedido con los cambios que, podemos ver que son los correctos:
+
+![image](https://github.com/user-attachments/assets/f936e452-e355-4f8e-b8a2-712c04de6a3e)
+
+Si nos metemos al cliente vemos que también sale como cancelado y todos los cambios:
+
+![image](https://github.com/user-attachments/assets/2862c3d0-c8a1-415d-90d1-1b66f8580761)
+
+
 ## **DAR DE ALTA UN TRABAJADOR**
 
 - Aquí crearemos los trabajadores para que gestión los diversos productos de los clientes
@@ -623,7 +649,7 @@ Para probar, vamos ha hacer que uno de nuestros clientes haga varios pedidos
 
 ## **MUESTRA CONFIGURACIÓN DEL PROGRAMA**
 
-Forma parte de las funcionalidades nuevas del programa, muestra la configuración del programa donde se guardan los datos en disco y si se permite el modo invitado o no:
+Forma parte de las funcionalidades nuevas del programa, muestra la configuración del programa donde se guardan los datos en disco, si se permite el modo invitado o no y las últimas conexiones de todos los usuarios:
 
 ![image](https://github.com/user-attachments/assets/d24e43cf-29c6-4bf1-97f7-958edb926274)
 
@@ -762,7 +788,7 @@ Ocurre en dos casos:
 - **Cuando el cliente realiza un pedido**
 - **Cuando se genera el excel de todos los pedidos por el administrados**
 
-*Cuando el cliente realiza un pedido*
+***Cuando el cliente realiza un pedido***
 
 Cuando el cliente realiza un pedido se le envia un correo electrónico que hemos visto anteriormente con todos los datos del pedido, pero además, se envia otro correo electrónico al cliente con un pdf con los datos del pedido impresos:
 
@@ -770,11 +796,12 @@ Cuando el cliente realiza un pedido se le envia un correo electrónico que hemos
 
 ![image](https://github.com/user-attachments/assets/9100ca8e-9322-4fe8-a617-17ac13a8e2b8)
 
-*Cuando se genera el excel de todos los pedidos por el administrador*
+***Cuando se genera el excel de todos los pedidos por el administrador***
 
 Ocurre en la opción 12 del menú de administrador, envia al correo electrónico introducido por teclado un excel con los datos de todos los pedidos y la cantidad de productos de cada uno:
 
 ![image](https://github.com/user-attachments/assets/ef584ab7-3704-4f1f-8ba9-48b462fac8d0)
+(Sale un error entre paréntesis que no es de preocupación, se enviará con éxito)
 
 ![image](https://github.com/user-attachments/assets/ed011ffd-c42a-4f9f-94b1-42c532a3838c)
 
@@ -782,11 +809,85 @@ Ocurre en la opción 12 del menú de administrador, envia al correo electrónico
 
 ## **COPIA DE SEGURIDAD**
 
-Una de las implementaciones más importantes de todo el programa, podremos realizar la copia de seguridad de todos los datos de todo el programa, ya sean trabajadores, pedidos, productos, clientes y administradores. Para hacer una pequeña demostración, vamos a guardar una copia de seguridad con estos datos:
+Una de las implementaciones más importantes de todo el programa, podremos realizar la copia de seguridad de todos los datos de todo el programa, ya sean trabajadores, pedidos, productos, clientes y administradores. Para hacer una pequeña demostración, vamos a guardar una copia de seguridad con estos datos actuales en el programa:
 
 ![image](https://github.com/user-attachments/assets/6be29d86-202d-4ee3-811c-2bd46a71e57e)
 
 ![image](https://github.com/user-attachments/assets/3bde2296-e554-4e4d-8c3f-23d85255e6d0)
+
+![image](https://github.com/user-attachments/assets/0a1dc45c-076f-4084-b01a-2076a19556cd)
+
+Realizamos la copia de seguridad:
+
+![image](https://github.com/user-attachments/assets/7eaaf244-d4b0-425c-9cbf-f0e72a056216)
+
+Ahora vamos a registrar un nuevo usuario y vamos a realizarle un pedido:
+
+![image](https://github.com/user-attachments/assets/a961a170-fa36-410e-a3c7-5e80c96dc052)
+
+![image](https://github.com/user-attachments/assets/aa4cbd38-dfd1-4e67-ab06-19d5732c35d5)
+
+![image](https://github.com/user-attachments/assets/5b8162f6-a974-4807-9bb0-207aa6953652)
+
+Volvemos al admin y este es el panorama:
+
+![image](https://github.com/user-attachments/assets/0661ab71-7cef-4243-b5e2-e693742cd0b7)
+
+Vamos a recuperar ahora la copia de seguridad:
+
+![image](https://github.com/user-attachments/assets/3ec972fe-e12b-4681-b33a-bbd32cba2f5d)
+
+Podemos ver que ha funcionado y todo está tal y como era antes de la copia de seguridad:
+
+![image](https://github.com/user-attachments/assets/bc5fced5-c712-43cb-8fbf-1464b23d05c4)
+
+Si cerramos el programa y volvemos a iniciar seguirá en el mismo estado.
+
+También podemos guardar la copia de seguridad en cualquier lugar de nuestro disco duro si lo preferimos:
+
+![image](https://github.com/user-attachments/assets/be53d11d-93f3-4c2b-b53b-584db0ce7e8b)
+
+![image](https://github.com/user-attachments/assets/67dd7b22-3305-4ce9-ba16-2f3946e2ea60)
+
+## **ULTIMA VEZ QUE INICIO SESIÓN**
+
+Aparece de la misma forma en todos los usuarios del programa:
+
+![image](https://github.com/user-attachments/assets/db55d0a1-ef54-48f7-b430-34a6a5798e38)
+
+Voy a iniciar sesión a la hora indicada en el ordenador
+
+![image](https://github.com/user-attachments/assets/9999127d-edda-41df-8ebf-88e4f5487437)
+
+Y vemos que funciona perfectamente:
+
+![image](https://github.com/user-attachments/assets/85bdc502-9005-40c5-8099-b8ad4726d25b)
+
+
+## **ACTIVIDAD LOGS**
+
+Durante el uso de nuestro software existirá un archivo localizado en la carpeta **logs** llamado *actividad.logs* que es un archivo de texto con formato logs donde se recopilará la información cuando:
+
+- **Alguien inicie de sesión**
+- **Alguien cierre de sesión**
+- **Haya un nuevo pedido**
+- **Haya una actualización de pedido**
+
+Aquí tenemos el archivo logs con actividades realizadas:
+
+![image](https://github.com/user-attachments/assets/16c126ce-0c9d-4af9-aa52-6323e259198a)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
