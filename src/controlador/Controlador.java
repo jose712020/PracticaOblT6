@@ -750,7 +750,7 @@ public class Controlador implements Serializable {
         for (Cliente c : clientes) {
             if (c != null && !c.getPedidos().isEmpty()) {
                 for (Pedido p : c.getPedidos()) {
-                    if (p.getEstado() == 4) pedidosCancelados.add(p);
+                    if (p.getEstado() == 3) pedidosCancelados.add(p);
                 }
             }
         }
@@ -784,7 +784,7 @@ public class Controlador implements Serializable {
         if (temp.getPedidos().isEmpty()) return pedidosCancelados;
 
         for (Pedido p : temp.getPedidos()) {
-            if (p.getEstado() == 4) pedidosCancelados.add(p);
+            if (p.getEstado() == 3) pedidosCancelados.add(p);
         }
 
         Collections.sort(pedidosCancelados);
