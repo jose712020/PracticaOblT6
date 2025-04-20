@@ -633,9 +633,7 @@ Forma parte de la funcionalidades nuevas del programa, envia al correo electrón
 
 ![image](https://github.com/user-attachments/assets/ef584ab7-3704-4f1f-8ba9-48b462fac8d0)
 
-![image](https://github.com/user-attachments/assets/ed011ffd-c42a-4f9f-94b1-42c532a3838c)
-
-![image](https://github.com/user-attachments/assets/652efe1d-3c12-4063-9292-1b15a3641057)
+Veremos su funcionamiento en el siguiente apartado
 
 ## **COPIA DE SEGURIDAD**
 
@@ -696,7 +694,7 @@ Funciona mediante una serie de archivos localizados en la carpeta data
 
 ![image](https://github.com/user-attachments/assets/9bf3a1be-aa5f-4b54-bcc9-3a885dd91c95)
 
-Donde están almacenados los usuarios del programa y los productos. Ademas de los documentos y los logs que hablaremos de ellos después.
+Donde están almacenados los usuarios del programa y los productos. Ademas de los documentos, los logs y la copia de seguridad que hablaremos de ellos después.
 
 ![image](https://github.com/user-attachments/assets/dbfcd811-65c1-4c53-a799-62b83529b831)
 
@@ -717,6 +715,82 @@ Todos los archivos almacenados tienen un formato diferente según el tipo que se
 **Administradores**
 
 ![image](https://github.com/user-attachments/assets/701e2319-0200-462b-b207-564e6d2b1915)
+
+## **ARCHIVO CONFIG**
+
+Aquí se encuentra la configuración del programa, es un archivo editable donde se puede poner la ruta donde quieres que se guarden las carpetas con los archivos de tu aplicacion y además de configurar el modo invitado:
+
+![image](https://github.com/user-attachments/assets/73ebfa9d-8257-44b5-a16d-e1a7b8ba63ae)
+
+![image](https://github.com/user-attachments/assets/c92488e4-45a0-4158-aeac-3bd5a58637cd)
+
+**Configuración del modo invitado**
+
+Si iniciamos el programa con *ACCESO_INVITADO=true*:
+
+![image](https://github.com/user-attachments/assets/064024ae-9978-4381-a093-5dae8719a678)
+
+El programa se iniciará con la opción ver catálogo:
+
+![image](https://github.com/user-attachments/assets/53f7c61e-b30b-476f-8b06-b6b64916dc28)
+
+Si iniciamos el programa con *ACCESO_INVITADO=false*:
+
+![image](https://github.com/user-attachments/assets/01fa92e5-d052-4e75-a0c9-5141c6240cec)
+
+El programa no mostrará la opción ver catálogo:
+
+![image](https://github.com/user-attachments/assets/0ee40a6c-8961-4e85-beb5-09eb854b0faa)
+
+**Configuración de las rutas**
+
+Simplemente habrá que poner la nueva ruta donde queramos que se guarde la información, vamos probar con la carpeta de los trabajadores, vamos a cambiar la ruta:
+
+![image](https://github.com/user-attachments/assets/a295f918-6d82-4757-ae8a-cb83c4c085ce)
+
+Cuando iniciamos el programa nos pregunta otra vez si queremos usar datos de prueba, esto solo afectará al trabajador puesto que el software ya sabe que hay clientes en el otro directorio, si le damos a "s" podemos ver que en el directorio que hemos decidido se ha creado una carpeta llamada "trabajadores" y dentro está el archivo de persistencia del trabajador creado:
+
+![image](https://github.com/user-attachments/assets/d7ed5657-4d12-43b9-90e5-7e7ac3a66600)
+
+Si cerramos el programa y lo volvemos a abrir seguirá el mismo trabajador de la ruta cambiada dentro del software:
+
+![image](https://github.com/user-attachments/assets/da8d6b7b-ac62-40d7-897c-0e34d1a87d81)
+
+## **GENERACIÓN DE DOCUMENTOS**
+
+Ocurre en dos casos:
+- **Cuando el cliente realiza un pedido**
+- **Cuando se genera el excel de todos los pedidos por el administrados**
+
+*Cuando el cliente realiza un pedido*
+
+Cuando el cliente realiza un pedido se le envia un correo electrónico que hemos visto anteriormente con todos los datos del pedido, pero además, se envia otro correo electrónico al cliente con un pdf con los datos del pedido impresos:
+
+![image](https://github.com/user-attachments/assets/2f6b0bd2-7b8a-4a35-b7c9-5fa841b724e5)
+
+![image](https://github.com/user-attachments/assets/9100ca8e-9322-4fe8-a617-17ac13a8e2b8)
+
+*Cuando se genera el excel de todos los pedidos por el administrador*
+
+Ocurre en la opción 12 del menú de administrador, envia al correo electrónico introducido por teclado un excel con los datos de todos los pedidos y la cantidad de productos de cada uno:
+
+![image](https://github.com/user-attachments/assets/ef584ab7-3704-4f1f-8ba9-48b462fac8d0)
+
+![image](https://github.com/user-attachments/assets/ed011ffd-c42a-4f9f-94b1-42c532a3838c)
+
+![image](https://github.com/user-attachments/assets/652efe1d-3c12-4063-9292-1b15a3641057)
+
+## **COPIA DE SEGURIDAD**
+
+Una de las implementaciones más importantes de todo el programa, podremos realizar la copia de seguridad de todos los datos de todo el programa, ya sean trabajadores, pedidos, productos, clientes y administradores. Para hacer una pequeña demostración, vamos a guardar una copia de seguridad con estos datos:
+
+![image](https://github.com/user-attachments/assets/6be29d86-202d-4ee3-811c-2bd46a71e57e)
+
+![image](https://github.com/user-attachments/assets/3bde2296-e554-4e4d-8c3f-23d85255e6d0)
+
+
+
+
 
 
 
