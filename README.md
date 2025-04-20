@@ -100,9 +100,17 @@ Se nos abrirá la siguiente pestaña y le daremos a **"Variables de entorno..."*
 
 ![image](https://github.com/user-attachments/assets/54504807-d4e3-4821-b3d5-0eeb366a2622)
 
--Al descargarlo, extraemos la carpeta en la ubicación donde más te convenga, al tenerla extraida nos meteros en la carpeta extraida y nos saldrá lo siguiente. Para iniciar el programa ejecutaremos el archivo **"PracticaOblT6.bat"** haciendo doble click o dandole click derecho al ratón y dandole a la opción "Abrir":
+-Al descargarlo, extraemos la carpeta en la ubicación donde más te convenga, al tenerla extraida nos meteros en la carpeta extraida y nos saldrá lo siguiente. 
 
-![image](https://github.com/user-attachments/assets/71c3d4be-36da-480c-a8aa-be80a73ee51f)
+![image](https://github.com/user-attachments/assets/039ff51b-fd93-4d9e-b6b9-6444af1f3213)
+
+Nos meteremos en la carpeta llamada **PracticaOblT6_jar**:
+
+![image](https://github.com/user-attachments/assets/ae1d731d-29a1-4298-9b90-3f65fe4b3f1b)
+
+Para iniciar el programa ejecutaremos el archivo **"PracticaOblT6.bat"** haciendo doble click o dandole click derecho al ratón y dandole a la opción "Abrir":
+
+![image](https://github.com/user-attachments/assets/49eabe46-7add-418e-b974-ea2f13cbf586)
 
 ![image](https://github.com/user-attachments/assets/4bcec1fd-e4e8-498e-90ef-b546b73af513)
 
@@ -141,8 +149,8 @@ Somos un programa que gestionará una tienda online.
 
 Está es la entrada del programa donde tendremos 3 opciones en nuestro menú principal, donde la **opción 1** será el **Ver el catalogo**, donde se podrá ver todos los productos de nuestra tienda de 5 en 5 sin iniciar sesión:
 
-![image](https://github.com/user-attachments/assets/186172c9-3995-4647-ba41-70675b21e85e)
-![image](https://github.com/user-attachments/assets/54a3b803-166d-44cc-af45-c4df81ae4e46)
+![image](https://github.com/user-attachments/assets/3e13e840-0975-4858-a83e-3a2350190894)
+![image](https://github.com/user-attachments/assets/43eaa72d-56c3-4bf5-b576-2ffe23d1222f)
 
 - La **opción 2** será **Registrarse**, donde se registrarán los clientes:
 
